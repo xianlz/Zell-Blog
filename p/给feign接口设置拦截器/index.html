@@ -18,7 +18,7 @@
 <meta property='og:description' content="步骤1：创建 Interceptor 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 @Component @Slf4j public class InternalRequestInterceptor implements RequestInterceptor { @Value(&#34;${spring.application.name:unknown}&#34;) private String serviceName; @Override public void apply(RequestTemplate template) { log.debug(&#34;Applying internal request headers for: {}&#34;, template.url()); template.header(&#34;X-Internal-Request&#34;, &#34;true&#34;); template.header(&#34;X-Service-Name&#34;, serviceName); template.header(&#34;X-Request-ID&#34;, UUID.randomUUID().toString()); template.header(&#34;X-Timestamp&#34;, String.valueOf(System.currentTimeMillis())); } } 步骤2：确保 Spring 配置正确 1 2 3 4 5 6 7 @SpringBootApplication @EnableFeignClients // 这个注解必须要有！ public class OrderServiceApplication { public static void main(String[] args) { SpringApplication.run(OrderServiceApplication.class, args); } } 步骤3：验证配置 创建测试类验证：\n">
 <meta property='og:url' content='https://xianlz.github.io/Zell-Blog/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/'>
 <meta property='og:site_name' content='Zell Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spring' /><meta property='article:tag' content='Interceptor' /><meta property='article:tag' content='Feign' /><meta property='article:published_time' content='2025-09-20T22:35:01&#43;08:00'/><meta property='article:modified_time' content='2025-09-20T22:35:01&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spring' /><meta property='article:tag' content='Interceptor' /><meta property='article:tag' content='Feign' /><meta property='article:published_time' content='2025-09-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-20T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="给feign接口设置拦截器">
 <meta name="twitter:description" content="步骤1：创建 Interceptor 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 @Component @Slf4j public class InternalRequestInterceptor implements RequestInterceptor { @Value(&#34;${spring.application.name:unknown}&#34;) private String serviceName; @Override public void apply(RequestTemplate template) { log.debug(&#34;Applying internal request headers for: {}&#34;, template.url()); template.header(&#34;X-Internal-Request&#34;, &#34;true&#34;); template.header(&#34;X-Service-Name&#34;, serviceName); template.header(&#34;X-Request-ID&#34;, UUID.randomUUID().toString()); template.header(&#34;X-Timestamp&#34;, String.valueOf(System.currentTimeMillis())); } } 步骤2：确保 Spring 配置正确 1 2 3 4 5 6 7 @SpringBootApplication @EnableFeignClients // 这个注解必须要有！ public class OrderServiceApplication { public static void main(String[] args) { SpringApplication.run(OrderServiceApplication.class, args); } } 步骤3：验证配置 创建测试类验证：\n">
     <link rel="icon" href="https://xianlz.github.io/Zell-Blog/favicon.ico">
@@ -422,7 +422,7 @@ unicode: "ece7"
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-09-20T22:35:01&#43;08:00</time>
+                <time class="article-time--published">2025-09-20 00:00:00</time>
             </div>
         
 
