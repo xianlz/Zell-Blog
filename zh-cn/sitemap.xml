@@ -20,16 +20,19 @@
                 href="https://xianlz.github.io/Zell-Blog/categories/"
                 />
   </url><url>
-    <loc>https://xianlz.github.io/Zell-Blog/categories/default/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/categories/feign/</loc>
     <lastmod>2025-09-20T22:35:01+08:00</lastmod>
   </url><url>
-    <loc>https://xianlz.github.io/Zell-Blog/tags/default1/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/tags/feign/</loc>
     <lastmod>2025-09-20T22:35:01+08:00</lastmod>
   </url><url>
-    <loc>https://xianlz.github.io/Zell-Blog/tags/default2/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/tags/interceptor/</loc>
     <lastmod>2025-09-20T22:35:01+08:00</lastmod>
   </url><url>
     <loc>https://xianlz.github.io/Zell-Blog/post/</loc>
+    <lastmod>2025-09-20T22:35:01+08:00</lastmod>
+  </url><url>
+    <loc>https://xianlz.github.io/Zell-Blog/tags/spring/</loc>
     <lastmod>2025-09-20T22:35:01+08:00</lastmod>
   </url><url>
     <loc>https://xianlz.github.io/Zell-Blog/tags/</loc>
@@ -75,9 +78,6 @@
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
     <loc>https://xianlz.github.io/Zell-Blog/tags/emqx/</loc>
-    <lastmod>2025-09-20T03:06:30+08:00</lastmod>
-  </url><url>
-    <loc>https://xianlz.github.io/Zell-Blog/tags/spring/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
     <loc>https://xianlz.github.io/Zell-Blog/p/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
