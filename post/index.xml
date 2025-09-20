@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 03:06:30 +0800</lastBuildDate><atom:link href="https://xianlz.github.io/Zell-Blog/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 20 Sep 2025 22:35:01 +0800</lastBuildDate><atom:link href="https://xianlz.github.io/Zell-Blog/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>给feign接口设置拦截器</title>
+        <link>https://xianlz.github.io/Zell-Blog/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</link>
+        <pubDate>Sat, 20 Sep 2025 22:35:01 +0800</pubDate>
+        
+        <guid>https://xianlz.github.io/Zell-Blog/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>博客搭建</title>
         <link>https://xianlz.github.io/Zell-Blog/p/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
         <pubDate>Sat, 20 Sep 2025 03:06:30 +0800</pubDate>
