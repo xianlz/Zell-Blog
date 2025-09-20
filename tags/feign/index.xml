@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Feign on Zell Blog</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/feign/</link>
+        <link>https://zell.zone/tags/feign/</link>
         <description>Recent content in Feign on Zell Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 00:00:01 +0000</lastBuildDate><atom:link href="https://xianlz.github.io/Zell-Blog/tags/feign/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 20 Sep 2025 00:00:01 +0000</lastBuildDate><atom:link href="https://zell.zone/tags/feign/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>给feign接口设置拦截器</title>
-        <link>https://xianlz.github.io/Zell-Blog/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</link>
+        <link>https://zell.zone/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:01 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</guid>
+        <guid>https://zell.zone/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</guid>
         <description>&lt;h3 id=&#34;步骤1创建-interceptor&#34;&gt;&lt;font style=&#34;color:rgb(249, 250, 251);&#34;&gt;步骤1：创建 Interceptor&lt;/font&gt;
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

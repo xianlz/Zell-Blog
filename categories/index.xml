@@ -2,33 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on Zell Blog</title>
-        <link>https://xianlz.github.io/Zell-Blog/categories/</link>
+        <link>https://zell.zone/categories/</link>
         <description>Recent content in Categories on Zell Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 00:00:05 +0000</lastBuildDate><atom:link href="https://xianlz.github.io/Zell-Blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Default</title>
-        <link>https://xianlz.github.io/Zell-Blog/categories/default/</link>
+        <lastBuildDate>Sat, 20 Sep 2025 00:00:05 +0000</lastBuildDate><atom:link href="https://zell.zone/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Mybatis-Plus</title>
+        <link>https://zell.zone/categories/mybatis-plus/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/categories/default/</guid>
+        <guid>https://zell.zone/categories/mybatis-plus/</guid>
         <description></description>
         </item>
         <item>
         <title>Feign</title>
-        <link>https://xianlz.github.io/Zell-Blog/categories/feign/</link>
+        <link>https://zell.zone/categories/feign/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:01 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/categories/feign/</guid>
+        <guid>https://zell.zone/categories/feign/</guid>
         <description></description>
         </item>
         <item>
         <title>Emqx</title>
-        <link>https://xianlz.github.io/Zell-Blog/categories/emqx/</link>
+        <link>https://zell.zone/categories/emqx/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/categories/emqx/</guid>
+        <guid>https://zell.zone/categories/emqx/</guid>
         <description></description>
         </item>
         

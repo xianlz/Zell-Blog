@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Zell Blog</title>
-        <link>https://xianlz.github.io/Zell-Blog/</link>
+        <link>https://zell.zone/</link>
         <description>Recent content on Zell Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 00:00:05 +0000</lastBuildDate><atom:link href="https://xianlz.github.io/Zell-Blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 20 Sep 2025 00:00:05 +0000</lastBuildDate><atom:link href="https://zell.zone/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Mybatis Plus的自定义插件</title>
-        <link>https://xianlz.github.io/Zell-Blog/p/mybatis-plus%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</link>
+        <link>https://zell.zone/p/mybatis-plus%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/p/mybatis-plus%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</guid>
+        <guid>https://zell.zone/p/mybatis-plus%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</guid>
         <description>&lt;h2 id=&#34;mp-插件处理&#34;&gt;mp 插件处理
 &lt;/h2&gt;&lt;p&gt;首先自定义一个接口&lt;code&gt;QueryInterceptor&lt;/code&gt;：用于自定义过滤器的规范&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -212,10 +212,10 @@
         </item>
         <item>
         <title>给feign接口设置拦截器</title>
-        <link>https://xianlz.github.io/Zell-Blog/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</link>
+        <link>https://zell.zone/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:01 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</guid>
+        <guid>https://zell.zone/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/</guid>
         <description>&lt;h3 id=&#34;步骤1创建-interceptor&#34;&gt;&lt;font style=&#34;color:rgb(249, 250, 251);&#34;&gt;步骤1：创建 Interceptor&lt;/font&gt;
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -465,10 +465,10 @@
         </item>
         <item>
         <title>使用工厂模式实现连接emqx</title>
-        <link>https://xianlz.github.io/Zell-Blog/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/</link>
+        <link>https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/</guid>
+        <guid>https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/</guid>
         <description>&lt;h3 id=&#34;先将配置类和常量类创建好&#34;&gt;先将配置类和常量类创建好
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -537,10 +537,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;这里相关类的uml类图&#34;&gt;这里相关类的UML类图
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://xianlz.github.io/Zell-Blog/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/image.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/image.png&#34;
 	width=&#34;1884&#34;
 	height=&#34;961&#34;
-	srcset=&#34;https://xianlz.github.io/Zell-Blog/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/image_hu_231437168278b4e0.png 480w, https://xianlz.github.io/Zell-Blog/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/image_hu_e1f3d4e51987131.png 1024w&#34;
+	srcset=&#34;https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/image_hu_231437168278b4e0.png 480w, https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/image_hu_e1f3d4e51987131.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
@@ -989,10 +989,10 @@
         </item>
         <item>
         <title>博客搭建</title>
-        <link>https://xianlz.github.io/Zell-Blog/p/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
+        <link>https://zell.zone/p/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</link>
         <pubDate>Fri, 19 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/p/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
+        <guid>https://zell.zone/p/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</guid>
         <description>&lt;h3 id=&#34;方案一纯静态博客搭建hugo--stack--vercel&#34;&gt;方案一：纯静态博客搭建（Hugo + Stack + Vercel）
 &lt;/h3&gt;&lt;p&gt;这是最推荐的方式，完美复刻原博客。&lt;/p&gt;
 &lt;h4 id=&#34;第一步安装-hugo&#34;&gt;第一步：安装 Hugo
@@ -1424,35 +1424,35 @@
         </item>
         <item>
         <title>归档</title>
-        <link>https://xianlz.github.io/Zell-Blog/archives/</link>
+        <link>https://zell.zone/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/archives/</guid>
+        <guid>https://zell.zone/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>关于</title>
-        <link>https://xianlz.github.io/Zell-Blog/%E5%85%B3%E4%BA%8E/</link>
+        <link>https://zell.zone/%E5%85%B3%E4%BA%8E/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/%E5%85%B3%E4%BA%8E/</guid>
+        <guid>https://zell.zone/%E5%85%B3%E4%BA%8E/</guid>
         <description>&lt;p&gt;举世誉之而不加劝，举世非之而不加沮。&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>搜索</title>
-        <link>https://xianlz.github.io/Zell-Blog/search/</link>
+        <link>https://zell.zone/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/search/</guid>
+        <guid>https://zell.zone/search/</guid>
         <description></description>
         </item>
         <item>
         <title>相关链接</title>
-        <link>https://xianlz.github.io/Zell-Blog/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</link>
+        <link>https://zell.zone/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</guid>
+        <guid>https://zell.zone/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

@@ -2,65 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on Zell Blog</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/</link>
+        <link>https://zell.zone/tags/</link>
         <description>Recent content in Tags on Zell Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 00:00:05 +0000</lastBuildDate><atom:link href="https://xianlz.github.io/Zell-Blog/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Default1</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/default1/</link>
+        <lastBuildDate>Sat, 20 Sep 2025 00:00:05 +0000</lastBuildDate><atom:link href="https://zell.zone/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Mybatis-Plus</title>
+        <link>https://zell.zone/tags/mybatis-plus/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/tags/default1/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Default2</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/default2/</link>
-        <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
-        
-        <guid>https://xianlz.github.io/Zell-Blog/tags/default2/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Feign</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/feign/</link>
-        <pubDate>Sat, 20 Sep 2025 00:00:01 +0000</pubDate>
-        
-        <guid>https://xianlz.github.io/Zell-Blog/tags/feign/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Interceptor</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/interceptor/</link>
-        <pubDate>Sat, 20 Sep 2025 00:00:01 +0000</pubDate>
-        
-        <guid>https://xianlz.github.io/Zell-Blog/tags/interceptor/</guid>
+        <guid>https://zell.zone/tags/mybatis-plus/</guid>
         <description></description>
         </item>
         <item>
         <title>Spring</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/spring/</link>
+        <link>https://zell.zone/tags/spring/</link>
+        <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/spring/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Feign</title>
+        <link>https://zell.zone/tags/feign/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:01 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/tags/spring/</guid>
+        <guid>https://zell.zone/tags/feign/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Interceptor</title>
+        <link>https://zell.zone/tags/interceptor/</link>
+        <pubDate>Sat, 20 Sep 2025 00:00:01 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/interceptor/</guid>
         <description></description>
         </item>
         <item>
         <title>Emqx</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/emqx/</link>
+        <link>https://zell.zone/tags/emqx/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/tags/emqx/</guid>
+        <guid>https://zell.zone/tags/emqx/</guid>
         <description></description>
         </item>
         <item>
         <title>设计模式</title>
-        <link>https://xianlz.github.io/Zell-Blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+        <link>https://zell.zone/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
         <pubDate>Sat, 20 Sep 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://xianlz.github.io/Zell-Blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+        <guid>https://zell.zone/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
         <description></description>
         </item>
         
