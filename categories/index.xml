@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on Zell Blog</title>
-        <link>http://localhost:1313/Zell-Blog/categories/</link>
+        <link>https://xianlz.github.io/Zell-Blog/categories/</link>
         <description>Recent content in Categories on Zell Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 03:06:30 +0800</lastBuildDate><atom:link href="http://localhost:1313/Zell-Blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 20 Sep 2025 03:06:30 +0800</lastBuildDate><atom:link href="https://xianlz.github.io/Zell-Blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Emqx</title>
-        <link>http://localhost:1313/Zell-Blog/categories/emqx/</link>
+        <link>https://xianlz.github.io/Zell-Blog/categories/emqx/</link>
         <pubDate>Sat, 20 Sep 2025 03:06:30 +0800</pubDate>
         
-        <guid>http://localhost:1313/Zell-Blog/categories/emqx/</guid>
+        <guid>https://xianlz.github.io/Zell-Blog/categories/emqx/</guid>
         <description></description>
         </item>
         

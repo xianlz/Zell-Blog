@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/Zell-Blog/en/categories/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/en/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:1313/Zell-Blog/categories/"
+                href="https://xianlz.github.io/Zell-Blog/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:1313/Zell-Blog/ar/categories/"
+                href="https://xianlz.github.io/Zell-Blog/ar/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/Zell-Blog/en/categories/"
+                href="https://xianlz.github.io/Zell-Blog/en/categories/"
                 />
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/en/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/en/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:1313/Zell-Blog/"
+                href="https://xianlz.github.io/Zell-Blog/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:1313/Zell-Blog/ar/"
+                href="https://xianlz.github.io/Zell-Blog/ar/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/Zell-Blog/en/"
+                href="https://xianlz.github.io/Zell-Blog/en/"
                 />
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/en/tags/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/en/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:1313/Zell-Blog/tags/"
+                href="https://xianlz.github.io/Zell-Blog/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:1313/Zell-Blog/ar/tags/"
+                href="https://xianlz.github.io/Zell-Blog/ar/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/Zell-Blog/en/tags/"
+                href="https://xianlz.github.io/Zell-Blog/en/tags/"
                 />
   </url>
 </urlset>

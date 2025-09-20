@@ -2,91 +2,91 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/Zell-Blog/categories/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/categories/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/Zell-Blog/en/categories/"
+                href="https://xianlz.github.io/Zell-Blog/en/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:1313/Zell-Blog/ar/categories/"
+                href="https://xianlz.github.io/Zell-Blog/ar/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:1313/Zell-Blog/categories/"
+                href="https://xianlz.github.io/Zell-Blog/categories/"
                 />
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/categories/emqx/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/categories/emqx/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/tags/emqx/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/tags/emqx/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/post/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/post/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/tags/spring/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/tags/spring/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/tags/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/tags/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/Zell-Blog/en/tags/"
+                href="https://xianlz.github.io/Zell-Blog/en/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:1313/Zell-Blog/ar/tags/"
+                href="https://xianlz.github.io/Zell-Blog/ar/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:1313/Zell-Blog/tags/"
+                href="https://xianlz.github.io/Zell-Blog/tags/"
                 />
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/Zell-Blog/en/"
+                href="https://xianlz.github.io/Zell-Blog/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="ar"
-                href="http://localhost:1313/Zell-Blog/ar/"
+                href="https://xianlz.github.io/Zell-Blog/ar/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="http://localhost:1313/Zell-Blog/"
+                href="https://xianlz.github.io/Zell-Blog/"
                 />
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/p/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/p/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/</loc>
     <lastmod>2025-09-20T03:06:30+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/page/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/page/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/archives/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/%E5%85%B3%E4%BA%8E/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/%E5%85%B3%E4%BA%8E/</loc>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/search/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/search/</loc>
   </url><url>
-    <loc>http://localhost:1313/Zell-Blog/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</loc>
+    <loc>https://xianlz.github.io/Zell-Blog/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/</loc>
   </url>
 </urlset>
