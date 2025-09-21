@@ -7,20 +7,28 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Sat, 20 Sep 2025 00:00:05 +0000</lastBuildDate><atom:link href="https://zell.zone/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Mybatis-Plus</title>
-        <link>https://zell.zone/tags/mybatis-plus/</link>
-        <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
+        <lastBuildDate>Sun, 21 Sep 2025 22:08:33 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>RabbitMQ</title>
+        <link>https://zell.zone/tags/rabbitmq/</link>
+        <pubDate>Sun, 21 Sep 2025 22:08:33 +0800</pubDate>
         
-        <guid>https://zell.zone/tags/mybatis-plus/</guid>
+        <guid>https://zell.zone/tags/rabbitmq/</guid>
         <description></description>
         </item>
         <item>
         <title>Spring</title>
         <link>https://zell.zone/tags/spring/</link>
-        <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
+        <pubDate>Sun, 21 Sep 2025 22:08:33 +0800</pubDate>
         
         <guid>https://zell.zone/tags/spring/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Mybatis-Plus</title>
+        <link>https://zell.zone/tags/mybatis-plus/</link>
+        <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/mybatis-plus/</guid>
         <description></description>
         </item>
         <item>

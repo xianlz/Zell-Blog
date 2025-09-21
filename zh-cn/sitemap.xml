@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://zell.zone/categories/</loc>
-    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
+    <lastmod>2025-09-21T22:08:33+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -20,23 +20,20 @@
                 href="https://zell.zone/categories/"
                 />
   </url><url>
-    <loc>https://zell.zone/p/mybatis-plus%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
-  </url><url>
-    <loc>https://zell.zone/categories/mybatis-plus/</loc>
-    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
-  </url><url>
-    <loc>https://zell.zone/tags/mybatis-plus/</loc>
-    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
+    <loc>https://zell.zone/categories/mq/</loc>
+    <lastmod>2025-09-21T22:08:33+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/post/</loc>
-    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
+    <lastmod>2025-09-21T22:08:33+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/tags/rabbitmq/</loc>
+    <lastmod>2025-09-21T22:08:33+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/tags/spring/</loc>
-    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
+    <lastmod>2025-09-21T22:08:33+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/tags/</loc>
-    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
+    <lastmod>2025-09-21T22:08:33+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -54,7 +51,7 @@
                 />
   </url><url>
     <loc>https://zell.zone/</loc>
-    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
+    <lastmod>2025-09-21T22:08:33+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -70,6 +67,18 @@
                 hreflang="zh-cn"
                 href="https://zell.zone/"
                 />
+  </url><url>
+    <loc>https://zell.zone/p/%E6%95%B4%E5%90%88mq%E7%9A%84%E5%85%AC%E5%85%B1%E6%A8%A1%E5%9D%97/</loc>
+    <lastmod>2025-09-21T22:08:33+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/p/mybatis-plus%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/categories/mybatis-plus/</loc>
+    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/tags/mybatis-plus/</loc>
+    <lastmod>2025-09-20T00:00:05+00:00</lastmod>
   </url><url>
     <loc>https://zell.zone/categories/feign/</loc>
     <lastmod>2025-09-20T00:00:01+00:00</lastmod>
