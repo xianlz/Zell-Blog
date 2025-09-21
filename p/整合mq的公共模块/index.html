@@ -466,34 +466,18 @@ unicode: "ece7"
     
     <p>正在做一个mq发送的业务，在微服务模块中，如果每个模块都要单独去引入MQ并且实现各种配置，感觉这个操作太乱了。突发奇想自己试着实现一个统一的模块来实现管理，接下来就是上手时间。</p>
 <p>代码结构</p>
-<blockquote>
-<p>├─src
-│  ├─main
-│  │  ├─java
-│  │  │  └─com
-│  │  │      └─share
-│  │  │          └─mq
-│  │  │              ├─model
-│  │  │              │      MessageModel.java
-│  │  │              │      MqSendModel.java
-│  │  │              │
-│  │  │              ├─rabbit
-│  │  │              │  ├─compont
-│  │  │              │  ├─config
-│  │  │              │  │      RabbitConfig.java
-│  │  │              │  │      RabbitMqProperties.java
-│  │  │              │  │
-│  │  │              │  ├─dto
-│  │  │              │  │      RabbitCorrelationData.java
-│  │  │              │  │
-│  │  │              │  └─service
-│  │  │              │          RabbitMqService.java
-│  │  │              │
-│  │  │              └─socket
-│  │  └─resources
-│  │      └─META-INF
-│  │          └─spring
-│  │                  org.springframework.boot.autoconfigure.AutoConfiguration.imports</p></blockquote>
+<p><img src="/p/%E6%95%B4%E5%90%88mq%E7%9A%84%E5%85%AC%E5%85%B1%E6%A8%A1%E5%9D%97/img/1.png"
+	width="633"
+	height="727"
+	srcset="/p/%E6%95%B4%E5%90%88mq%E7%9A%84%E5%85%AC%E5%85%B1%E6%A8%A1%E5%9D%97/img/1_hu_35974d01f7d2b302.png 480w, /p/%E6%95%B4%E5%90%88mq%E7%9A%84%E5%85%AC%E5%85%B1%E6%A8%A1%E5%9D%97/img/1_hu_90ef8f5fff6cab.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="87"
+		data-flex-basis="208px"
+	
+></p>
 <h2 id="我以整合rabbitmq类捋一下我的思路">我以整合RabbitMQ类捋一下我的思路
 </h2><ol>
 <li>
