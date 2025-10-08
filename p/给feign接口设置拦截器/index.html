@@ -14,7 +14,7 @@
 
 <link rel='canonical' href='https://zell.zone/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/'>
 
-<link rel="stylesheet" href="/scss/style.min.37fc61254f5a6cce9972cb2e4dbb78cbd97f6d73ca0165a35b1f54d7dedd88a5.css"><meta property='og:title' content="给feign接口设置拦截器">
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="给feign接口设置拦截器">
 <meta property='og:description' content="步骤1：创建 Interceptor 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 @Component @Slf4j public class InternalRequestInterceptor implements RequestInterceptor { @Value(&#34;${spring.application.name:unknown}&#34;) private String serviceName; @Override public void apply(RequestTemplate template) { log.debug(&#34;Applying internal request headers for: {}&#34;, template.url()); template.header(&#34;X-Internal-Request&#34;, &#34;true&#34;); template.header(&#34;X-Service-Name&#34;, serviceName); template.header(&#34;X-Request-ID&#34;, UUID.randomUUID().toString()); template.header(&#34;X-Timestamp&#34;, String.valueOf(System.currentTimeMillis())); } } 步骤2：确保 Spring 配置正确 1 2 3 4 5 6 7 @SpringBootApplication @EnableFeignClients // 这个注解必须要有！ public class OrderServiceApplication { public static void main(String[] args) { SpringApplication.run(OrderServiceApplication.class, args); } } 步骤3：验证配置 创建测试类验证：\n">
 <meta property='og:url' content='https://zell.zone/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/'>
 <meta property='og:site_name' content='Zell Blog'>
@@ -849,8 +849,16 @@ unicode: "ece7"
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
 
-        <p>发布了 10 篇文章 | 共 16585  字</p >
+        <p>发布了 11 篇文章 | 共 17114  字</p >
     </section>
 </footer>
 

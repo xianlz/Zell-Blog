@@ -14,7 +14,7 @@
 
 <link rel='canonical' href='https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/'>
 
-<link rel="stylesheet" href="/scss/style.min.37fc61254f5a6cce9972cb2e4dbb78cbd97f6d73ca0165a35b1f54d7dedd88a5.css"><meta property='og:title' content="使用工厂模式实现连接emqx">
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="使用工厂模式实现连接emqx">
 <meta property='og:description' content="先将配置类和常量类创建好 1 2 3 4 5 6 7 8 9 10 11 12 13 @Data @Component @ConfigurationProperties(prefix = &#34;emqx.client&#34;) public class EmqxProperties { private String clientId; private String username; private String password; private String serverURI; private int keepAliveInterval; private int connectionTimeout; } 1 2 3 4 5 6 7 8 9 10 11 12 13 14 public class EmqxConstants { /** 充电宝插入，柜机发布Topic消息， 服务器监听消息 */ public final static String TOPIC_POWERBANK_CONNECTED = &#34;/sys/powerBank/connected&#34;; /** 用户扫码，服务器发布Topic消息 柜机监听消息 */ public final static String TOPIC_SCAN_SUBMIT = &#34;/sys/scan/submit/%s&#34;; /** 充电宝弹出，柜机发布Topic消息，服务器监听消息 */ public final static String TOPIC_POWERBANK_UNLOCK = &#34;/sys/powerBank/unlock&#34;; /** 柜机属性上报，服务器监听消息 */ public final static String TOPIC_PROPERTY_POST = &#34;/sys/property/post&#34;; } 这里相关类的UML类图 ">
 <meta property='og:url' content='https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/'>
 <meta property='og:site_name' content='Zell Blog'>
@@ -1123,8 +1123,16 @@ unicode: "ece7"
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
 
-        <p>发布了 10 篇文章 | 共 16585  字</p >
+        <p>发布了 11 篇文章 | 共 17114  字</p >
     </section>
 </footer>
 
