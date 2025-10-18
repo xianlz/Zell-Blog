@@ -988,7 +988,8 @@ unicode: "ece7"
 </ol>
 <blockquote>
 <p>问题原因：在上面配置信息类中使用的时<code>@Component</code>注解将配置信息注入到Spring容器中，但是这里是配置类使用的注解<code>@Configuration</code>在正常不做干扰的情况下执行顺序是比<code>@Component</code>早的。而我为了防止在获取配置属性空指针，加上了<code>@ConditionalOnBean(RabbitMqProperties.class)</code>注解，只有当Spring容器中存在RabbitMqProperties对象时才会构建当前类，那么问题就出现了，我都比你先加载了，我还能要求你存在吗，这肯定不符合逻辑。虽然一开始我加上了<code>@DependsOn(&quot;rabbitMqProperties&quot;)</code>，但是这个注解只针对控制普通 bean 的初始化顺序，和<code>@Configuration</code>不搭。</p>
-<p>解决办法：使用<code>@AutoConfigureAfter(RabbitMqProperties.class)</code>注解。</p></blockquote>
+<p>解决办法：使用<code>@AutoConfigureAfter(RabbitMqProperties.class)</code>注解。</p>
+</blockquote>
 <ol start="2">
 <li>问题二：延时消息的发送一定会进入返回回调setReturnsCallback中，判断有问题导致一直在重发</li>
 </ol>
@@ -1001,7 +1002,9 @@ unicode: "ece7"
 <li>对于普通交换机（如 <code>direct</code>/<code>topic</code>）：消息到达后立即匹配路由键，若有队列绑定则路由，无则触发 <code>NO_ROUTE</code>。</li>
 <li>对于延迟交换机：消息到达后不立即路由，而是暂存，因此 RabbitMQ 会判定 “当前无队列匹配”，即使后续延迟到期会路由，也会在 <strong>消息到达时即时触发 <code>NO_ROUTE</code></strong>，进而触发 <code>ReturnsCallback</code>。</li>
 </ol>
-<p>所以在进入回调后需要判断是否是由延迟消息导致，如果是就不能进行重发了。</p></blockquote></blockquote>
+<p>所以在进入回调后需要判断是否是由延迟消息导致，如果是就不能进行重发了。</p>
+</blockquote>
+</blockquote>
 <h3 id="六消息实现类rabbitcorrelationdata">六、消息实现类RabbitCorrelationData
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1933,7 +1936,7 @@ unicode: "ece7"
         
         
 
-        <p>发布了 11 篇文章 | 共 19263  字</p >
+        <p>发布了 11 篇文章 | 共 21051  字</p >
     </section>
 </footer>
 

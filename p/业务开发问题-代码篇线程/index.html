@@ -366,6 +366,11 @@ unicode: "ece7"
         <li><a href="#问题一在tomcat中的工作线程是复用的当我们使用threadlocal来传递当前线程的变量时可能会出现信息错乱的问题">问题一：在<code>tomcat</code>中的工作线程是复用的，当我们使用<code>ThreadLocal</code>来传递当前线程的变量时，可能会出现信息错乱的问题</a></li>
         <li><a href="#问题二concurrenthashmap的线程不安全事件">问题二：<code>ConcurrentHashMap</code>的线程不安全事件。</a></li>
         <li><a href="#问题三不考虑实际读写情况滥用copyonwritearraylist导致接口超时">问题三：不考虑实际读写情况滥用<code>CopyOnWriteArrayList</code>，导致接口超时。</a></li>
+        <li><a href="#问题四创建线程池executors不规范导致程序出现oom">问题四：创建线程池Executors不规范导致程序出现OOM</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -432,7 +437,7 @@ unicode: "ece7"
 </svg>
 
                 <time class="article-time--reading">
-                    本文共 2678 字
+                    本文共 4466 字
                 </time>
             </div>
         
@@ -449,7 +454,7 @@ unicode: "ece7"
 
 
                 <time class="article-time--reading">
-                    阅读时长: 6 分钟
+                    阅读时长: 9 分钟
                 </time>
             </div>
         
@@ -614,7 +619,8 @@ unicode: "ece7"
 <ul>
 <li><strong>复合操作</strong>的原子性</li>
 <li><strong>业务逻辑</strong>的正确性</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <p>请看下面代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -705,11 +711,13 @@ unicode: "ece7"
 </div><blockquote>
 <p>这个demo是使用十个线程往一个已经有900个元素的<code>ConcurrentHashMap</code>填充到1000。打印结果发现最后添加了1900个元素，问题就在与data.size() 和 data.putAll(getData(size))操作并不是原子性的，所以每个线程都可能得到其他线程还未添加进<code>ConcurrentHashMap</code>之前的size，导致出现了问题。</p>
 <p>解决办法：</p>
-<p>放开同步代码块，synchronized (data)，这样就能保证同步代码块内的操作每次只有一个线程能访问。但是这样也就打打的降低了效率，而且也没有使用上<code>ConcurrentHashMap</code>的特性。</p></blockquote>
+<p>放开同步代码块，synchronized (data)，这样就能保证同步代码块内的操作每次只有一个线程能访问。但是这样也就打打的降低了效率，而且也没有使用上<code>ConcurrentHashMap</code>的特性。</p>
+</blockquote>
 <p><strong>接下来我们再举一个例子来对比说明<code>ConcurrentHashMap</code>的妙用。</strong></p>
 <blockquote>
 <p>案例：</p>
-<p>使用10个线程对10000000数量进行词频分析</p></blockquote>
+<p>使用10个线程对10000000数量进行词频分析</p>
+</blockquote>
 <p>先上同步代码块的代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -809,7 +817,8 @@ unicode: "ece7"
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>computeIfAbsent()方法表示如果该key未被发现，则进行初始化，否则执行其他操作</p></blockquote>
+<p>computeIfAbsent()方法表示如果该key未被发现，则进行初始化，否则执行其他操作</p>
+</blockquote>
 <p>对比效率</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1065,7 +1074,430 @@ unicode: "ece7"
 </div><p>从上面代码来看<code>CopyOnWriteArrayList</code>和普通加锁方式 <code>ArrayList </code>的读写性能是两种截然相反的结果。<code>CopyOnWriteArrayList</code>在写操作时性能时简直是太糟糕了，而普通加锁方式 <code>ArrayList </code>在读时性能又比<code>CopyOnWriteArrayList</code>逊色太多。所以要评估自己需求，来决定是否要使用<code>CopyOnWriteArrayList</code>。</p>
 <blockquote>
 <p>为什么<code>CopyOnWriteArrayList</code>的写入性能会这么差呢？</p>
-<p>原因就是它每次执行插入操作时都会进行复制Object[] newElements = Arrays.copyOf(elements, len + 1);</p></blockquote>
+<p>原因就是它每次执行插入操作时都会进行复制Object[] newElements = Arrays.copyOf(elements, len + 1);</p>
+</blockquote>
+<h3 id="问题四创建线程池executors不规范导致程序出现oom">问题四：创建线程池Executors不规范导致程序出现OOM
+</h3><p>eg1：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * newFixedThreadPool 创建线程池时的OOM
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test2</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ExecutorService</span><span class="w"> </span><span class="n">executorService</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Executors</span><span class="p">.</span><span class="na">newFixedThreadPool</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">100000000</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">executorService</span><span class="p">.</span><span class="na">execute</span><span class="p">(()</span><span class="o">-&gt;</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="n">1000000</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">__</span><span class="o">-&gt;</span><span class="s">&#34;a&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">HOURS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>由<code>newFixedThreadPool()</code>创建线程的参数如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ExecutorService</span><span class="w"> </span><span class="nf">newFixedThreadPool</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">nThreads</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">nThreads</span><span class="p">,</span><span class="w"> </span><span class="n">nThreads</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                                  </span><span class="n">0L</span><span class="p">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">MILLISECONDS</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                                  </span><span class="k">new</span><span class="w"> </span><span class="n">LinkedBlockingQueue</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中<code>new LinkedBlockingQueue&lt;Runnable&gt;()</code>的大小是Integer.MAX_VALUE ， 当任务量多并且任务的处理时间比较慢时，LinkedBlockingQueue带运行任务队列中数量激增，导致OOM</p>
+<p>eg2</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * newCachedThreadPool 创建线程池时的OOM
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test3</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ExecutorService</span><span class="w"> </span><span class="n">executorService</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Executors</span><span class="p">.</span><span class="na">newCachedThreadPool</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">100000000</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">executorService</span><span class="p">.</span><span class="na">execute</span><span class="p">(()</span><span class="o">-&gt;</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="n">1000000</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">.</span><span class="na">mapToObj</span><span class="p">(</span><span class="n">__</span><span class="o">-&gt;</span><span class="s">&#34;a&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">HOURS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">payload</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>由<code>newCachedThreadPool()</code>创建线程的参数如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">ExecutorService</span><span class="w"> </span><span class="nf">newCachedThreadPool</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">Integer</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                                  </span><span class="n">60L</span><span class="p">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                                  </span><span class="k">new</span><span class="w"> </span><span class="n">SynchronousQueue</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>SynchronousQueue</code> 是一个没有存储空间的阻塞队列 ,而且这里设置的最大线程数是<code>Integer.MAX_VALUE</code>，当任务量多并且任务的处理时间比较慢时，会一直创建线程，导致OOM。</p>
+<p>我们定义一个方法来监控线程池状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">printStatus</span><span class="p">(</span><span class="n">ThreadPoolExecutor</span><span class="w"> </span><span class="n">threadPoolExecutor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Executors</span><span class="p">.</span><span class="na">newSingleThreadScheduledExecutor</span><span class="p">().</span><span class="na">scheduleAtFixedRate</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;========================&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;线程数:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadPoolExecutor</span><span class="p">.</span><span class="na">getPoolSize</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;活跃线程数:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadPoolExecutor</span><span class="p">.</span><span class="na">getActiveCount</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;完成了多少任务:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadPoolExecutor</span><span class="p">.</span><span class="na">getCompletedTaskCount</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;队列中还有多少积压:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">threadPoolExecutor</span><span class="p">.</span><span class="na">getQueue</span><span class="p">().</span><span class="na">size</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;========================&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>自定义一个线程池</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test4</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">InterruptedException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//具有 2 个核心线程、5 个最大线程、使用容量为 10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//的 ArrayBlockingQueue 阻塞队列作为工作队列，使用默认的 AbortPolicy 拒绝策略，也</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//就是任务添加到线程池失败会抛出 RejectedExecutionException。此外，我们借助了</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//Jodd 类库的 ThreadFactoryBuilder 方法来构造一个线程工厂，实现线程池线程的自定义</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//命名。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">AtomicInteger</span><span class="w"> </span><span class="n">atomicInteger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AtomicInteger</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ThreadPoolExecutor</span><span class="w"> </span><span class="n">threadPoolExecutor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">5</span><span class="p">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayBlockingQueue</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">10</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ThreadFactoryBuilder</span><span class="p">().</span><span class="na">setNameFormat</span><span class="p">(</span><span class="s">&#34;demo-threadpool-%d&#34;</span><span class="p">).</span><span class="na">get</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ThreadPoolExecutor</span><span class="p">.</span><span class="na">AbortPolicy</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">printStatus</span><span class="p">(</span><span class="n">threadPoolExecutor</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">IntStream</span><span class="p">.</span><span class="na">rangeClosed</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="n">20</span><span class="p">).</span><span class="na">forEach</span><span class="p">(</span><span class="n">i</span><span class="o">-&gt;</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atomicInteger</span><span class="p">.</span><span class="na">incrementAndGet</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">threadPoolExecutor</span><span class="p">.</span><span class="na">submit</span><span class="p">(()</span><span class="o">-&gt;</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;start。。。。。&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">InterruptedException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;end。。。。。&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;error submit。。。。。&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">60</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行结果打印</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">线程数:0
+</span></span><span class="line"><span class="cl">活跃线程数:0
+</span></span><span class="line"><span class="cl">完成了多少任务:0
+</span></span><span class="line"><span class="cl">队列中还有多少积压:0
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">1start。。。。。
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">线程数:1
+</span></span><span class="line"><span class="cl">活跃线程数:1
+</span></span><span class="line"><span class="cl">完成了多少任务:0
+</span></span><span class="line"><span class="cl">队列中还有多少积压:0
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> ....... 省略一部分
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> ========================
+</span></span><span class="line"><span class="cl">线程数:2
+</span></span><span class="line"><span class="cl">活跃线程数:2
+</span></span><span class="line"><span class="cl">完成了多少任务:2
+</span></span><span class="line"><span class="cl">队列中还有多少积压:8
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">线程数:2
+</span></span><span class="line"><span class="cl">活跃线程数:2
+</span></span><span class="line"><span class="cl">完成了多少任务:2
+</span></span><span class="line"><span class="cl">队列中还有多少积压:9
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">线程数:2
+</span></span><span class="line"><span class="cl">活跃线程数:2
+</span></span><span class="line"><span class="cl">完成了多少任务:2
+</span></span><span class="line"><span class="cl">队列中还有多少积压:10
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">15start。。。。。
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">线程数:3
+</span></span><span class="line"><span class="cl">活跃线程数:3
+</span></span><span class="line"><span class="cl">完成了多少任务:2
+</span></span><span class="line"><span class="cl">队列中还有多少积压:10
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">16start。。。。。
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">线程数:4
+</span></span><span class="line"><span class="cl">活跃线程数:4
+</span></span><span class="line"><span class="cl">完成了多少任务:2
+</span></span><span class="line"><span class="cl">队列中还有多少积压:10
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">17start。。。。。
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">线程数:5
+</span></span><span class="line"><span class="cl">活跃线程数:5
+</span></span><span class="line"><span class="cl">完成了多少任务:2
+</span></span><span class="line"><span class="cl">队列中还有多少积压:10
+</span></span><span class="line"><span class="cl">========================
+</span></span><span class="line"><span class="cl">18error submit。。。。。
+</span></span><span class="line"><span class="cl">Exception in thread &#34;main&#34; java.lang.RuntimeException: java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.FutureTask@30946e09[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@6e5e91e4[Wrapped task = com.error.thread.thread.ThreadDemo4$$Lambda$24/0x000001eb1b003450@2cdf8d8a]] rejected from java.util.concurrent.ThreadPoolExecutor@5cb0d902[Running, pool size = 5, active threads = 5, queued tasks = 10, completed tasks = 2]
+</span></span><span class="line"><span class="cl">	at com.error.thread.thread.ThreadDemo4.lambda$test4$8(ThreadDemo4.java:127)
+</span></span><span class="line"><span class="cl">	at java.base/java.util.stream.Streams$RangeIntSpliterator.forEachRemaining(Streams.java:104)
+</span></span><span class="line"><span class="cl">	at java.base/java.util.stream.IntPipeline$Head.forEach(IntPipeline.java:617)
+</span></span><span class="line"><span class="cl">	at com.error.thread.thread.ThreadDemo4.test4(ThreadDemo4.java:107)
+</span></span><span class="line"><span class="cl">	at com.error.thread.thread.ThreadDemo4.main(ThreadDemo4.java:137)
+</span></span><span class="line"><span class="cl">Caused by: java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.FutureTask@30946e09[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@6e5e91e4[Wrapped task = com.error.thread.thread.ThreadDemo4$$Lambda$24/0x000001eb1b003450@2cdf8d8a]] rejected from java.util.concurrent.ThreadPoolExecutor@5cb0d902[Running, pool size = 5, active threads = 5, queued tasks = 10, completed tasks = 2]
+</span></span><span class="line"><span class="cl">	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2065)
+</span></span><span class="line"><span class="cl">	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:833)
+</span></span><span class="line"><span class="cl">	at java.base/java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1365)
+</span></span><span class="line"><span class="cl">	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:123)
+</span></span><span class="line"><span class="cl">	at com.error.thread.thread.ThreadDemo4.lambda$test4$8(ThreadDemo4.java:116)
+</span></span><span class="line"><span class="cl">	... 4 more
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> ....... 省略一部分
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> ========================
+</span></span><span class="line"><span class="cl">线程数:2
+</span></span><span class="line"><span class="cl">活跃线程数:0
+</span></span><span class="line"><span class="cl">完成了多少任务:17
+</span></span><span class="line"><span class="cl">队列中还有多少积压:0
+</span></span><span class="line"><span class="cl">========================
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h6 id="根据自定义线程池检查结果我们可以总结出线程池的执行逻辑如下">⭐⭐⭐<strong>根据自定义线程池检查结果，我们可以总结出线程池的执行逻辑如下</strong>
+</h6><blockquote>
+<ol>
+<li>当有任务提交到线程池中，使用核心线程执行</li>
+<li>当核心线程使用完后再有任务提交到线程池中时，不会立马扩充线程，而是会将任务先加入到工作队列中</li>
+<li>当工作队列到达指定的容量大小时，会开始扩充线程，最大数量不可超过指定最大线程数</li>
+<li>当达到最大线程数还有任务提交时，则会使用指定的拒绝策略。</li>
+<li>最后当线程数大于核心线程数时，且在指定<code>keepAliveTime</code>内没有任务提交过来，则会进行收缩核心线程数到指定数量。</li>
+</ol>
+</blockquote>
 
 </section>
 
@@ -1200,7 +1632,7 @@ unicode: "ece7"
         
         
 
-        <p>发布了 11 篇文章 | 共 19263  字</p >
+        <p>发布了 11 篇文章 | 共 21051  字</p >
     </section>
 </footer>
 

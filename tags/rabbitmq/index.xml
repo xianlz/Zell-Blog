@@ -516,7 +516,8 @@
 &lt;/ol&gt;
 &lt;blockquote&gt;
 &lt;p&gt;问题原因：在上面配置信息类中使用的时&lt;code&gt;@Component&lt;/code&gt;注解将配置信息注入到Spring容器中，但是这里是配置类使用的注解&lt;code&gt;@Configuration&lt;/code&gt;在正常不做干扰的情况下执行顺序是比&lt;code&gt;@Component&lt;/code&gt;早的。而我为了防止在获取配置属性空指针，加上了&lt;code&gt;@ConditionalOnBean(RabbitMqProperties.class)&lt;/code&gt;注解，只有当Spring容器中存在RabbitMqProperties对象时才会构建当前类，那么问题就出现了，我都比你先加载了，我还能要求你存在吗，这肯定不符合逻辑。虽然一开始我加上了&lt;code&gt;@DependsOn(&amp;quot;rabbitMqProperties&amp;quot;)&lt;/code&gt;，但是这个注解只针对控制普通 bean 的初始化顺序，和&lt;code&gt;@Configuration&lt;/code&gt;不搭。&lt;/p&gt;
-&lt;p&gt;解决办法：使用&lt;code&gt;@AutoConfigureAfter(RabbitMqProperties.class)&lt;/code&gt;注解。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;解决办法：使用&lt;code&gt;@AutoConfigureAfter(RabbitMqProperties.class)&lt;/code&gt;注解。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;问题二：延时消息的发送一定会进入返回回调setReturnsCallback中，判断有问题导致一直在重发&lt;/li&gt;
 &lt;/ol&gt;
@@ -529,7 +530,9 @@
 &lt;li&gt;对于普通交换机（如 &lt;code&gt;direct&lt;/code&gt;/&lt;code&gt;topic&lt;/code&gt;）：消息到达后立即匹配路由键，若有队列绑定则路由，无则触发 &lt;code&gt;NO_ROUTE&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;对于延迟交换机：消息到达后不立即路由，而是暂存，因此 RabbitMQ 会判定 “当前无队列匹配”，即使后续延迟到期会路由，也会在 &lt;strong&gt;消息到达时即时触发 &lt;code&gt;NO_ROUTE&lt;/code&gt;&lt;/strong&gt;，进而触发 &lt;code&gt;ReturnsCallback&lt;/code&gt;。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;所以在进入回调后需要判断是否是由延迟消息导致，如果是就不能进行重发了。&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
+&lt;p&gt;所以在进入回调后需要判断是否是由延迟消息导致，如果是就不能进行重发了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
 &lt;h3 id=&#34;六消息实现类rabbitcorrelationdata&#34;&gt;六、消息实现类RabbitCorrelationData
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
