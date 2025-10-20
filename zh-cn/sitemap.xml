@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://zell.zone/categories/</loc>
-    <lastmod>2025-10-19T21:03:14+08:00</lastmod>
+    <lastmod>2025-10-20T22:10:16+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -20,11 +20,14 @@
                 href="https://zell.zone/categories/"
                 />
   </url><url>
+    <loc>https://zell.zone/tags/http/</loc>
+    <lastmod>2025-10-20T22:10:16+08:00</lastmod>
+  </url><url>
     <loc>https://zell.zone/post/</loc>
-    <lastmod>2025-10-19T21:03:14+08:00</lastmod>
+    <lastmod>2025-10-20T22:10:16+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/tags/</loc>
-    <lastmod>2025-10-19T21:03:14+08:00</lastmod>
+    <lastmod>2025-10-20T22:10:16+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -42,7 +45,7 @@
                 />
   </url><url>
     <loc>https://zell.zone/</loc>
-    <lastmod>2025-10-19T21:03:14+08:00</lastmod>
+    <lastmod>2025-10-20T22:10:16+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -58,6 +61,12 @@
                 hreflang="zh-cn"
                 href="https://zell.zone/"
                 />
+  </url><url>
+    <loc>https://zell.zone/categories/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2025-10-20T22:10:16+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87http%E8%B0%83%E7%94%A8/</loc>
+    <lastmod>2025-10-20T22:10:16+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/</loc>
     <lastmod>2025-10-19T21:03:14+08:00</lastmod>
