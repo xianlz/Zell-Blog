@@ -18,9 +18,10 @@
 <meta property='og:description' content="一、@Transactional 生效原则 除非特殊配置（比如使用 AspectJ 静态织入实现 AOP），否则只有定义在 public 方法上的 @Transactional 才能生效\n原因是，Spring 默认通过动态代理的方式实现 AOP，对目标方法进行增强，private 方法无法代理到， Spring 自然也无法动态增强事务处理逻辑。\n">
 <meta property='og:url' content='https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E4%BA%8B%E5%8A%A1/'>
 <meta property='og:site_name' content='Zell Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='事务' /><meta property='article:tag' content='Transaction' /><meta property='article:tag' content='Spring' /><meta property='article:published_time' content='2025-10-21T20:58:44&#43;08:00'/><meta property='article:modified_time' content='2025-10-21T20:58:44&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='事务' /><meta property='article:tag' content='Transaction' /><meta property='article:tag' content='Spring' /><meta property='article:published_time' content='2025-10-21T20:58:44&#43;08:00'/><meta property='article:modified_time' content='2025-10-21T20:58:44&#43;08:00'/><meta property='og:image' content='https://zell.zone/ing/1.jpg' />
 <meta name="twitter:title" content="业务开发问题 代码篇(事务)">
-<meta name="twitter:description" content="一、@Transactional 生效原则 除非特殊配置（比如使用 AspectJ 静态织入实现 AOP），否则只有定义在 public 方法上的 @Transactional 才能生效\n原因是，Spring 默认通过动态代理的方式实现 AOP，对目标方法进行增强，private 方法无法代理到， Spring 自然也无法动态增强事务处理逻辑。\n">
+<meta name="twitter:description" content="一、@Transactional 生效原则 除非特殊配置（比如使用 AspectJ 静态织入实现 AOP），否则只有定义在 public 方法上的 @Transactional 才能生效\n原因是，Spring 默认通过动态代理的方式实现 AOP，对目标方法进行增强，private 方法无法代理到， Spring 自然也无法动态增强事务处理逻辑。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zell.zone/ing/1.jpg' />
     <link rel="icon" href="https://zell.zone/favicon.ico">
 
     </head>
@@ -380,8 +381,16 @@ unicode: "ece7"
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E4%BA%8B%E5%8A%A1/">
+                
+                    <img src="/ing/1.jpg" loading="lazy" alt="Featured image of post 业务开发问题 代码篇(事务)" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -485,7 +494,6 @@ unicode: "ece7"
 <p>在service中未使用@Transaction注解声明的方法中去调用使用了@Transaction的方法，因为默认调用是使用this来调用的，所以该调用是由代理的类的内部进行调用的，所以事务不会再被触发。</p>
 </blockquote>
 </li>
-<li></li>
 </ol>
 <h3 id="二事务即便生效也不一定能回滚">二、事务即便生效也不一定能回滚
 </h3><p>当方法出现了异常并且满足一定条件的时候才能进行回滚</p>
