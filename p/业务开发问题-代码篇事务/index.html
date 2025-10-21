@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 1 2 3 4 5 6 7 8 links: - title: GitHub description: 欢迎进入我的github. website: https://github.com/xianlz image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png JavaScript. website: https://www.typescriptlang.org image: ts-logo-128.jpg ">
-<title>相关链接</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、@Transactional 生效原则 除非特殊配置（比如使用 AspectJ 静态织入实现 AOP），否则只有定义在 public 方法上的 @Transactional 才能生效\n原因是，Spring 默认通过动态代理的方式实现 AOP，对目标方法进行增强，private 方法无法代理到， Spring 自然也无法动态增强事务处理逻辑。\n">
+<title>业务开发问题 代码篇(事务)</title>
 
 
 
@@ -12,15 +12,15 @@
 <script src="/music-player/Meting.min.js"></script>
 
 
-<link rel='canonical' href='https://zell.zone/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/'>
+<link rel='canonical' href='https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E4%BA%8B%E5%8A%A1/'>
 
-<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="相关链接">
-<meta property='og:description' content=" 1 2 3 4 5 6 7 8 links: - title: GitHub description: 欢迎进入我的github. website: https://github.com/xianlz image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png JavaScript. website: https://www.typescriptlang.org image: ts-logo-128.jpg ">
-<meta property='og:url' content='https://zell.zone/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/'>
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="业务开发问题 代码篇(事务)">
+<meta property='og:description' content="一、@Transactional 生效原则 除非特殊配置（比如使用 AspectJ 静态织入实现 AOP），否则只有定义在 public 方法上的 @Transactional 才能生效\n原因是，Spring 默认通过动态代理的方式实现 AOP，对目标方法进行增强，private 方法无法代理到， Spring 自然也无法动态增强事务处理逻辑。\n">
+<meta property='og:url' content='https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E4%BA%8B%E5%8A%A1/'>
 <meta property='og:site_name' content='Zell Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' />
-<meta name="twitter:title" content="相关链接">
-<meta name="twitter:description" content=" 1 2 3 4 5 6 7 8 links: - title: GitHub description: 欢迎进入我的github. website: https://github.com/xianlz image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png JavaScript. website: https://www.typescriptlang.org image: ts-logo-128.jpg ">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='事务' /><meta property='article:tag' content='Transaction' /><meta property='article:tag' content='Spring' /><meta property='article:published_time' content='2025-10-21T20:58:44&#43;08:00'/><meta property='article:modified_time' content='2025-10-21T20:58:44&#43;08:00'/>
+<meta name="twitter:title" content="业务开发问题 代码篇(事务)">
+<meta name="twitter:description" content="一、@Transactional 生效原则 除非特殊配置（比如使用 AspectJ 静态织入实现 AOP），否则只有定义在 public 方法上的 @Transactional 才能生效\n原因是，Spring 默认通过动态代理的方式实现 AOP，对目标方法进行增强，private 方法无法代理到， Spring 自然也无法动态增强事务处理逻辑。\n">
     <link rel="icon" href="https://zell.zone/favicon.ico">
 
     </head>
@@ -231,7 +231,7 @@ version: "1.86"
         </li>
         
         
-        <li  class='current' >
+        <li >
             <a href='/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/' >
                 
                 
@@ -339,7 +339,45 @@ unicode: "ece7"
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#一transactional-生效原则">一、@Transactional 生效原则</a></li>
+        <li><a href="#二事务即便生效也不一定能回滚">二、事务即便生效也不一定能回滚</a></li>
+        <li><a href="#三请确认事务传播配置是否符合自己的业务逻辑">三、请确认事务传播配置是否符合自己的业务逻辑</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -347,10 +385,18 @@ unicode: "ece7"
 
     <div class="article-details">
     
+    <header class="article-category">
+        
+            <a href="/categories/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91/" >
+                业务开发
+            </a>
+        
+    </header>
+    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/">相关链接</a>
+            <a href="/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E4%BA%8B%E5%8A%A1/">业务开发问题 代码篇(事务)</a>
         </h2>
     
         
@@ -361,6 +407,19 @@ unicode: "ece7"
     
     
     <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-10-21 20:58:44</time>
+            </div>
         
 
         
@@ -373,7 +432,7 @@ unicode: "ece7"
 </svg>
 
                 <time class="article-time--reading">
-                    本文共 35 字
+                    本文共 1214 字
                 </time>
             </div>
         
@@ -390,7 +449,7 @@ unicode: "ece7"
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -412,7 +471,140 @@ unicode: "ece7"
     <section class="article-content">
     
     
-    <div class="highlight"><div class="chroma">
+    <h3 id="一transactional-生效原则">一、@Transactional 生效原则
+</h3><ol>
+<li>
+<p>除非特殊配置（比如使用 AspectJ 静态织入实现 AOP），否则只有定义在 public 方法上的 @Transactional 才能生效</p>
+<blockquote>
+<p>原因是，Spring 默认通过动态代理的方式实现 AOP，对目标方法进行增强，private 方法无法代理到， Spring 自然也无法动态增强事务处理逻辑。</p>
+</blockquote>
+</li>
+<li>
+<p>必须通过代理过的类从外部调用目标方法才能生效。</p>
+<blockquote>
+<p>在service中未使用@Transaction注解声明的方法中去调用使用了@Transaction的方法，因为默认调用是使用this来调用的，所以该调用是由代理的类的内部进行调用的，所以事务不会再被触发。</p>
+</blockquote>
+</li>
+<li></li>
+</ol>
+<h3 id="二事务即便生效也不一定能回滚">二、事务即便生效也不一定能回滚
+</h3><p>当方法出现了异常并且满足一定条件的时候才能进行回滚</p>
+<ol>
+<li>
+<p>只有异常传播出了标记了 @Transactional 注解的方法，事务才能回滚</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// This is an around advice: Invoke the next interceptor in the chain.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// This will normally result in a target object being invoked.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">retVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">invocation</span><span class="p">.</span><span class="na">proceedWithInvocation</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Throwable</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// target invocation exception</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">completeTransactionAfterThrowing</span><span class="p">(</span><span class="n">txInfo</span><span class="p">,</span><span class="w"> </span><span class="n">ex</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">throw</span><span class="w"> </span><span class="n">ex</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">finally</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">cleanupTransactionInfo</span><span class="p">(</span><span class="n">txInfo</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 Spring 的 TransactionAspectSupport 里有个 invokeWithinTransaction 方法，里面就是处理事 务的逻辑。可以看到，只有捕获到异常才能进行后续事务处理</p>
+</li>
+<li>
+<p>默认情况下，出现 RuntimeException（非受检异常）或 Error 的时候，Spring 才会回滚事务。</p>
+</li>
+</ol>
+<h3 id="三请确认事务传播配置是否符合自己的业务逻辑">三、请确认事务传播配置是否符合自己的业务逻辑
+</h3><blockquote>
+<p>场景：一个用户注册的操作，会插入一个主用户到用户表，还会注册一个关联的 子用户。我们希望将子用户注册的数据库操作作为一个独立事务来处理，即使失败也不会影 响主流程，即不影响主用户的注册。</p>
+</blockquote>
+<p>先上原始代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">UserRepository</span><span class="w"> </span><span class="n">userRepository</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">SubUserService</span><span class="w"> </span><span class="n">subUserService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">createUserInfo</span><span class="p">(</span><span class="n">UserDTO</span><span class="w"> </span><span class="n">userDTO</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userDTO</span><span class="p">.</span><span class="na">getUser</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">UserDetail</span><span class="w"> </span><span class="n">userDetail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userDTO</span><span class="p">.</span><span class="na">getUserDetail</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">userRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">user</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">userDetail</span><span class="p">.</span><span class="na">setUserId</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">subUserService</span><span class="p">.</span><span class="na">createUserDetail</span><span class="p">(</span><span class="n">userDetail</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SubUserService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">SubUserRepository</span><span class="w"> </span><span class="n">subUserRepository</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">createUserDetail</span><span class="p">(</span><span class="n">UserDetail</span><span class="w"> </span><span class="n">userDetail</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">subUserRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">userDetail</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&#34;save error ......&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>看到这部分代码，当我们调用时会发现，不论是subUserRepository.save(userDetail) ，还是userRepository.save(user)都回滚了，这个是正常操作。如果要满足场景subUserRepository.save(userDetail)回滚，而userRepository.save(user)不会滚。我们根据前面回滚需要满足的条件中随便破坏一条不就完事了吗。所以我选择将subUserService.createUserDetail(userDetail)抛出的异常给捕获了不就完事了吗，然后走你。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -420,18 +612,33 @@ unicode: "ece7"
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">links</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">GitHub</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">欢迎进入我的github.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">website</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.com/xianlz</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="l">JavaScript.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">website</span><span class="p">:</span><span class="w"> </span><span class="l">https://www.typescriptlang.org</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ts-logo-128.jpg</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">userDetail</span><span class="p">.</span><span class="na">setUserId</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">getId</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">subUserService</span><span class="p">.</span><span class="na">createUserDetail</span><span class="p">(</span><span class="n">userDetail</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;not rollback this method.......&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>but 、but、but还是回滚了，这是怎么回事呢。</p>
+<p>原因：@Transactional标注方法调用另一个@Transactional标注方法方法时，默认使用的事务传播机制是使用同一个事物，所以subUserRepository.save(userDetail)回滚时，因为userRepository.save(user)和它使用的是同一个事务，那么它没理由不回滚。</p>
+<p>so &hellip;&hellip; 需要改一下事务的传播机制 ， 即在你要调用的事务方法声明该事务是沿用调用方的事务还是自己新开一个事务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Transactional</span><span class="p">(</span><span class="n">propagation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRES_NEW</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">createUserDetail</span><span class="p">(</span><span class="n">UserDetail</span><span class="w"> </span><span class="n">userDetail</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">subUserRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">userDetail</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&#34;save error ......&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div>
@@ -440,6 +647,16 @@ unicode: "ece7"
 
     <footer class="article-footer">
     
+    <section class="article-tags">
+        
+            <a href="/tags/%E4%BA%8B%E5%8A%A1/">事务</a>
+        
+            <a href="/tags/transaction/">Transaction</a>
+        
+            <a href="/tags/spring/">Spring</a>
+        
+    </section>
+
 
     </footer>
 
@@ -477,7 +694,31 @@ unicode: "ece7"
 
     
 
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87http%E8%B0%83%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">业务开发问题 代码篇(HTTP调用)</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
      
+    
+        
     
 
     <footer class="site-footer">
