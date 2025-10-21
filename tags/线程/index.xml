@@ -13,7 +13,7 @@
         <pubDate>Wed, 08 Oct 2025 20:49:13 +0800</pubDate>
         
         <guid>https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%BA%BF%E7%A8%8B/</guid>
-        <description>&lt;h3 id=&#34;问题一在tomcat中的工作线程是复用的当我们使用threadlocal来传递当前线程的变量时可能会出现信息错乱的问题&#34;&gt;问题一：在&lt;code&gt;tomcat&lt;/code&gt;中的工作线程是复用的，当我们使用&lt;code&gt;ThreadLocal&lt;/code&gt;来传递当前线程的变量时，可能会出现信息错乱的问题
+        <description>&lt;img src="https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%BA%BF%E7%A8%8B/img/1.jpg" alt="Featured image of post 业务开发问题-代码篇(线程)" /&gt;&lt;h3 id=&#34;问题一在tomcat中的工作线程是复用的当我们使用threadlocal来传递当前线程的变量时可能会出现信息错乱的问题&#34;&gt;问题一：在&lt;code&gt;tomcat&lt;/code&gt;中的工作线程是复用的，当我们使用&lt;code&gt;ThreadLocal&lt;/code&gt;来传递当前线程的变量时，可能会出现信息错乱的问题
 &lt;/h3&gt;&lt;p&gt;&lt;code&gt;ThreadLocal&lt;/code&gt;是线程安全的，这个毋庸置疑；但是当&lt;code&gt;ThreadLocal&lt;/code&gt; 加上线程池时就不一定是安全的了&lt;/p&gt;
 &lt;p&gt;话不多说，直接上代码&lt;/p&gt;
 &lt;ol&gt;

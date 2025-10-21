@@ -13,7 +13,7 @@
         <pubDate>Sun, 19 Oct 2025 21:03:14 +0800</pubDate>
         
         <guid>https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E8%BF%9E%E6%8E%A5%E6%B1%A0/</guid>
-        <description>&lt;p&gt;&lt;strong&gt;连接池&lt;/strong&gt;一般对外提供获得连接、归还连接的接口给客户端使 用，并暴露最小空闲连接数、最大连接数等可配置参数，在内部则实现连接建立、连接心跳 保持、连接管理、空闲连接回收、连接可用性检测等功能。如下图示&lt;/p&gt;
+        <description>&lt;img src="https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E8%BF%9E%E6%8E%A5%E6%B1%A0/img/1.jpg" alt="Featured image of post 业务开发问题 代码篇(连接池)" /&gt;&lt;p&gt;&lt;strong&gt;连接池&lt;/strong&gt;一般对外提供获得连接、归还连接的接口给客户端使 用，并暴露最小空闲连接数、最大连接数等可配置参数，在内部则实现连接建立、连接心跳 保持、连接管理、空闲连接回收、连接可用性检测等功能。如下图示&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E8%BF%9E%E6%8E%A5%E6%B1%A0/img/%E8%BF%9E%E6%8E%A5%E6%B1%A0.png&#34;
 	width=&#34;690&#34;
 	height=&#34;411&#34;

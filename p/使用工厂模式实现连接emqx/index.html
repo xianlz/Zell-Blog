@@ -18,9 +18,10 @@
 <meta property='og:description' content="先将配置类和常量类创建好 1 2 3 4 5 6 7 8 9 10 11 12 13 @Data @Component @ConfigurationProperties(prefix = &#34;emqx.client&#34;) public class EmqxProperties { private String clientId; private String username; private String password; private String serverURI; private int keepAliveInterval; private int connectionTimeout; } 1 2 3 4 5 6 7 8 9 10 11 12 13 14 public class EmqxConstants { /** 充电宝插入，柜机发布Topic消息， 服务器监听消息 */ public final static String TOPIC_POWERBANK_CONNECTED = &#34;/sys/powerBank/connected&#34;; /** 用户扫码，服务器发布Topic消息 柜机监听消息 */ public final static String TOPIC_SCAN_SUBMIT = &#34;/sys/scan/submit/%s&#34;; /** 充电宝弹出，柜机发布Topic消息，服务器监听消息 */ public final static String TOPIC_POWERBANK_UNLOCK = &#34;/sys/powerBank/unlock&#34;; /** 柜机属性上报，服务器监听消息 */ public final static String TOPIC_PROPERTY_POST = &#34;/sys/property/post&#34;; } 这里相关类的UML类图 ">
 <meta property='og:url' content='https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/'>
 <meta property='og:site_name' content='Zell Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spring' /><meta property='article:tag' content='Emqx' /><meta property='article:tag' content='设计模式' /><meta property='article:published_time' content='2025-09-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-20T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spring' /><meta property='article:tag' content='Emqx' /><meta property='article:tag' content='设计模式' /><meta property='article:published_time' content='2025-09-20T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-09-20T00:00:00&#43;00:00'/><meta property='og:image' content='https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/1.jpg' />
 <meta name="twitter:title" content="使用工厂模式实现连接emqx">
-<meta name="twitter:description" content="先将配置类和常量类创建好 1 2 3 4 5 6 7 8 9 10 11 12 13 @Data @Component @ConfigurationProperties(prefix = &#34;emqx.client&#34;) public class EmqxProperties { private String clientId; private String username; private String password; private String serverURI; private int keepAliveInterval; private int connectionTimeout; } 1 2 3 4 5 6 7 8 9 10 11 12 13 14 public class EmqxConstants { /** 充电宝插入，柜机发布Topic消息， 服务器监听消息 */ public final static String TOPIC_POWERBANK_CONNECTED = &#34;/sys/powerBank/connected&#34;; /** 用户扫码，服务器发布Topic消息 柜机监听消息 */ public final static String TOPIC_SCAN_SUBMIT = &#34;/sys/scan/submit/%s&#34;; /** 充电宝弹出，柜机发布Topic消息，服务器监听消息 */ public final static String TOPIC_POWERBANK_UNLOCK = &#34;/sys/powerBank/unlock&#34;; /** 柜机属性上报，服务器监听消息 */ public final static String TOPIC_PROPERTY_POST = &#34;/sys/property/post&#34;; } 这里相关类的UML类图 ">
+<meta name="twitter:description" content="先将配置类和常量类创建好 1 2 3 4 5 6 7 8 9 10 11 12 13 @Data @Component @ConfigurationProperties(prefix = &#34;emqx.client&#34;) public class EmqxProperties { private String clientId; private String username; private String password; private String serverURI; private int keepAliveInterval; private int connectionTimeout; } 1 2 3 4 5 6 7 8 9 10 11 12 13 14 public class EmqxConstants { /** 充电宝插入，柜机发布Topic消息， 服务器监听消息 */ public final static String TOPIC_POWERBANK_CONNECTED = &#34;/sys/powerBank/connected&#34;; /** 用户扫码，服务器发布Topic消息 柜机监听消息 */ public final static String TOPIC_SCAN_SUBMIT = &#34;/sys/scan/submit/%s&#34;; /** 充电宝弹出，柜机发布Topic消息，服务器监听消息 */ public final static String TOPIC_POWERBANK_UNLOCK = &#34;/sys/powerBank/unlock&#34;; /** 柜机属性上报，服务器监听消息 */ public final static String TOPIC_PROPERTY_POST = &#34;/sys/property/post&#34;; } 这里相关类的UML类图 "><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zell.zone/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/1.jpg' />
     <link rel="icon" href="https://zell.zone/favicon.ico">
 
     </head>
@@ -389,8 +390,20 @@ unicode: "ece7"
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/">
+                <img src="/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/1_hu_6fc7c82e16d503e1.jpg"
+                        srcset="/p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/1_hu_6fc7c82e16d503e1.jpg 800w, /p/%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0%E8%BF%9E%E6%8E%A5emqx/img/1_hu_ae978122457f91ba.jpg 1600w"
+                        width="800" 
+                        height="448" 
+                        loading="lazy"
+                        alt="Featured image of post 使用工厂模式实现连接emqx" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     

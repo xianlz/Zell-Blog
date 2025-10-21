@@ -13,7 +13,7 @@
         <pubDate>Sat, 20 Sep 2025 00:00:05 +0000</pubDate>
         
         <guid>https://zell.zone/p/mybatis-plus%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</guid>
-        <description>&lt;h2 id=&#34;mp-插件处理&#34;&gt;mp 插件处理
+        <description>&lt;img src="https://zell.zone/p/mybatis-plus%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/img/1.jpg" alt="Featured image of post Mybatis Plus的自定义插件" /&gt;&lt;h2 id=&#34;mp-插件处理&#34;&gt;mp 插件处理
 &lt;/h2&gt;&lt;p&gt;首先自定义一个接口&lt;code&gt;QueryInterceptor&lt;/code&gt;：用于自定义过滤器的规范&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
