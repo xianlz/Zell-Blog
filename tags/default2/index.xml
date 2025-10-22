@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Default2 on Zell Blog</title>
+        <link>https://zell.zone/tags/default2/</link>
+        <description>Recent content in Default2 on Zell Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Zell</copyright>
+        <lastBuildDate>Wed, 22 Oct 2025 21:58:09 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/default2/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>业务开发问题 代码篇(索引)</title>
+        <link>https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/</link>
+        <pubDate>Wed, 22 Oct 2025 21:58:09 +0800</pubDate>
+        
+        <guid>https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/</guid>
+        <description>&lt;img src="https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/1.jpg" alt="Featured image of post 业务开发问题 代码篇(索引)" /&gt;&lt;h3 id=&#34;innodb-是如何存储数据的&#34;&gt;InnoDB 是如何存储数据的？
+&lt;/h3&gt;&lt;p&gt;MySQL 把数据存储和查询操作抽象成了存储引擎，不同的存储引擎，对数据的存储和读取 方式各不相同。MySQL 支持多种存储引擎，并且可以以表为粒度设置存储引擎。因为支持 事务，我们最常使用的是 InnoDB。为方便理解下面的内容，我先和你简单说说 InnoDB 是 如何存储数据的。 虽然数据保存在磁盘中，但其处理是在内存中进行的。为了减少磁盘随机读取次数， InnoDB 采用页而不是行的粒度来保存数据，即数据被分成若干页，以页为单位保存在磁盘 中。InnoDB 的页大小，一般是 16KB。 各个数据页组成一个双向链表，每个数据页中的记录按照主键顺序组成单向链表；每一个数 据页中有一个页目录，方便按照主键查询记录。数据页的结构如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/2.png&#34;
+	width=&#34;680&#34;
+	height=&#34;474&#34;
+	srcset=&#34;https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/2_hu_cbb2f843920f255b.png 480w, https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/2_hu_b9cba94408da89d.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;143&#34;
+		data-flex-basis=&#34;344px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;页目录通过槽把记录分成不同的小组，每个小组有若干条记录。如图所示，记录中最前面的 小方块中的数字，代表的是当前分组的记录条数，最小和最大的槽指向 2 个特殊的伪记 录。有了槽之后，我们按照主键搜索页中记录时，就可以采用二分法快速搜索，无需从最小 记录开始遍历整个页中的记录链表。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;举一个例子，如果要搜索主键（PK）=15 的记录：&lt;/p&gt;
+&lt;p&gt;先二分得出槽中间位是 (0+6)/2=3，看到其指向的记录是 12＜15，所以需要从 #3 槽后继续搜索记录；&lt;/p&gt;
+&lt;p&gt;再使用二分搜索出 #3 槽和 #6 槽的中间位是 (3+6)/2=4.5 取整 4，#4 槽对应的记录是 16＞15，所以记录一定在 #3 槽中；&lt;/p&gt;
+&lt;p&gt;再从 #3 槽指向的 12 号记录开始向下搜索 3 次，定位到 15 号记录。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;聚簇索引和二级索引&#34;&gt;聚簇索引和二级索引
+&lt;/h3&gt;&lt;p&gt;这里先讲一下 B+ 树，了解数据结构的兄弟肯定知道数是什么样的，无非就是父节点和子树节点组成的&lt;/p&gt;
+&lt;h4 id=&#34;b数的特点&#34;&gt;B+数的特点
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;最底层的节点叫叶子节点，只有叶子节点储存数据&lt;/li&gt;
+&lt;li&gt;非叶子节点不存储数据，仅存放数据项，用作索引&lt;/li&gt;
+&lt;li&gt;非叶子节点分层，每一层的数据项范围不一样，便于分级查找&lt;/li&gt;
+&lt;li&gt;每一层所有节点按照索引键大小排序，构成一个双向链表，加速范围查找。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;下面是B+数的结构：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/3.png&#34;
+	width=&#34;685&#34;
+	height=&#34;429&#34;
+	srcset=&#34;https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/3_hu_93c2df38ce5ff951.png 480w, https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/3_hu_dfed285cb39492cd.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;159&#34;
+		data-flex-basis=&#34;383px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;因此，InnoDB 使用 B+ 树，既可以保存实际数据，也可以加速数据搜索，这就是&lt;strong&gt;聚簇索引&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;由于数据在物理上只会保存一份，所以包含实际数据的聚簇索引只能有一个。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;InnoDB 会自动使用主键（唯一定义一条记录的单个或多个字段）作为聚簇索引的索引键 （如果没有主键，就选择第一个不包含 NULL 值的唯一列）。上图方框中的数字代表了索引键的值，对聚簇索引而言一般就是主键。&lt;/p&gt;
+&lt;p&gt;由于聚簇索引只能有一个，所以当我们在优化其他的字段查询效率时就诞生了&lt;strong&gt;二级索引（也叫非聚簇索引、辅助索引）&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;二级索引的数据结构也是b数但是它的叶子节点不存储数据&#34;&gt;二级索引的数据结构也是B+数，但是它的叶子节点不存储数据
+&lt;/h3&gt;&lt;p&gt;二级索引的叶子节点存储的是主键，所以当走完索引得到数据主键时还需要回表查询数据字段。&lt;/p&gt;
+&lt;p&gt;如下图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/4.png&#34;
+	width=&#34;729&#34;
+	height=&#34;517&#34;
+	srcset=&#34;https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/4_hu_b6feb968df788ac9.png 480w, https://zell.zone/p/%E4%B8%9A%E5%8A%A1%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98-%E4%BB%A3%E7%A0%81%E7%AF%87%E7%B4%A2%E5%BC%95/img/4_hu_b42a728497cbe008.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;338px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;举个例子，有个索引是针对用户名字段创建的，索引记录上面方块中的字母是用户名，按照顺序形成链表。&lt;/p&gt;
+&lt;p&gt;如果我们要搜索用户名为 b 的数据，经过两次定位可以得出在 #5 数据页 中，&lt;/p&gt;
+&lt;p&gt;查出所有的主键为 7 和 6，再拿着这两个主键继续使用聚簇索引进行两次回表得到完 整数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;额外创建二级索引的代价&#34;&gt;额外创建二级索引的代价
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;创建二级索引的代价，主要表现在维护代价、空间代价和回表代价三个方面。&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;维护代价。创建 N 个二级索引，就需要再创建 N 棵 B+ 树，新增数据时不仅要修改 聚簇索引，还需要修改这 N 个二级索引。&lt;/li&gt;
+&lt;li&gt;空间代价。虽然二级索引不保存原始数据，但要保存索引列的数据，所以会占用更多 的空间。有时会出现索引空间比数据空间还大的情况&lt;/li&gt;
+&lt;li&gt;回表的代价。二级索引不保存原始数据，通过索引找到主键后需要再查询聚簇索引， 才能得到我们要的数据。·&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5 id=&#34;如果我们需要查询的是索引列索引或联合索引能覆盖的数据那么查询索引本身已-经覆盖了需要的数据不再需要回表查询因此这种情况也叫作索引覆盖&#34;&gt;如果我们需要查询的是索引列索引或联合索引能覆盖的数据，那么查询索引本身已 经“覆盖”了需要的数据，不再需要回表查询。因此，这种情况也叫作索引覆盖。
+&lt;/h5&gt;&lt;h5 id=&#34;技巧&#34;&gt;技巧
+&lt;/h5&gt;&lt;blockquote&gt;
+&lt;p&gt;第一，无需一开始就建立索引，可以等到业务场景明确后，或者是数据量超过 1 万、查询变慢后，再针对需要查询、排序或分组的字段创建索引。创建索引后可以使用 EXPLAIN 命 令，确认查询是否可以使用索引。我会在下一小节展开说明。&lt;/p&gt;
+&lt;p&gt;第二，尽量索引轻量级的字段，比如能索引 int 字段就不要索引 varchar 字段。索引字段也 可以是部分前缀，在创建的时候指定字段索引长度。针对长文本的搜索，可以考虑使用 Elasticsearch 等专门用于文本搜索的索引数据库。&lt;/p&gt;
+&lt;p&gt;第三，尽量不要在 SQL 语句中 SELECT *，而是 SELECT 必要的字段，甚至可以考虑使用联 合索引来包含我们要搜索的字段，既能实现索引加速，又可以避免回表的开销。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;不是所有针对索引列的查询都能用上索引&#34;&gt;不是所有针对索引列的查询都能用上索引
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;索引只能匹配列前缀。比如name字段有索引，当查询条件是 where name = &amp;lsquo;123&amp;rsquo; 或者 where name like &amp;lsquo;123%&amp;lsquo;时都能走索引，但是如果是where name like ‘%123&amp;rsquo; , 则不会走索引。&lt;/li&gt;
+&lt;li&gt;条件涉及函数操作无法走索引。很简单，就是你索引列上使用了函数 比如 length(name) &amp;gt; 7 这种也不会走索引、&lt;/li&gt;
+&lt;li&gt;联合索引只能匹配左边的列。原因也很简单，在联合索引的情况下，数据是按照索引第一列排序，第一列数据相同时才会 按照第二列排序。需要注意的是，因为有查询优化器，所以联合索引的第一列作为WHERE子句的第几个条件并不是很重要。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;数据库基于成本决定是否走索引&#34;&gt;数据库基于成本决定是否走索引
+&lt;/h3&gt;&lt;p&gt;通过前面的案例，我们可以看到，查询数据可以直接在聚簇索引上进行全表扫描，也可以走二级索引扫描后到聚簇索引回表。看到这里，你不禁要问了，MySQL 到底是怎么确定走哪种方案的呢。MySQL 在查询数据之前，会先对可能的方案做执行计划，然后依据成本决定走哪个 执行计划。&lt;/p&gt;
+&lt;p&gt;这里的成本，包括 IO 成本和 CPU 成本：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;IO 成本，是从磁盘把数据加载到内存的成本。默认情况下，读取数据页的 IO 成本常数 是 1（也就是读取 1 个页成本是 1）。&lt;/p&gt;
+&lt;p&gt;CPU 成本，是检测数据是否满足条件和排序等 CPU 操作的成本。默认情况下，检测记 录的成本是 0.2。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
