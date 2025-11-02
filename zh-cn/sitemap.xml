@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://zell.zone/tags/ai/</loc>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
+  </url><url>
     <loc>https://zell.zone/categories/</loc>
-    <lastmod>2025-10-22T21:58:09+08:00</lastmod>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -20,14 +23,20 @@
                 href="https://zell.zone/categories/"
                 />
   </url><url>
-    <loc>https://zell.zone/tags/mysql/</loc>
-    <lastmod>2025-10-22T21:58:09+08:00</lastmod>
-  </url><url>
     <loc>https://zell.zone/post/</loc>
-    <lastmod>2025-10-22T21:58:09+08:00</lastmod>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/tags/rag/</loc>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/categories/spring-ai/</loc>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/</loc>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/tags/</loc>
-    <lastmod>2025-10-22T21:58:09+08:00</lastmod>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -45,7 +54,7 @@
                 />
   </url><url>
     <loc>https://zell.zone/</loc>
-    <lastmod>2025-10-22T21:58:09+08:00</lastmod>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -61,6 +70,12 @@
                 hreflang="zh-cn"
                 href="https://zell.zone/"
                 />
+  </url><url>
+    <loc>https://zell.zone/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2025-11-02T10:57:56+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/tags/mysql/</loc>
+    <lastmod>2025-10-22T21:58:09+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2025-10-22T21:58:09+08:00</lastmod>
