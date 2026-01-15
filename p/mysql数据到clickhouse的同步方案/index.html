@@ -18,10 +18,10 @@
 <meta property='og:description' content="项目地址：https://gitee.com/zhongxianliang/mysql2ck\n项目结构\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 ├─src │ ├─main │ │ ├─java │ │ │ └─com │ │ │ └─example │ │ │ └─mysql2ck │ │ │ │ Mysql2ckApplication.java │ │ │ │ │ │ │ ├─buffer │ │ │ │ BatchBuffer.java │ │ │ │ BatchBufferManager.java │ │ │ │ FlushStrategy.java │ │ │ │ │ │ │ ├─common │ │ │ │ Constants.java │ │ │ │ Exception.java │ │ │ │ │ │ │ ├─config │ │ │ │ ClickHouseConfig.java │ │ │ │ KafkaConfig.java │ │ │ │ ThreadPoolConfig.java │ │ │ │ │ │ │ ├─consumer │ │ │ │ KafkaBinlogConsumer.java │ │ │ │ │ │ │ ├─manager │ │ │ │ RetryManager.java │ │ │ │ │ │ │ ├─model │ │ │ │ MaxwellMessage.java │ │ │ │ SyncConfig.java │ │ │ │ TableFilter.java │ │ │ │ │ │ │ ├─processor │ │ │ │ MessageProcessor.java │ │ │ │ │ │ │ └─writer │ │ │ ClickHouseWriter.java │ │ │ SQLBuilder.java │ │ │ │ │ └─resources │ │ application.yml 主要的流程是 MySQL→ Canal→Kafka→本系统→ClickHouse\n">
 <meta property='og:url' content='https://zell.zone/p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/'>
 <meta property='og:site_name' content='Zell Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='BinLog' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ClickHouse' /><meta property='article:published_time' content='2026-01-15T10:22:49&#43;08:00'/><meta property='article:modified_time' content='2026-01-15T10:22:49&#43;08:00'/><meta property='og:image' content='https://zell.zone/img/1.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='BinLog' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ClickHouse' /><meta property='article:published_time' content='2026-01-15T10:22:49&#43;08:00'/><meta property='article:modified_time' content='2026-01-15T10:22:49&#43;08:00'/><meta property='og:image' content='https://zell.zone/p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/img/1.png' />
 <meta name="twitter:title" content="Mysql数据到ClickHouse的同步方案">
 <meta name="twitter:description" content="项目地址：https://gitee.com/zhongxianliang/mysql2ck\n项目结构\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 ├─src │ ├─main │ │ ├─java │ │ │ └─com │ │ │ └─example │ │ │ └─mysql2ck │ │ │ │ Mysql2ckApplication.java │ │ │ │ │ │ │ ├─buffer │ │ │ │ BatchBuffer.java │ │ │ │ BatchBufferManager.java │ │ │ │ FlushStrategy.java │ │ │ │ │ │ │ ├─common │ │ │ │ Constants.java │ │ │ │ Exception.java │ │ │ │ │ │ │ ├─config │ │ │ │ ClickHouseConfig.java │ │ │ │ KafkaConfig.java │ │ │ │ ThreadPoolConfig.java │ │ │ │ │ │ │ ├─consumer │ │ │ │ KafkaBinlogConsumer.java │ │ │ │ │ │ │ ├─manager │ │ │ │ RetryManager.java │ │ │ │ │ │ │ ├─model │ │ │ │ MaxwellMessage.java │ │ │ │ SyncConfig.java │ │ │ │ TableFilter.java │ │ │ │ │ │ │ ├─processor │ │ │ │ MessageProcessor.java │ │ │ │ │ │ │ └─writer │ │ │ ClickHouseWriter.java │ │ │ SQLBuilder.java │ │ │ │ │ └─resources │ │ application.yml 主要的流程是 MySQL→ Canal→Kafka→本系统→ClickHouse\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://zell.zone/img/1.jpg' />
+    <meta name="twitter:image" content='https://zell.zone/p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/img/1.png' />
     <link rel="icon" href="https://zell.zone/favicon.ico">
 
     </head>
@@ -390,8 +390,12 @@ unicode: "ece7"
     <header class="article-header">
         <div class="article-image">
             <a href="/p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/">
-                
-                    <img src="/img/1.jpg" loading="lazy" alt="Featured image of post Mysql数据到ClickHouse的同步方案" />
+                <img src="/p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/img/1_hu_f085e1088fb097f5.png"
+                        srcset="/p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/img/1_hu_f085e1088fb097f5.png 800w, /p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/img/1_hu_392f184b01d469b3.png 1600w"
+                        width="800" 
+                        height="227" 
+                        loading="lazy"
+                        alt="Featured image of post Mysql数据到ClickHouse的同步方案" />
                 
             </a>
         </div>
