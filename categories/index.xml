@@ -7,7 +7,15 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Sun, 02 Nov 2025 10:57:56 +0800</lastBuildDate><atom:link href="https://zell.zone/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 15 Jan 2026 10:22:49 +0800</lastBuildDate><atom:link href="https://zell.zone/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>数据同步</title>
+        <link>https://zell.zone/categories/%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/</link>
+        <pubDate>Thu, 15 Jan 2026 10:22:49 +0800</pubDate>
+        
+        <guid>https://zell.zone/categories/%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Spring AI</title>
         <link>https://zell.zone/categories/spring-ai/</link>
         <pubDate>Sun, 02 Nov 2025 10:57:56 +0800</pubDate>

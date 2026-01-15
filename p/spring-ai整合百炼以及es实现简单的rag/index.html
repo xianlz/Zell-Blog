@@ -2,7 +2,7 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本次整合使用技术\n以ElasticSearch8.+作为向量数据库。 使用Spring AI 整合阿里百炼，实现大模型对话 一、环境准备 1.docker-compose安装ElasticSearch8.+ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 version: &#34;3.1&#34; volumes: data: config: plugin: networks: es: services: elasticsearch: image: elasticsearch container_name: elasticsearch # 容器名保持为 elasticsearch ports: - 9200:9200 - 9300:9300 networks: - es environment: - discovery.type=single-node - ES_JAVA_OPTS=-Xms512m -Xmx512m - xpack.security.enabled=true - xpack.security.autoconfiguration.enabled=true # - xpack.security.enrollment.enabled=true # 移除 NODE_OPTIONS（OpenSSL 警告不影响功能，无需强制关闭） # 注意：ES 环境变量中没有 ELASTICSEARCH_USERNAME/PASSWORD，需手动创建该用户 volumes: - /usr/volume/ElasticSearch/data:/usr/share/elasticsearch/data - /usr/volume/ElasticSearch/config:/usr/share/elasticsearch/config - /usr/volume/ElasticSearch/plugins:/usr/share/elasticsearch/plugins user: &#34;1000:1000&#34; kibana: image: kibana container_name: kibana ports: - 5601:5601 networks: - es environment: - SERVER_HOST=0.0.0.0 # 仅保留此环境变量，避免与配置文件冲突 # 移除 ELASTICSEARCH_HOSTS 环境变量（由 kibana.yml 统一配置） # 彻底删除服务账户令牌相关配置（避免混淆） volumes: - /usr/volume/ElasticSearch/kibana.yml:/usr/share/kibana/config/kibana.yml depends_on: - elasticsearch # 依赖正确的 ES 服务名 # ------------------------------------ kibana.yml 文件内容-------------------------------------------------------------- server.host: &#34;0.0.0.0&#34; # 明确允许外部访问，替换 &#34;0&#34; 避免歧义 server.shutdownTimeout: &#34;5s&#34; # 与 ES 容器名保持一致（elasticsearch） elasticsearch.hosts: [&#34;http://elasticsearch:9200&#34;] monitoring.ui.container.elasticsearch.enabled: true # 仅保留用户名密码认证（与 ES 配置匹配） elasticsearch.username: &#34;kibana_user&#34; elasticsearch.password: &#34;xxxx&#34; 这里使用的ElasticSearch版本必须是8.+ 的，只有8.+才支持向量数据库\n">
-<title>Spring AI整合百联以及ES实现简单的RAG</title>
+<title>Spring AI整合百炼以及ES实现简单的RAG</title>
 
 
 
@@ -12,16 +12,16 @@
 <script src="/music-player/Meting.min.js"></script>
 
 
-<link rel='canonical' href='https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/'>
+<link rel='canonical' href='https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/'>
 
-<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="Spring AI整合百联以及ES实现简单的RAG">
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="Spring AI整合百炼以及ES实现简单的RAG">
 <meta property='og:description' content="本次整合使用技术\n以ElasticSearch8.+作为向量数据库。 使用Spring AI 整合阿里百炼，实现大模型对话 一、环境准备 1.docker-compose安装ElasticSearch8.+ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 version: &#34;3.1&#34; volumes: data: config: plugin: networks: es: services: elasticsearch: image: elasticsearch container_name: elasticsearch # 容器名保持为 elasticsearch ports: - 9200:9200 - 9300:9300 networks: - es environment: - discovery.type=single-node - ES_JAVA_OPTS=-Xms512m -Xmx512m - xpack.security.enabled=true - xpack.security.autoconfiguration.enabled=true # - xpack.security.enrollment.enabled=true # 移除 NODE_OPTIONS（OpenSSL 警告不影响功能，无需强制关闭） # 注意：ES 环境变量中没有 ELASTICSEARCH_USERNAME/PASSWORD，需手动创建该用户 volumes: - /usr/volume/ElasticSearch/data:/usr/share/elasticsearch/data - /usr/volume/ElasticSearch/config:/usr/share/elasticsearch/config - /usr/volume/ElasticSearch/plugins:/usr/share/elasticsearch/plugins user: &#34;1000:1000&#34; kibana: image: kibana container_name: kibana ports: - 5601:5601 networks: - es environment: - SERVER_HOST=0.0.0.0 # 仅保留此环境变量，避免与配置文件冲突 # 移除 ELASTICSEARCH_HOSTS 环境变量（由 kibana.yml 统一配置） # 彻底删除服务账户令牌相关配置（避免混淆） volumes: - /usr/volume/ElasticSearch/kibana.yml:/usr/share/kibana/config/kibana.yml depends_on: - elasticsearch # 依赖正确的 ES 服务名 # ------------------------------------ kibana.yml 文件内容-------------------------------------------------------------- server.host: &#34;0.0.0.0&#34; # 明确允许外部访问，替换 &#34;0&#34; 避免歧义 server.shutdownTimeout: &#34;5s&#34; # 与 ES 容器名保持一致（elasticsearch） elasticsearch.hosts: [&#34;http://elasticsearch:9200&#34;] monitoring.ui.container.elasticsearch.enabled: true # 仅保留用户名密码认证（与 ES 配置匹配） elasticsearch.username: &#34;kibana_user&#34; elasticsearch.password: &#34;xxxx&#34; 这里使用的ElasticSearch版本必须是8.+ 的，只有8.+才支持向量数据库\n">
-<meta property='og:url' content='https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/'>
+<meta property='og:url' content='https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/'>
 <meta property='og:site_name' content='Zell Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='大模型' /><meta property='article:tag' content='RAG' /><meta property='article:published_time' content='2025-11-02T10:57:56&#43;08:00'/><meta property='article:modified_time' content='2025-11-02T10:57:56&#43;08:00'/><meta property='og:image' content='https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1.jpg' />
-<meta name="twitter:title" content="Spring AI整合百联以及ES实现简单的RAG">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='大模型' /><meta property='article:tag' content='RAG' /><meta property='article:published_time' content='2025-11-02T10:57:56&#43;08:00'/><meta property='article:modified_time' content='2025-11-02T10:57:56&#43;08:00'/><meta property='og:image' content='https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1.jpg' />
+<meta name="twitter:title" content="Spring AI整合百炼以及ES实现简单的RAG">
 <meta name="twitter:description" content="本次整合使用技术\n以ElasticSearch8.+作为向量数据库。 使用Spring AI 整合阿里百炼，实现大模型对话 一、环境准备 1.docker-compose安装ElasticSearch8.+ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 version: &#34;3.1&#34; volumes: data: config: plugin: networks: es: services: elasticsearch: image: elasticsearch container_name: elasticsearch # 容器名保持为 elasticsearch ports: - 9200:9200 - 9300:9300 networks: - es environment: - discovery.type=single-node - ES_JAVA_OPTS=-Xms512m -Xmx512m - xpack.security.enabled=true - xpack.security.autoconfiguration.enabled=true # - xpack.security.enrollment.enabled=true # 移除 NODE_OPTIONS（OpenSSL 警告不影响功能，无需强制关闭） # 注意：ES 环境变量中没有 ELASTICSEARCH_USERNAME/PASSWORD，需手动创建该用户 volumes: - /usr/volume/ElasticSearch/data:/usr/share/elasticsearch/data - /usr/volume/ElasticSearch/config:/usr/share/elasticsearch/config - /usr/volume/ElasticSearch/plugins:/usr/share/elasticsearch/plugins user: &#34;1000:1000&#34; kibana: image: kibana container_name: kibana ports: - 5601:5601 networks: - es environment: - SERVER_HOST=0.0.0.0 # 仅保留此环境变量，避免与配置文件冲突 # 移除 ELASTICSEARCH_HOSTS 环境变量（由 kibana.yml 统一配置） # 彻底删除服务账户令牌相关配置（避免混淆） volumes: - /usr/volume/ElasticSearch/kibana.yml:/usr/share/kibana/config/kibana.yml depends_on: - elasticsearch # 依赖正确的 ES 服务名 # ------------------------------------ kibana.yml 文件内容-------------------------------------------------------------- server.host: &#34;0.0.0.0&#34; # 明确允许外部访问，替换 &#34;0&#34; 避免歧义 server.shutdownTimeout: &#34;5s&#34; # 与 ES 容器名保持一致（elasticsearch） elasticsearch.hosts: [&#34;http://elasticsearch:9200&#34;] monitoring.ui.container.elasticsearch.enabled: true # 仅保留用户名密码认证（与 ES 配置匹配） elasticsearch.username: &#34;kibana_user&#34; elasticsearch.password: &#34;xxxx&#34; 这里使用的ElasticSearch版本必须是8.+ 的，只有8.+才支持向量数据库\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1.jpg' />
+    <meta name="twitter:image" content='https://zell.zone/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1.jpg' />
     <link rel="icon" href="https://zell.zone/favicon.ico">
 
     </head>
@@ -67,7 +67,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_d703632efab1d59.png" width="300"
+                        <img src="/img/avatar_hu_931a78b9ce29985d.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -396,13 +396,13 @@ unicode: "ece7"
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/">
-                <img src="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1_hu_abefb002ba9279f1.jpg"
-                        srcset="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1_hu_abefb002ba9279f1.jpg 800w, /p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1_hu_c0cfccc978bbba3b.jpg 1600w"
+            <a href="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/">
+                <img src="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1_hu_e51123f84ba9fe43.jpg"
+                        srcset="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1_hu_e51123f84ba9fe43.jpg 800w, /p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/1_hu_25af5b00260ecf11.jpg 1600w"
                         width="800" 
                         height="533" 
                         loading="lazy"
-                        alt="Featured image of post Spring AI整合百联以及ES实现简单的RAG" />
+                        alt="Featured image of post Spring AI整合百炼以及ES实现简单的RAG" />
                 
             </a>
         </div>
@@ -421,7 +421,7 @@ unicode: "ece7"
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/">Spring AI整合百联以及ES实现简单的RAG</a>
+            <a href="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/">Spring AI整合百炼以及ES实现简单的RAG</a>
         </h2>
     
         
@@ -567,15 +567,15 @@ unicode: "ece7"
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.1&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">volumes</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">config</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">plugin</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">networks</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">es</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">elasticsearch</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">elasticsearch </span><span class="w"> </span><span class="c"># 容器名保持为 elasticsearch</span><span class="w">
@@ -614,15 +614,15 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">elasticsearch </span><span class="w"> </span><span class="c"># 依赖正确的 ES 服务名</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># ------------------------------------ kibana.yml 文件内容--------------------------------------------------------------</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">server.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">  </span><span class="c"># 明确允许外部访问，替换 &#34;0&#34; 避免歧义</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">server.shutdownTimeout</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5s&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 与 ES 容器名保持一致（elasticsearch）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">elasticsearch.hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;http://elasticsearch:9200&#34;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">monitoring.ui.container.elasticsearch.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 仅保留用户名密码认证（与 ES 配置匹配）</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">elasticsearch.username</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;kibana_user&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">elasticsearch.password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxxx&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># ------------------------------------ kibana.yml 文件内容--------------------------------------------------------------</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">server.host</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0&#34;</span><span class="w">  </span><span class="c"># 明确允许外部访问，替换 &#34;0&#34; 避免歧义</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">server.shutdownTimeout</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5s&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 与 ES 容器名保持一致（elasticsearch）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">elasticsearch.hosts</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;http://elasticsearch:9200&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">monitoring.ui.container.elasticsearch.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 仅保留用户名密码认证（与 ES 配置匹配）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">elasticsearch.username</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;kibana_user&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">elasticsearch.password</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xxxx&#34;</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里使用的ElasticSearch版本必须是8.+ 的，只有8.+才支持向量数据库</p>
@@ -891,9 +891,9 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@AllArgsConstructor</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">VectorIndexManager</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@AllArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">VectorIndexManager</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ElasticsearchClient</span><span class="w"> </span><span class="n">client</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">INDEX_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;vector-documents&#34;</span><span class="p">;</span><span class="w">
@@ -954,7 +954,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">client</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">u</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="na">index</span><span class="p">(</span><span class="n">INDEX_NAME</span><span class="p">).</span><span class="na">id</span><span class="p">(</span><span class="n">id</span><span class="p">).</span><span class="na">doc</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span><span class="w"> </span><span class="n">VectorDocument</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -971,14 +971,14 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Data</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">VectorDocument</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">VectorDocument</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">title</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">content</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">float</span><span class="o">[]</span><span class="w"> </span><span class="n">vector</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="2操作向量插入搜索">2.操作向量（插入、搜索）
@@ -1126,9 +1126,9 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@AllArgsConstructor</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">VectorService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@AllArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">VectorService</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ElasticsearchClient</span><span class="w"> </span><span class="n">client</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">INDEX_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;vector-documents&#34;</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -1263,7 +1263,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="3上传文档解析文档成向量存入es">3.上传文档，解析文档成向量，存入ES
@@ -1327,9 +1327,9 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@AllArgsConstructor</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FileUploadService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@AllArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FileUploadService</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">VectorService</span><span class="w"> </span><span class="n">vectorService</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">EmbeddingModel</span><span class="w"> </span><span class="n">embeddingModel</span><span class="p">;</span><span class="w">
@@ -1380,7 +1380,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&#34;文件导入知识库失败&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1467,7 +1467,7 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DocumentParser</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DocumentParser</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     *  根据文件后缀名选择解析逻辑
@@ -1544,7 +1544,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1575,7 +1575,7 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">FileUploadService</span><span class="w"> </span><span class="n">fileUploadService</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * 用户上传文件到知识库
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * @param file 上传的文件
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * @param userId 用户ID（从登录态获取，此处简化为参数）
@@ -1684,9 +1684,9 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@AllArgsConstructor</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">RAGService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@AllArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">RAGService</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">VectorService</span><span class="w"> </span><span class="n">vectorService</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -1761,7 +1761,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="n">userQuestion</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -1781,10 +1781,10 @@ unicode: "ece7"
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="三效果展示">三、效果展示
-</h3><p><img src="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/4.png"
+</h3><p><img src="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/4.png"
 	width="1280"
 	height="878"
-	srcset="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/4_hu_b0d45a05e4245296.png 480w, /p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/4_hu_ec23b8bbf7e73244.png 1024w"
+	srcset="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/4_hu_2e12b58dbe8681f5.png 480w, /p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/4_hu_baf67d9a2ad140b9.png 1024w"
 	loading="lazy"
 	
 	
@@ -1794,10 +1794,10 @@ unicode: "ece7"
 	
 ></p>
 <p>上传我就不调用了，我已经上传了两个文档了</p>
-<p><img src="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/5.png"
+<p><img src="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/5.png"
 	width="1280"
 	height="878"
-	srcset="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/5_hu_501215ead08c4e25.png 480w, /p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/5_hu_e31b6b2aa2137c63.png 1024w"
+	srcset="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/5_hu_e783c9eb5485fff9.png 480w, /p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/5_hu_202579c2674b9c53.png 1024w"
 	loading="lazy"
 	
 	
@@ -1806,10 +1806,10 @@ unicode: "ece7"
 		data-flex-basis="349px"
 	
 ></p>
-<p><img src="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/3.png"
+<p><img src="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/3.png"
 	width="1280"
 	height="878"
-	srcset="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/3_hu_da465a0bfa149323.png 480w, /p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E8%81%94%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/3_hu_eb656eb1c1033195.png 1024w"
+	srcset="/p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/3_hu_9f989d8dd64af314.png 480w, /p/spring-ai%E6%95%B4%E5%90%88%E7%99%BE%E7%82%BC%E4%BB%A5%E5%8F%8Aes%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84rag/img/3_hu_4cf6d77a1b9f2422.png 1024w"
 	loading="lazy"
 	
 	
@@ -1880,7 +1880,9 @@ unicode: "ece7"
     <section class="copyright">
         &copy; 
         
-        2025 Zell
+            2025 - 
+        
+        2026 Zell
     </section>
     
     <section class="powerby">
@@ -1987,8 +1989,18 @@ unicode: "ece7"
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
-        <p>发布了 16 篇文章 | 共 31507  字</p >
+        <p>发布了 17 篇文章 | 共 33060  字</p >
     </section>
 </footer>
 

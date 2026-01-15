@@ -67,7 +67,7 @@
                     
                     
                         
-                        <img src="/img/avatar_hu_d703632efab1d59.png" width="300"
+                        <img src="/img/avatar_hu_931a78b9ce29985d.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -391,8 +391,8 @@ unicode: "ece7"
     <header class="article-header">
         <div class="article-image">
             <a href="/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/">
-                <img src="/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/img/1_hu_b4d611471df66d7c.jpg"
-                        srcset="/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/img/1_hu_b4d611471df66d7c.jpg 800w, /p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/img/1_hu_a371694a104e03d3.jpg 1600w"
+                <img src="/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/img/1_hu_d1beb5562edbd805.jpg"
+                        srcset="/p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/img/1_hu_d1beb5562edbd805.jpg 800w, /p/%E7%BB%99feign%E6%8E%A5%E5%8F%A3%E8%AE%BE%E7%BD%AE%E6%8B%A6%E6%88%AA%E5%99%A8/img/1_hu_7a4761c51df1a572.jpg 1600w"
                         width="800" 
                         height="448" 
                         loading="lazy"
@@ -513,8 +513,8 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Slf4j</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">InternalRequestInterceptor</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">RequestInterceptor</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">InternalRequestInterceptor</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">RequestInterceptor</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Value</span><span class="p">(</span><span class="s">&#34;${spring.application.name:unknown}&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">serviceName</span><span class="p">;</span><span class="w">
@@ -528,7 +528,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">template</span><span class="p">.</span><span class="na">header</span><span class="p">(</span><span class="s">&#34;X-Request-ID&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">());</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">template</span><span class="p">.</span><span class="na">header</span><span class="p">(</span><span class="s">&#34;X-Timestamp&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">()));</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="步骤2确保-spring-配置正确">步骤2：确保 Spring 配置正确
@@ -544,12 +544,12 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@EnableFeignClients</span><span class="w"> </span><span class="c1">// 这个注解必须要有！</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OrderServiceApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@EnableFeignClients</span><span class="w"> </span><span class="c1">// 这个注解必须要有！</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OrderServiceApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">OrderServiceApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="步骤3验证配置">步骤3：验证配置
@@ -579,7 +579,7 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootTest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FeignInterceptorTest</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FeignInterceptorTest</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">UserServiceClient</span><span class="w"> </span><span class="n">userServiceClient</span><span class="p">;</span><span class="w">
@@ -597,7 +597,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">assertThat</span><span class="p">(</span><span class="n">interceptors</span><span class="p">.</span><span class="na">values</span><span class="p">())</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">anyMatch</span><span class="p">(</span><span class="n">interceptor</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">interceptor</span><span class="w"> </span><span class="k">instanceof</span><span class="w"> </span><span class="n">InternalRequestInterceptor</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="高级配置---使用自定义-feign-builder">高级配置 - 使用自定义 Feign Builder
@@ -620,7 +620,7 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CustomFeignConfig</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CustomFeignConfig</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">RequestInterceptor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">requestInterceptors</span><span class="p">;</span><span class="w">
@@ -632,7 +632,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">logger</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Slf4jLogger</span><span class="p">())</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">logLevel</span><span class="p">(</span><span class="n">Logger</span><span class="p">.</span><span class="na">Level</span><span class="p">.</span><span class="na">FULL</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -720,7 +720,7 @@ unicode: "ece7"
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DebugInterceptor</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">RequestInterceptor</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DebugInterceptor</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">RequestInterceptor</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PostConstruct</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -732,7 +732,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Interceptor applied to: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">template</span><span class="p">.</span><span class="na">url</span><span class="p">());</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Headers: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">template</span><span class="p">.</span><span class="na">headers</span><span class="p">());</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div>
@@ -797,7 +797,9 @@ unicode: "ece7"
     <section class="copyright">
         &copy; 
         
-        2025 Zell
+            2025 - 
+        
+        2026 Zell
     </section>
     
     <section class="powerby">
@@ -904,8 +906,18 @@ unicode: "ece7"
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
-        <p>发布了 16 篇文章 | 共 31507  字</p >
+        <p>发布了 17 篇文章 | 共 33060  字</p >
     </section>
 </footer>
 
