@@ -29,37 +29,49 @@
 &lt;p&gt;应为这个工具可以让我们简化继承大模型的配置，动手能力强也可以自己去操作文件&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;选择minimax作为我们的大模型&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323215844453.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323215844453.png&#34;
+	width=&#34;900&#34;
+	height=&#34;600&#34;
+	srcset=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323215844453_hu_eb772a59f70e2b3a.png 480w, https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323215844453_hu_7a1871372c3cddc1.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20260323215844453&#34;
 	
 	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
 &gt;&lt;/p&gt;
 &lt;p&gt;自己注册&lt;a class=&#34;link&#34; href=&#34;https://platform.minimaxi.com/login&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;minimax&lt;/a&gt;获取apikey，注意这个apikey保存好，只能复制一次&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323220109835.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323220109835.png&#34;
+	width=&#34;900&#34;
+	height=&#34;600&#34;
+	srcset=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323220109835_hu_5f22f308ffe4d5ec.png 480w, https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323220109835_hu_722f0cd13ee806cd.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20260323220109835&#34;
 	
 	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;360px&#34;
+	
 &gt;&lt;/p&gt;
 &lt;p&gt;当你配置完后会在C盘用户目录下创建settings.json文件，动手能力强的可以自行配置&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323220615270.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323220615270.png&#34;
+	width=&#34;733&#34;
+	height=&#34;250&#34;
+	srcset=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323220615270_hu_dcaa0cede614a251.png 480w, https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323220615270_hu_918946adf5db8631.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20260323220615270&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;293&#34;
+		data-flex-basis=&#34;703px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;同时在该文件夹下新增一个.claude.json文件,填入以下内容&lt;/p&gt;
@@ -93,25 +105,33 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h4 id=&#34;4安装idea因为只有高版本的idea才适配&#34;&gt;4.安装IDEA，因为只有高版本的IDEA才适配
 &lt;/h4&gt;&lt;p&gt;官网自行下载，我下载的是社区版2025.3.4，安装好后点击右上角图标，根据指引下载插件、&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323223033458.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323223033458.png&#34;
+	width=&#34;913&#34;
+	height=&#34;1337&#34;
+	srcset=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323223033458_hu_54ff349cd6026a6d.png 480w, https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323223033458_hu_1f9aa7de9666563b.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20260323223033458&#34;
 	
 	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;68&#34;
+		data-flex-basis=&#34;163px&#34;
+	
 &gt;&lt;/p&gt;
 &lt;p&gt;打开右上角选项卡，选择添加智能体&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323223252007.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323223252007.png&#34;
+	width=&#34;886&#34;
+	height=&#34;618&#34;
+	srcset=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323223252007_hu_c4ba3369cf7d40db.png 480w, https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323223252007_hu_72c2ffde2364e560.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20260323223252007&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;143&#34;
+		data-flex-basis=&#34;344px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;然后再ACP.json文件中加入以下内容，然后重启IDEA&lt;/p&gt;
@@ -146,14 +166,18 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;重启之后打开ai聊天插件随便发送消息&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260325204030339.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260325204030339.png&#34;
+	width=&#34;872&#34;
+	height=&#34;850&#34;
+	srcset=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260325204030339_hu_54c722552a858215.png 480w, https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260325204030339_hu_e695b0b5edcbfbb0.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20260325204030339&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;102&#34;
+		data-flex-basis=&#34;246px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;第一次使用会叫你登录，依次输入claude，然后等一会出现输入框后输入/login ，然后选择第二种认证方式，这个时候会跳转到浏览器访问Claude，这个过程需要用到梯子。&lt;/p&gt;
