@@ -5,9 +5,17 @@
         <link>https://zell.zone/categories/</link>
         <description>Recent content in Categories on Zell Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Thu, 15 Jan 2026 10:22:49 +0800</lastBuildDate><atom:link href="https://zell.zone/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 23 Mar 2026 21:14:32 +0800</lastBuildDate><atom:link href="https://zell.zone/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>IDEA</title>
+        <link>https://zell.zone/categories/idea/</link>
+        <pubDate>Mon, 23 Mar 2026 21:14:32 +0800</pubDate>
+        
+        <guid>https://zell.zone/categories/idea/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>数据同步</title>
         <link>https://zell.zone/categories/%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/</link>
         <pubDate>Thu, 15 Jan 2026 10:22:49 +0800</pubDate>

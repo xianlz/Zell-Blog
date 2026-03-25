@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Claude Code on Zell Blog</title>
+        <link>https://zell.zone/tags/claude-code/</link>
+        <description>Recent content in Claude Code on Zell Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>Zell</copyright>
+        <lastBuildDate>Mon, 23 Mar 2026 21:14:32 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/claude-code/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>IDEA 通过ACP用Claude Code</title>
+        <link>https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/</link>
+        <pubDate>Mon, 23 Mar 2026 21:14:32 +0800</pubDate>
+        
+        <guid>https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/</guid>
+        <description>&lt;img src="https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/1.jpg" alt="Featured image of post IDEA 通过ACP用Claude Code" /&gt;&lt;h3 id=&#34;一前置准备&#34;&gt;一.前置准备
+&lt;/h3&gt;&lt;h4 id=&#34;1安装claude-code&#34;&gt;1.安装Claude Code
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;参考&lt;a class=&#34;link&#34; href=&#34;https://code.claude.com/docs/zh-CN/quickstart#winget&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Claude文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;我是windows11系统使用命令&lt;code&gt;winget install Anthropic.ClaudeCode&lt;/code&gt;安装，win加R 然后cmd输入该命令让他下载就行&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;2准备工具cc-swich&#34;&gt;2.准备工具cc-swich
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/farion1231/cc-switch/releases/tag/v3.12.2&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CC-Switch下载地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;选择相应的版本下载，我的是win11，选择的是&lt;a class=&#34;link&#34; href=&#34;https://github.com/farion1231/cc-switch/releases/download/v3.12.2/CC-Switch-v3.12.2-Windows-Portable.zip&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CC-Switch-v3.12.2-Windows-Portable.zip&lt;/a&gt;，这个直接下载解压即可，无需安装。&lt;/p&gt;
+&lt;p&gt;应为这个工具可以让我们简化继承大模型的配置，动手能力强也可以自己去操作文件&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;选择minimax作为我们的大模型&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323215844453.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260323215844453&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;自己注册&lt;a class=&#34;link&#34; href=&#34;https://platform.minimaxi.com/login&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;minimax&lt;/a&gt;获取apikey，注意这个apikey保存好，只能复制一次&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323220109835.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260323220109835&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;当你配置完后会在C盘用户目录下创建settings.json文件，动手能力强的可以自行配置&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323220615270.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260323220615270&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;同时在该文件夹下新增一个.claude.json文件,填入以下内容&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;hasCompletedOnboarding&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;3安装claude-code-acp&#34;&gt;3.安装claude-code-acp
+&lt;/h4&gt;&lt;p&gt;使用命令安装&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;npm install -g @zed-industries/claude-code-acp&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;安装好后查看安装目录，这个后面要用上&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;C:\Users\PC&amp;gt;where claude-code-acp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;C:\Users\PC\AppData\Roaming\npm\claude-code-acp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;C:\Users\PC\AppData\Roaming\npm\claude-code-acp.cmd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;4安装idea因为只有高版本的idea才适配&#34;&gt;4.安装IDEA，因为只有高版本的IDEA才适配
+&lt;/h4&gt;&lt;p&gt;官网自行下载，我下载的是社区版2025.3.4，安装好后点击右上角图标，根据指引下载插件、&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323223033458.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260323223033458&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;打开右上角选项卡，选择添加智能体&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260323223252007.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260323223252007&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后再ACP.json文件中加入以下内容，然后重启IDEA&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;default_mcp_settings&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;agent_servers&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;Claude Code&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;command&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;cmd&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;/c&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;claude-code-acp&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;重启之后打开ai聊天插件随便发送消息&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://zell.zone/img/image-20260325204030339.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260325204030339&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;第一次使用会叫你登录，依次输入claude，然后等一会出现输入框后输入/login ，然后选择第二种认证方式，这个时候会跳转到浏览器访问Claude，这个过程需要用到梯子。&lt;/p&gt;
+&lt;p&gt;最后认证通过之后就可以愉快的在idea中使用AI编程，从此脱离古法编程。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

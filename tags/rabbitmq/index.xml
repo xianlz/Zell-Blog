@@ -5,7 +5,7 @@
         <link>https://zell.zone/tags/rabbitmq/</link>
         <description>Recent content in RabbitMQ on Zell Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>Zell</copyright>
         <lastBuildDate>Sun, 21 Sep 2025 22:08:33 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>整合MQ的公共模块</title>

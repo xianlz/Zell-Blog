@@ -5,7 +5,7 @@
     <loc>https://zell.zone/en/categories/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
+                hreflang="en-us"
                 href="https://zell.zone/categories/"
                 />
     <xhtml:link
@@ -22,7 +22,7 @@
     <loc>https://zell.zone/en/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
+                hreflang="en-us"
                 href="https://zell.zone/"
                 />
     <xhtml:link
@@ -39,7 +39,7 @@
     <loc>https://zell.zone/en/tags/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
+                hreflang="en-us"
                 href="https://zell.zone/tags/"
                 />
     <xhtml:link

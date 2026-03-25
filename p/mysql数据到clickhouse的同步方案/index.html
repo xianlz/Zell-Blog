@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="项目地址：https://gitee.com/zhongxianliang/mysql2ck\n项目结构\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 ├─src │ ├─main │ │ ├─java │ │ │ └─com │ │ │ └─example │ │ │ └─mysql2ck │ │ │ │ Mysql2ckApplication.java │ │ │ │ │ │ │ ├─buffer │ │ │ │ BatchBuffer.java │ │ │ │ BatchBufferManager.java │ │ │ │ FlushStrategy.java │ │ │ │ │ │ │ ├─common │ │ │ │ Constants.java │ │ │ │ Exception.java │ │ │ │ │ │ │ ├─config │ │ │ │ ClickHouseConfig.java │ │ │ │ KafkaConfig.java │ │ │ │ ThreadPoolConfig.java │ │ │ │ │ │ │ ├─consumer │ │ │ │ KafkaBinlogConsumer.java │ │ │ │ │ │ │ ├─manager │ │ │ │ RetryManager.java │ │ │ │ │ │ │ ├─model │ │ │ │ MaxwellMessage.java │ │ │ │ SyncConfig.java │ │ │ │ TableFilter.java │ │ │ │ │ │ │ ├─processor │ │ │ │ MessageProcessor.java │ │ │ │ │ │ │ └─writer │ │ │ ClickHouseWriter.java │ │ │ SQLBuilder.java │ │ │ │ │ └─resources │ │ application.yml 主要的流程是 MySQL→ Canal→Kafka→本系统→ClickHouse\n">
 <title>Mysql数据到ClickHouse的同步方案</title>
@@ -1342,8 +1342,16 @@ unicode: "ece7"
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
 
-        <p>发布了 17 篇文章 | 共 33060  字</p >
+        <p>发布了 18 篇文章 | 共 33776  字</p >
     </section>
 </footer>
 

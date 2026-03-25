@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="InnoDB 是如何存储数据的？ MySQL 把数据存储和查询操作抽象成了存储引擎，不同的存储引擎，对数据的存储和读取 方式各不相同。MySQL 支持多种存储引擎，并且可以以表为粒度设置存储引擎。因为支持 事务，我们最常使用的是 InnoDB。为方便理解下面的内容，我先和你简单说说 InnoDB 是 如何存储数据的。 虽然数据保存在磁盘中，但其处理是在内存中进行的。为了减少磁盘随机读取次数， InnoDB 采用页而不是行的粒度来保存数据，即数据被分成若干页，以页为单位保存在磁盘 中。InnoDB 的页大小，一般是 16KB。 各个数据页组成一个双向链表，每个数据页中的记录按照主键顺序组成单向链表；每一个数 据页中有一个页目录，方便按照主键查询记录。数据页的结构如下：\n">
 <title>业务开发问题 代码篇(索引)</title>
@@ -829,8 +829,16 @@ unicode: "ece7"
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
 
-        <p>发布了 17 篇文章 | 共 33060  字</p >
+        <p>发布了 18 篇文章 | 共 33776  字</p >
     </section>
 </footer>
 

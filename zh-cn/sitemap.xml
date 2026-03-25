@@ -2,11 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://zell.zone/tags/binlog/</loc>
-    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
-  </url><url>
     <loc>https://zell.zone/categories/</loc>
-    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+    <lastmod>2026-03-23T21:14:32+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -19,24 +16,27 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
+                hreflang="en-us"
                 href="https://zell.zone/categories/"
                 />
   </url><url>
-    <loc>https://zell.zone/tags/clickhouse/</loc>
-    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+    <loc>https://zell.zone/tags/claude-code/</loc>
+    <lastmod>2026-03-23T21:14:32+08:00</lastmod>
   </url><url>
-    <loc>https://zell.zone/tags/kafka/</loc>
-    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+    <loc>https://zell.zone/categories/idea/</loc>
+    <lastmod>2026-03-23T21:14:32+08:00</lastmod>
   </url><url>
-    <loc>https://zell.zone/p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/</loc>
-    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+    <loc>https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/</loc>
+    <lastmod>2026-03-23T21:14:32+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/tags/idea%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2026-03-23T21:14:32+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/post/</loc>
-    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+    <lastmod>2026-03-23T21:14:32+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/tags/</loc>
-    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+    <lastmod>2026-03-23T21:14:32+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -49,12 +49,12 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
+                hreflang="en-us"
                 href="https://zell.zone/tags/"
                 />
   </url><url>
     <loc>https://zell.zone/</loc>
-    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+    <lastmod>2026-03-23T21:14:32+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -67,9 +67,21 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="zh-cn"
+                hreflang="en-us"
                 href="https://zell.zone/"
                 />
+  </url><url>
+    <loc>https://zell.zone/tags/binlog/</loc>
+    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/tags/clickhouse/</loc>
+    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/tags/kafka/</loc>
+    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
+  </url><url>
+    <loc>https://zell.zone/p/mysql%E6%95%B0%E6%8D%AE%E5%88%B0clickhouse%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2026-01-15T10:22:49+08:00</lastmod>
   </url><url>
     <loc>https://zell.zone/categories/%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5/</loc>
     <lastmod>2026-01-15T10:22:49+08:00</lastmod>

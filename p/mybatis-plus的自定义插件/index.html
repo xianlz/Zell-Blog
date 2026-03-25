@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="mp 插件处理 首先自定义一个接口QueryInterceptor：用于自定义过滤器的规范\n1 2 3 4 5 6 7 8 9 public interface QueryInterceptor extends Ordered { void intercept(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql); @Override default int getOrder() { return 2147483647; } } 实现Ordered接口是为了排序，给过滤器排上先后顺序。\n">
 <title>Mybatis Plus的自定义插件</title>
@@ -852,8 +852,16 @@ unicode: "ece7"
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
 
-        <p>发布了 17 篇文章 | 共 33060  字</p >
+        <p>发布了 18 篇文章 | 共 33776  字</p >
     </section>
 </footer>
 
