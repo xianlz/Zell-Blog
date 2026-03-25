@@ -13,8 +13,7 @@
         <pubDate>Mon, 23 Mar 2026 21:14:32 +0800</pubDate>
         
         <guid>https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/</guid>
-        <description>&lt;img src="https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/1.jpg" alt="Featured image of post IDEA 通过ACP用Claude Code" /&gt;&lt;h3 id=&#34;一前置准备&#34;&gt;一.前置准备
-&lt;/h3&gt;&lt;h4 id=&#34;1安装claude-code&#34;&gt;1.安装Claude Code
+        <description>&lt;img src="https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/1.jpg" alt="Featured image of post IDEA 通过ACP用Claude Code" /&gt;&lt;h4 id=&#34;1安装claude-code&#34;&gt;1.安装Claude Code
 &lt;/h4&gt;&lt;blockquote&gt;
 &lt;p&gt;参考&lt;a class=&#34;link&#34; href=&#34;https://code.claude.com/docs/zh-CN/quickstart#winget&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Claude文档&lt;/a&gt;&lt;/p&gt;
@@ -26,7 +25,7 @@
     &gt;CC-Switch下载地址&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;选择相应的版本下载，我的是win11，选择的是&lt;a class=&#34;link&#34; href=&#34;https://github.com/farion1231/cc-switch/releases/download/v3.12.2/CC-Switch-v3.12.2-Windows-Portable.zip&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;CC-Switch-v3.12.2-Windows-Portable.zip&lt;/a&gt;，这个直接下载解压即可，无需安装。&lt;/p&gt;
-&lt;p&gt;应为这个工具可以让我们简化继承大模型的配置，动手能力强也可以自己去操作文件&lt;/p&gt;
+&lt;p&gt;因为这个工具可以让我们简化继承大模型的配置，动手能力强也可以自己去操作文件&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;选择minimax作为我们的大模型&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://zell.zone/p/idea-%E9%80%9A%E8%BF%87acp%E7%94%A8claude-code/img/image-20260323215844453.png&#34;
