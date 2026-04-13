@@ -8,12 +8,12 @@
         <language>en-us</language>
         <copyright>Zell</copyright>
         <lastBuildDate>Mon, 13 Apr 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/llm/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>java_go开发者ai应用开发agent学习路线</title>
+        <title>Java_Go开发者ai应用开发agent学习路线</title>
         <link>https://zell.zone/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
         <guid>https://zell.zone/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post java_go开发者ai应用开发agent学习路线" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post Java_Go开发者ai应用开发agent学习路线" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;AI 时代，Java/后端开发者的机会在哪里？&lt;strong&gt;工程化落地&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;大模型本身是概率性的&amp;quot;黑盒&amp;quot;，但把它变成稳定、可观测、可扩展的生产级服务，恰恰是 Java/Go 工程师的主场——高并发架构、数据库优化、系统稳定性治理，这些能力可以直接复用。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -144,7 +144,7 @@
       &lt;tr&gt;
           &lt;td&gt;二&lt;/td&gt;
           &lt;td&gt;大模型对接&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;springai实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;SpringAi实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;Spring AI / LangChain4j，流式输出&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
@@ -162,7 +162,7 @@
       &lt;tr&gt;
           &lt;td&gt;五&lt;/td&gt;
           &lt;td&gt;Agent 核心机制&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;ai_agent核心机制_react_multiagent_记忆系统&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;AI_Agent核心机制_ReAct_MultiAgent_记忆系统&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;ReAct，Tool Calling，记忆机制&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
@@ -362,7 +362,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;五阶段二大模型对接&#34;&gt;五、阶段二：大模型对接
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;springai实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;SpringAi实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;51-框架选型&#34;&gt;5.1 框架选型
 &lt;/h3&gt;&lt;table&gt;
@@ -597,7 +597,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;八阶段五agent-核心机制&#34;&gt;八、阶段五：Agent 核心机制
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;ai_agent核心机制_react_multiagent_记忆系统&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;AI_Agent核心机制_ReAct_MultiAgent_记忆系统&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;81-agent-调度范式&#34;&gt;8.1 Agent 调度范式
 &lt;/h3&gt;&lt;table&gt;
@@ -851,7 +851,7 @@
           &lt;td&gt;Token、上下文窗口、Prompt工程、结构化输出&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;springai实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;SpringAi实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;ChatClient、流式SSE、Function Calling&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
@@ -859,7 +859,7 @@
           &lt;td&gt;向量检索、混合检索、语义缓存&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;ai_agent核心机制_react_multiagent_记忆系统&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;AI_Agent核心机制_ReAct_MultiAgent_记忆系统&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;ReAct、Multi-Agent、记忆系统、MCP&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
