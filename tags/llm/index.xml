@@ -8,12 +8,12 @@
         <language>en-us</language>
         <copyright>Zell</copyright>
         <lastBuildDate>Mon, 13 Apr 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/llm/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Java_Go开发者AI应用开发Agent学习路线</title>
+        <title>java_go开发者ai应用开发agent学习路线</title>
         <link>https://zell.zone/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
         <guid>https://zell.zone/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post Java_Go开发者AI应用开发Agent学习路线" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post java_go开发者ai应用开发agent学习路线" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;AI 时代，Java/后端开发者的机会在哪里？&lt;strong&gt;工程化落地&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;大模型本身是概率性的&amp;quot;黑盒&amp;quot;，但把它变成稳定、可观测、可扩展的生产级服务，恰恰是 Java/Go 工程师的主场——高并发架构、数据库优化、系统稳定性治理，这些能力可以直接复用。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -132,43 +132,43 @@
       &lt;tr&gt;
           &lt;td&gt;零&lt;/td&gt;
           &lt;td&gt;认知校准&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_token_prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;思维从&amp;quot;确定性&amp;quot;转向&amp;quot;概率性&amp;quot;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;一&lt;/td&gt;
           &lt;td&gt;大模型核心概念&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_token_prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;掌握 Token/上下文窗口/Prompt&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;二&lt;/td&gt;
           &lt;td&gt;大模型对接&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../SpringAI%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;Spring AI实战指南&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;springai实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;Spring AI / LangChain4j，流式输出&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;三&lt;/td&gt;
           &lt;td&gt;Prompt 工程&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_token_prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;结构化 Prompt，CoT思维链&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;四&lt;/td&gt;
           &lt;td&gt;RAG + 知识图谱&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../RAG%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_SpringAI_pgvector/&#34; &gt;RAG知识库实战&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../rag%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_springai_pgvector/&#34; &gt;RAG知识库实战&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;文档 ETL，向量检索，GraphRAG&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;五&lt;/td&gt;
           &lt;td&gt;Agent 核心机制&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../AI_Agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_ReAct_MultiAgent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;AI Agent核心机制&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;ai_agent核心机制_react_multiagent_记忆系统&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;ReAct，Tool Calling，记忆机制&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
           &lt;td&gt;六&lt;/td&gt;
           &lt;td&gt;工程化框架&lt;/td&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_RedisStream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/&#34; &gt;工程化与生产落地&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_redisstream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/&#34; &gt;工程化与生产落地&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;异步处理，限流，成本控制&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
@@ -239,7 +239,7 @@
 &lt;/table&gt;
 &lt;h3 id=&#34;32-常见踩坑与解决方案&#34;&gt;3.2 常见踩坑与解决方案
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;详细内容见：&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;详细内容见：&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_token_prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;table&gt;
   &lt;thead&gt;
@@ -279,7 +279,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;四阶段一大模型核心概念&#34;&gt;四、阶段一：大模型核心概念
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_token_prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;41-token-与上下文窗口&#34;&gt;4.1 Token 与上下文窗口
 &lt;/h3&gt;&lt;ul&gt;
@@ -362,7 +362,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;五阶段二大模型对接&#34;&gt;五、阶段二：大模型对接
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../SpringAI%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;Spring AI实战指南&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;springai实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;51-框架选型&#34;&gt;5.1 框架选型
 &lt;/h3&gt;&lt;table&gt;
@@ -419,7 +419,7 @@
 &lt;/table&gt;
 &lt;h3 id=&#34;53-流式输出-sse&#34;&gt;5.3 流式输出 SSE
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;详细内容见：&lt;a class=&#34;link&#34; href=&#34;../SpringAI%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/#%e5%85%ad%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba-sse&#34; &gt;Spring AI实战指南 - 流式输出&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;详细内容见：&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/#%e5%85%ad%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba-sse&#34; &gt;Spring AI实战指南 - 流式输出&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -451,7 +451,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;六阶段三prompt-工程&#34;&gt;六、阶段三：Prompt 工程
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_token_prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;61-cot-思维链详解&#34;&gt;6.1 CoT 思维链详解
 &lt;/h3&gt;&lt;table&gt;
@@ -524,7 +524,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;七阶段四rag--知识图谱&#34;&gt;七、阶段四：RAG + 知识图谱
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../RAG%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_SpringAI_pgvector/&#34; &gt;RAG知识库实战&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../rag%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_springai_pgvector/&#34; &gt;RAG知识库实战&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;71-rag-核心概念&#34;&gt;7.1 RAG 核心概念
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -597,7 +597,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;八阶段五agent-核心机制&#34;&gt;八、阶段五：Agent 核心机制
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../AI_Agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_ReAct_MultiAgent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;AI Agent核心机制&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;ai_agent核心机制_react_multiagent_记忆系统&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;81-agent-调度范式&#34;&gt;8.1 Agent 调度范式
 &lt;/h3&gt;&lt;table&gt;
@@ -678,7 +678,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;九阶段六工程化框架&#34;&gt;九、阶段六：工程化框架
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_RedisStream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/&#34; &gt;工程化与生产落地&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;详细内容&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;../%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_redisstream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/&#34; &gt;工程化与生产落地&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;91-redis-stream-异步处理&#34;&gt;9.1 Redis Stream 异步处理
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -847,23 +847,23 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_token_prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/&#34; &gt;大模型核心概念详解&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;Token、上下文窗口、Prompt工程、结构化输出&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../SpringAI%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;Spring AI实战指南&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../springai%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/&#34; &gt;springai实战指南_大模型集成_流式输出&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;ChatClient、流式SSE、Function Calling&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../RAG%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_SpringAI_pgvector/&#34; &gt;RAG知识库实战&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../rag%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_springai_pgvector/&#34; &gt;RAG知识库实战&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;向量检索、混合检索、语义缓存&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../AI_Agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_ReAct_MultiAgent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;AI Agent核心机制&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../ai_agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_react_multiagent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/&#34; &gt;ai_agent核心机制_react_multiagent_记忆系统&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;ReAct、Multi-Agent、记忆系统、MCP&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_RedisStream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/&#34; &gt;工程化与生产落地&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;../%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_redisstream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/&#34; &gt;工程化与生产落地&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;异步处理、限流、FinOps、安全防护&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
