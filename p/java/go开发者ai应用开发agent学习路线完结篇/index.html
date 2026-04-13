@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 AI 时代，Java/后端开发者的机会在哪里？工程化落地。\n大模型本身是概率性的&quot;黑盒&quot;，但把它变成稳定、可观测、可扩展的生产级服务，恰恰是 Java/Go 工程师的主场——高并发架构、数据库优化、系统稳定性治理，这些能力可以直接复用。\n">
+<title>Java/Go开发者AI应用开发Agent学习路线（完结篇）</title>
+
+
+
+<link rel="stylesheet" href="/music-player/APlayer.min.css">
+<script src="/music-player/APlayer.min.js"></script>
+
+<script src="/music-player/Meting.min.js"></script>
+
+
+<link rel='canonical' href='https://zell.zone/p/java/go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%AE%8C%E7%BB%93%E7%AF%87/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="Java/Go开发者AI应用开发Agent学习路线（完结篇）">
+<meta property='og:description' content="前言 AI 时代，Java/后端开发者的机会在哪里？工程化落地。\n大模型本身是概率性的&quot;黑盒&quot;，但把它变成稳定、可观测、可扩展的生产级服务，恰恰是 Java/Go 工程师的主场——高并发架构、数据库优化、系统稳定性治理，这些能力可以直接复用。\n">
+<meta property='og:url' content='https://zell.zone/p/java/go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%AE%8C%E7%BB%93%E7%AF%87/'>
+<meta property='og:site_name' content='Zell Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='大模型' /><meta property='article:tag' content='Agent' /><meta property='article:tag' content='Spring AI' /><meta property='article:tag' content='Java' /><meta property='article:tag' content='RAG' /><meta property='article:tag' content='LLM' /><meta property='article:published_time' content='2026-04-13T10:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-04-13T10:00:00&#43;08:00'/><meta property='og:image' content='https://zell.zone/img/cover.jpg' />
+<meta name="twitter:title" content="Java/Go开发者AI应用开发Agent学习路线（完结篇）">
+<meta name="twitter:description" content="前言 AI 时代，Java/后端开发者的机会在哪里？工程化落地。\n大模型本身是概率性的&quot;黑盒&quot;，但把它变成稳定、可观测、可扩展的生产级服务，恰恰是 Java/Go 工程师的主场——高并发架构、数据库优化、系统稳定性治理，这些能力可以直接复用。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zell.zone/img/cover.jpg' />
+    <link rel="icon" href="https://zell.zone/favicon.ico">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_931a78b9ce29985d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">⛰️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Zell Blog</a></h1>
+            <h2 class="site-description">悟已往之不谏
+知来者之可追
+</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='490200536@qq.com'
+                        target="_blank"
+                        title="email"
+                        rel="me"
+                    >
+                        
+                        
+                            <!--
+tags: [technology, e-mail, site, cm, group]
+category: Brand
+unicode: "f328"
+version: "1.86"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 18l9 -6.462l-9 -5.538v12h18v-12l-9 5.538" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/xianlz'
+                        target="_blank"
+                        title="Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.bilibili.com/'
+                        target="_blank"
+                        title="bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <rect x="50" y="70" width="200" height="160" rx="15" fill="none" stroke="#00A1D6" stroke-width="8"/>
+  <line x1="110" y1="70" x2="90" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <line x1="190" y1="70" x2="210" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="90" cy="40" r="5" fill="#00A1D6"/>
+  <circle cx="210" cy="40" r="5" fill="#00A1D6"/>
+  <rect x="70" y="90" width="160" height="120" rx="5" fill="#00A1D6" opacity="0.8"/>
+  <path d="M100,160 C105,150 115,145 125,150 C135,155 140,165 135,175 C130,185 120,190 110,185 C100,180 95,170 100,160 Z" fill="#FB7299"/>
+  <circle cx="115" cy="155" r="5" fill="white"/>
+  <path d="M180,160 C185,150 195,145 205,150 C215,155 220,165 215,175 C210,185 200,190 190,185 C180,180 175,170 180,160 Z" fill="#00A1D6"/>
+  <circle cx="195" cy="155" r="5" fill="white"/>
+  <path d="M60,100 L65,90 L70,100 L80,105 L70,110 L65,120 L60,110 L50,105 Z" fill="#FFC107"/>
+  <path d="M240,130 L245,120 L250,130 L260,135 L250,140 L245,150 L240,140 L230,135 Z" fill="#FFC107"/>
+  <path d="M70,200 L75,190 L80,200 L90,205 L80,210 L75,220 L70,210 L60,205 Z" fill="#FFC107"/>
+  <text x="150" y="260" text-anchor="middle" font-family="Microsoft YaHei" font-size="24" font-weight="bold" fill="#00A1D6">哔哩哔哩</text>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://zell.zone/en/" >English</option>
+                                
+                                    <option value="https://zell.zone/" selected>简体中文</option>
+                                
+                                    <option value="https://zell.zone/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+               
+                
+                <li id="dark-mode-toggle">
+                    <!--
+tags: [temperature, hot, wheater, thermometer, forecast]
+category: Weather
+version: "1.73"
+unicode: "f236"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
+  <path d="M6.343 17.657l-1.414 1.414" />
+  <path d="M6.343 6.343l-1.414 -1.414" />
+  <path d="M17.657 6.343l1.414 -1.414" />
+  <path d="M17.657 17.657l1.414 1.414" />
+  <path d="M4 12h-2" />
+  <path d="M12 4v-2" />
+  <path d="M20 12h2" />
+  <path d="M12 20v2" />
+</svg>
+
+                    <!--
+tags: [night, dark mode]
+category: Weather
+version: "1.21"
+unicode: "ece7"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#2196f3"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+  <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+  <path d="M19 11h2m-1 -1v2" />
+</svg>
+
+                    
+                </li>
+                
+
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一项目介绍">一、项目介绍</a>
+      <ol>
+        <li><a href="#11-系统架构">1.1 系统架构</a></li>
+        <li><a href="#12-技术栈概览">1.2 技术栈概览</a></li>
+      </ol>
+    </li>
+    <li><a href="#二学习路线总览">二、学习路线总览</a>
+      <ol>
+        <li><a href="#阶段总览表">阶段总览表</a></li>
+        <li><a href="#学习时间规划">学习时间规划</a></li>
+      </ol>
+    </li>
+    <li><a href="#三阶段零认知校准">三、阶段零：认知校准</a>
+      <ol>
+        <li><a href="#31-思维校准">3.1 思维校准</a></li>
+        <li><a href="#32-常见踩坑与解决方案">3.2 常见踩坑与解决方案</a></li>
+      </ol>
+    </li>
+    <li><a href="#四阶段一大模型核心概念">四、阶段一：大模型核心概念</a>
+      <ol>
+        <li><a href="#41-token-与上下文窗口">4.1 Token 与上下文窗口</a></li>
+        <li><a href="#42-解码参数">4.2 解码参数</a></li>
+        <li><a href="#43-prompt-工程基础">4.3 Prompt 工程基础</a></li>
+        <li><a href="#44-结构化输出">4.4 结构化输出</a></li>
+      </ol>
+    </li>
+    <li><a href="#五阶段二大模型对接">五、阶段二：大模型对接</a>
+      <ol>
+        <li><a href="#51-框架选型">5.1 框架选型</a></li>
+        <li><a href="#52-openai-协议兼容性">5.2 OpenAI 协议兼容性</a></li>
+        <li><a href="#53-流式输出-sse">5.3 流式输出 SSE</a></li>
+      </ol>
+    </li>
+    <li><a href="#六阶段三prompt-工程">六、阶段三：Prompt 工程</a>
+      <ol>
+        <li><a href="#61-cot-思维链详解">6.1 CoT 思维链详解</a></li>
+        <li><a href="#62-prompt-工程化管理">6.2 Prompt 工程化管理</a></li>
+        <li><a href="#63-结构化输出与反思闭环">6.3 结构化输出与反思闭环</a></li>
+      </ol>
+    </li>
+    <li><a href="#七阶段四rag--知识图谱">七、阶段四：RAG + 知识图谱</a>
+      <ol>
+        <li><a href="#71-rag-核心概念">7.1 RAG 核心概念</a></li>
+        <li><a href="#72-技术选型">7.2 技术选型</a></li>
+        <li><a href="#73-关键知识点">7.3 关键知识点</a></li>
+      </ol>
+    </li>
+    <li><a href="#八阶段五agent-核心机制">八、阶段五：Agent 核心机制</a>
+      <ol>
+        <li><a href="#81-agent-调度范式">8.1 Agent 调度范式</a></li>
+        <li><a href="#82-tool-calling">8.2 Tool Calling</a></li>
+        <li><a href="#83-记忆系统">8.3 记忆系统</a></li>
+        <li><a href="#84-mcp-协议">8.4 MCP 协议</a></li>
+      </ol>
+    </li>
+    <li><a href="#九阶段六工程化框架">九、阶段六：工程化框架</a>
+      <ol>
+        <li><a href="#91-redis-stream-异步处理">9.1 Redis Stream 异步处理</a></li>
+        <li><a href="#92-事务安全">9.2 事务安全</a></li>
+        <li><a href="#93-分布式限流">9.3 分布式限流</a></li>
+        <li><a href="#94-finops-成本控制">9.4 FinOps 成本控制</a></li>
+      </ol>
+    </li>
+    <li><a href="#十阶段七项目实战">十、阶段七：项目实战</a>
+      <ol>
+        <li><a href="#101-智能面试平台">10.1 智能面试平台</a></li>
+        <li><a href="#102-核心技术点">10.2 核心技术点</a></li>
+      </ol>
+    </li>
+    <li><a href="#十一推荐模型选择">十一、推荐模型选择</a></li>
+    <li><a href="#十二延伸阅读">十二、延伸阅读</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/java/go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%AE%8C%E7%BB%93%E7%AF%87/">
+                
+                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post Java/Go开发者AI应用开发Agent学习路线（完结篇）" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ai/" >
+                AI
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/java/go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%AE%8C%E7%BB%93%E7%AF%87/">Java/Go开发者AI应用开发Agent学习路线（完结篇）</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-13 10:00:00</time>
+            </div>
+        
+
+        
+            <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.00008 5.75C2.00008 5.33579 2.33587 5 2.75008 5H21.2501C21.6643 5 22.0001 5.33579 22.0001 5.75C22.0001 6.16421 21.6643 6.5 21.2501 6.5H2.75008C2.33587 6.5 2.00008 6.16421 2.00008 5.75ZM2.00008 12.25C2.00008 11.8358 2.33587 11.5 2.75008 11.5H21.2501C21.6643 11.5 22.0001 11.8358 22.0001 12.25C22.0001 12.6642 21.6643 13 21.2501 13H2.75008C2.33587 13 2.00008 12.6642 2.00008 12.25ZM19.0001 18.75C19.0001 18.3358 19.3359 18 19.7501 18H21.2501C21.6643 18 22.0001 18.3358 22.0001 18.75C22.0001 19.1642 21.6643 19.5 21.2501 19.5H19.7501C19.3359 19.5 19.0001 19.1642 19.0001 18.75Z" fill="#212121"/>
+<path d="M2.4161 18.7377C2.62675 18.5972 2.83063 18.4376 3.02344 18.2633V22.25C3.02344 22.6642 3.35922 23 3.77344 23C4.18765 23 4.52344 22.6642 4.52344 22.25V15.75C4.52344 15.356 4.21966 15.033 3.83356 15.0024C3.46481 14.9719 3.12137 15.2183 3.04013 15.5897C2.91354 16.1684 2.34841 16.98 1.58405 17.4896C1.23941 17.7194 1.14628 18.185 1.37604 18.5297C1.60581 18.8743 2.07146 18.9674 2.4161 18.7377Z" fill="#212121"/>
+<path d="M8 17.5227C8 16.995 8.44352 16.5 8.98577 16.5C9.39293 16.5 9.7207 16.6909 9.87916 16.9345C10.015 17.1434 10.0966 17.4998 9.78558 18.0292C9.63607 18.2837 9.41005 18.5114 9.10403 18.7531C8.95157 18.8735 8.78845 18.9904 8.61108 19.1158L8.53729 19.1679C8.38506 19.2753 8.2221 19.3902 8.06469 19.5087C7.32108 20.0683 6.5 20.8536 6.5 22.25C6.5 22.6642 6.83579 23 7.25 23L7.25818 23L7.26636 23H10.7006C11.1148 23 11.4506 22.6642 11.4506 22.25C11.4506 21.8358 11.1148 21.5 10.7006 21.5H8.18765C8.34843 21.2182 8.61059 20.9752 8.96663 20.7072C9.1041 20.6038 9.24601 20.5036 9.39926 20.3955L9.47685 20.3407C9.65545 20.2145 9.84717 20.0775 10.0337 19.9302C10.4057 19.6364 10.7945 19.2731 11.0789 18.789C11.6358 17.8411 11.6253 16.868 11.1365 16.1166C10.6704 15.4 9.84098 15 8.98577 15C7.50821 15 6.5 16.2777 6.5 17.5227C6.5 17.9369 6.83579 18.2727 7.25 18.2727C7.66421 18.2727 8 17.9369 8 17.5227Z" fill="#212121"/>
+<path d="M14.4711 17.1377C14.5032 17.0255 14.5795 16.8666 14.722 16.7409C14.8504 16.6276 15.0775 16.5 15.5 16.5C16.2612 16.5 16.5 17.0002 16.5 17.2273C16.5 17.4724 16.4476 17.7178 16.3102 17.8907C16.1989 18.0308 15.9315 18.25 15.2083 18.25C14.7941 18.25 14.4583 18.5858 14.4583 19C14.4583 19.4142 14.7941 19.75 15.2083 19.75C15.4818 19.75 15.8597 19.7864 16.1427 19.9191C16.2745 19.9809 16.3571 20.0505 16.4071 20.1207C16.4519 20.1837 16.5 20.287 16.5 20.4773C16.5 20.965 16.3477 21.1807 16.2193 21.2891C16.0682 21.4167 15.8239 21.5 15.5 21.5C15.138 21.5 14.9331 21.4374 14.8074 21.3578C14.6961 21.2873 14.5677 21.1538 14.4624 20.8338C14.3329 20.4403 13.909 20.2263 13.5155 20.3558C13.1221 20.4852 12.9081 20.9092 13.0375 21.3026C13.2239 21.8689 13.533 22.3263 14.005 22.6252C14.4627 22.9149 14.9869 23 15.5 23C16.051 23 16.6817 22.8618 17.1869 22.4353C17.7147 21.9898 18 21.3191 18 20.4773C18 20.0027 17.8701 19.5891 17.6288 19.2504C17.5501 19.14 17.4631 19.0423 17.3708 18.9559C17.4104 18.9135 17.4483 18.8695 17.4844 18.8241C17.9223 18.2731 18 17.6321 18 17.2273C18 16.1543 17.072 15 15.5 15C14.7345 15 14.1485 15.2466 13.7298 15.616C13.3252 15.9728 13.1205 16.4048 13.0288 16.7259C12.9151 17.1242 13.1457 17.5393 13.544 17.653C13.9423 17.7667 14.3574 17.536 14.4711 17.1377Z" fill="#212121"/>
+</svg>
+
+                <time class="article-time--reading">
+                    本文共 3736 字
+                </time>
+            </div>
+        
+
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+            <div id="viewCount">
+                <?xml version="1.0" ?><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="-0.0000027" x2="512" y1="256" y2="256"><stop offset="0" style="stop-color:#E24263"/><stop offset="1" style="stop-color:#DD1E47"/></linearGradient><circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666641" x2="469.3333435" y1="256.0005188" y2="256.0005188"><stop offset="0" style="stop-color:#DD1E47"/><stop offset="1" style="stop-color:#E24263"/></linearGradient><path d="M256,469.3338623c-117.6309967,0-213.3333435-95.7023926-213.3333435-213.3333435    c0-117.6314545,95.7023392-213.333313,213.3333435-213.333313c117.6362,0,213.3333435,95.7018661,213.3333435,213.333313    C469.3333435,373.6314697,373.6362,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/></g><g><path d="M264,189.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S339.4841919,189.5839996,264,189.5839996z M264,313.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C313.4761963,291.3247986,291.3247375,313.4757385,264,313.4757385z" opacity="0.3"/><circle cx="264.0000916" cy="263.9997253" opacity="0.3" r="15.4838667"/></g><g><path d="M256,181.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S331.4841919,181.5839996,256,181.5839996z M256,305.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C305.4761963,283.3247986,283.3247375,305.4757385,256,305.4757385z" fill="#FFFFFF"/><circle cx="256.0000916" cy="255.9997406" fill="#FFFFFF" r="15.4838667"/></g></g></svg>
+                <time class="article-time--reading">
+                    
+                    <span id="vercount_value_page_pv"> </span>次
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>AI 时代，Java/后端开发者的机会在哪里？<strong>工程化落地</strong>。</p>
+<p>大模型本身是概率性的&quot;黑盒&quot;，但把它变成稳定、可观测、可扩展的生产级服务，恰恰是 Java/Go 工程师的主场——高并发架构、数据库优化、系统稳定性治理，这些能力可以直接复用。</p>
+<blockquote>
+<p><strong>学习建议</strong>：按顺序推进，每个阶段都有对应的详细文章。<strong>不要跳过阶段零</strong>——思维校准是后面所有技术学习的基础。</p>
+</blockquote>
+<h2 id="一项目介绍">一、项目介绍
+</h2><p>这是一个基于大语言模型的智能面试辅助平台，旨在帮助求职者提升面试能力。系统提供三大核心功能：</p>
+<ol>
+<li><strong>智能简历分析</strong>：上传简历后，AI 自动进行多维度评分并给出改进建议</li>
+<li><strong>模拟面试系统</strong>：基于简历内容生成个性化面试题，支持实时问答和答案评估</li>
+<li><strong>RAG 知识库问答</strong>：上传技术文档构建私有知识库，支持向量检索增强的智能问答</li>
+</ol>
+<p><strong>开源地址</strong>：<a class="link" href="https://github.com/Snailclimb/interview-guide"  target="_blank" rel="noopener"
+    >https://github.com/Snailclimb/interview-guide</a></p>
+<h3 id="11-系统架构">1.1 系统架构
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│                      前端展示层 (React)                      │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│                      后端服务层 (Spring Boot)                  │
+</span></span><span class="line"><span class="cl">│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+</span></span><span class="line"><span class="cl">│  │ Resume Svc  │  │Interview Svc│  │Knowledge Svc│        │
+</span></span><span class="line"><span class="cl">│  └─────────────┘  └─────────────┘  └─────────────┘        │
+</span></span><span class="line"><span class="cl">│  ┌─────────────────────────────────────────────────┐        │
+</span></span><span class="line"><span class="cl">│  │         AI 集成层 (Spring AI + 通义千问)         │        │
+</span></span><span class="line"><span class="cl">│  └─────────────────────────────────────────────────┘        │
+</span></span><span class="line"><span class="cl">│  ┌─────────────────────────────────────────────────┐        │
+</span></span><span class="line"><span class="cl">│  │      异步处理层 (Redis Stream)                   │        │
+</span></span><span class="line"><span class="cl">│  └─────────────────────────────────────────────────┘        │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│                      数据存储层                              │
+</span></span><span class="line"><span class="cl">│  PostgreSQL+pgvector  │  Redis  │  RustFS/MinIO         │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="12-技术栈概览">1.2 技术栈概览
+</h3><p><strong>后端技术</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>技术</th>
+          <th>版本</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Spring Boot</td>
+          <td>4.0</td>
+          <td>应用框架</td>
+      </tr>
+      <tr>
+          <td>Java</td>
+          <td>21</td>
+          <td>开发语言</td>
+      </tr>
+      <tr>
+          <td>Spring AI</td>
+          <td>2.0</td>
+          <td>AI 集成框架</td>
+      </tr>
+      <tr>
+          <td>PostgreSQL + pgvector</td>
+          <td>14+</td>
+          <td>关系数据库 + 向量存储</td>
+      </tr>
+      <tr>
+          <td>Redis</td>
+          <td>6+</td>
+          <td>缓存 + 消息队列</td>
+      </tr>
+      <tr>
+          <td>Apache Tika</td>
+          <td>2.9.2</td>
+          <td>文档解析</td>
+      </tr>
+      <tr>
+          <td>MapStruct</td>
+          <td>1.6.3</td>
+          <td>对象映射</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="二学习路线总览">二、学习路线总览
+</h2><h3 id="阶段总览表">阶段总览表
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>主题</th>
+          <th>详细文档</th>
+          <th>核心产出</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>零</td>
+          <td>认知校准</td>
+          <td><a class="link" href="./%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/" >大模型核心概念详解</a></td>
+          <td>思维从&quot;确定性&quot;转向&quot;概率性&quot;</td>
+      </tr>
+      <tr>
+          <td>一</td>
+          <td>大模型核心概念</td>
+          <td><a class="link" href="./%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/" >大模型核心概念详解</a></td>
+          <td>掌握 Token/上下文窗口/Prompt</td>
+      </tr>
+      <tr>
+          <td>二</td>
+          <td>大模型对接</td>
+          <td><a class="link" href="./SpringAI%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/" >Spring AI实战指南</a></td>
+          <td>Spring AI / LangChain4j，流式输出</td>
+      </tr>
+      <tr>
+          <td>三</td>
+          <td>Prompt 工程</td>
+          <td><a class="link" href="./%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/" >大模型核心概念详解</a></td>
+          <td>结构化 Prompt，CoT思维链</td>
+      </tr>
+      <tr>
+          <td>四</td>
+          <td>RAG + 知识图谱</td>
+          <td><a class="link" href="./RAG%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_SpringAI_pgvector/" >RAG知识库实战</a></td>
+          <td>文档 ETL，向量检索，GraphRAG</td>
+      </tr>
+      <tr>
+          <td>五</td>
+          <td>Agent 核心机制</td>
+          <td><a class="link" href="./AI_Agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_ReAct_MultiAgent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/" >AI Agent核心机制</a></td>
+          <td>ReAct，Tool Calling，记忆机制</td>
+      </tr>
+      <tr>
+          <td>六</td>
+          <td>工程化框架</td>
+          <td><a class="link" href="./%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_RedisStream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/" >工程化与生产落地</a></td>
+          <td>异步处理，限流，成本控制</td>
+      </tr>
+      <tr>
+          <td>七</td>
+          <td>项目实战</td>
+          <td>本项目 InterviewGuide</td>
+          <td>智能面试平台完整实现</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="学习时间规划">学习时间规划
+</h3><p>按每天 3~6 小时投入估算：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>阶段</th>
+          <th>建议时间</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>阶段零~二</td>
+          <td>2~3 周</td>
+          <td>打基础，不要跳过</td>
+      </tr>
+      <tr>
+          <td>阶段三~四</td>
+          <td>3~4 周</td>
+          <td>核心能力，需动手实践</td>
+      </tr>
+      <tr>
+          <td>阶段五~六</td>
+          <td>2~3 周</td>
+          <td>工程化，复用后端经验</td>
+      </tr>
+      <tr>
+          <td>阶段七</td>
+          <td>2~4 周</td>
+          <td>项目实战，巩固所学</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="三阶段零认知校准">三、阶段零：认知校准
+</h2><h3 id="31-思维校准">3.1 思维校准
+</h3><p><strong>认知转变</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>认知</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>确定性 → 概率性</strong></td>
+          <td>LLM 是概率预测机器，相同输入可能产生不同输出</td>
+      </tr>
+      <tr>
+          <td><strong>工程应对</strong></td>
+          <td>模型输出进入业务逻辑前，必须经过校验、重试或降级兜底</td>
+      </tr>
+      <tr>
+          <td><strong>Java 开发者定位</strong></td>
+          <td>工程化落地，把模型能力变成稳定的生产级服务</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="32-常见踩坑与解决方案">3.2 常见踩坑与解决方案
+</h3><blockquote>
+<p>详细内容见：<a class="link" href="./%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/" >大模型核心概念详解</a></p>
+</blockquote>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>坑</th>
+          <th>表现</th>
+          <th>解决方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>LLM 响应慢卡死 Tomcat</td>
+          <td>服务雪崩</td>
+          <td>SseEmitter/WebFlux + 异步线程池</td>
+      </tr>
+      <tr>
+          <td>@Transactional 内调 LLM</td>
+          <td>连接池耗尽</td>
+          <td>LLM 调用游离事务外</td>
+      </tr>
+      <tr>
+          <td>Agent 死循环导致账单爆炸</td>
+          <td>成本失控</td>
+          <td>Token 消耗监控 + 阈值告警</td>
+      </tr>
+      <tr>
+          <td>LLM 输出不符合事实</td>
+          <td>幻觉严重</td>
+          <td>RAG + 知识图谱双引擎校验</td>
+      </tr>
+      <tr>
+          <td>JSON 解析失败率高</td>
+          <td>格式错误</td>
+          <td>低温 + Strict Mode + Retry 闭环</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="四阶段一大模型核心概念">四、阶段一：大模型核心概念
+</h2><blockquote>
+<p><strong>详细内容</strong>：<a class="link" href="./%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/" >大模型核心概念详解</a></p>
+</blockquote>
+<h3 id="41-token-与上下文窗口">4.1 Token 与上下文窗口
+</h3><ul>
+<li><strong>Token</strong>：模型处理文本的基本单位（英文 3<del>4 字符/Token，中文 1</del>2 汉字/Token）</li>
+<li><strong>上下文窗口</strong>：LLM 的&quot;工作记忆&quot;，决定模型可以处理的文本量</li>
+<li><strong>Token 预算</strong>：<code>可用输入 = window × 0.9 - max_output_tokens - 安全边际</code></li>
+</ul>
+<h3 id="42-解码参数">4.2 解码参数
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>工程建议</th>
+          <th>场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Temperature</td>
+          <td>0<del>0.3（结构化）/ 0.4</del>0.8（分析）</td>
+          <td>控制输出稳定性</td>
+      </tr>
+      <tr>
+          <td>Top-p</td>
+          <td>低温 + Top-p(0.9)</td>
+          <td>控制生成多样性</td>
+      </tr>
+      <tr>
+          <td>Max Tokens</td>
+          <td>硬上限</td>
+          <td>需防截断风险</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="43-prompt-工程基础">4.3 Prompt 工程基础
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>要素</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>CoT（思维链）</strong></td>
+          <td>一步一步思考，展示推理过程，对抗幻觉</td>
+      </tr>
+      <tr>
+          <td><strong>Few-Shot</strong></td>
+          <td>提供 1~3 个示例，让模型理解输入输出模式</td>
+      </tr>
+      <tr>
+          <td><strong>任务分解</strong></td>
+          <td>复杂任务拆成子任务逐一完成，再汇总</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="44-结构化输出">4.4 结构化输出
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>方案</th>
+          <th>特点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>JSON Schema 约束</td>
+          <td>实现简单、跨供应商</td>
+      </tr>
+      <tr>
+          <td>Function Calling</td>
+          <td>结构化更强，供应商差异大</td>
+      </tr>
+      <tr>
+          <td>Structured Outputs (Strict)</td>
+          <td>受限解码，格式错误率趋近 0</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="五阶段二大模型对接">五、阶段二：大模型对接
+</h2><blockquote>
+<p><strong>详细内容</strong>：<a class="link" href="./SpringAI%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/" >Spring AI实战指南</a></p>
+</blockquote>
+<h3 id="51-框架选型">5.1 框架选型
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>框架</th>
+          <th>特点</th>
+          <th>适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Spring AI</strong></td>
+          <td>与 Spring 生态无缝集成</td>
+          <td>企业内部系统</td>
+      </tr>
+      <tr>
+          <td><strong>LangChain4j</strong></td>
+          <td>RAG 和 Agent 场景功能全面</td>
+          <td>知识库问答</td>
+      </tr>
+  </tbody>
+</table></div>
+<blockquote>
+<p><strong>防腐层设计</strong>：AI 框架迭代快，业务代码绝不能直接耦合框架 API，需定义自己的领域接口隔离。</p>
+</blockquote>
+<h3 id="52-openai-协议兼容性">5.2 OpenAI 协议兼容性
+</h3><p>主流模型均兼容 OpenAI 格式：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>模型</th>
+          <th>Base URL</th>
+          <th>特点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>DeepSeek</td>
+          <td>api.deepseek.com</td>
+          <td>成本低，中文优化</td>
+      </tr>
+      <tr>
+          <td>通义千问</td>
+          <td>dashscope.aliyuncs.com</td>
+          <td>国内合规，稳定</td>
+      </tr>
+      <tr>
+          <td>Ollama</td>
+          <td>localhost:11434</td>
+          <td>本地部署，数据安全</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="53-流式输出-sse">5.3 流式输出 SSE
+</h3><blockquote>
+<p>详细内容见：<a class="link" href="./SpringAI%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/#%e5%85%ad%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba-sse" >Spring AI实战指南 - 流式输出</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/stream&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">produces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MediaType</span><span class="p">.</span><span class="na">TEXT_EVENT_STREAM_VALUE</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Flux</span><span class="o">&lt;</span><span class="n">ServerSentEvent</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nf">streamChat</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">question</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">chatClient</span><span class="p">.</span><span class="na">prompt</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">system</span><span class="p">(</span><span class="n">systemPrompt</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">user</span><span class="p">(</span><span class="n">question</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">stream</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">content</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">chunk</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ServerSentEvent</span><span class="p">.</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="n">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">data</span><span class="p">(</span><span class="n">chunk</span><span class="p">.</span><span class="na">replace</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;\\n&#34;</span><span class="p">).</span><span class="na">replace</span><span class="p">(</span><span class="s">&#34;\r&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;\\r&#34;</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="六阶段三prompt-工程">六、阶段三：Prompt 工程
+</h2><blockquote>
+<p><strong>详细内容</strong>：<a class="link" href="./%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/" >大模型核心概念详解</a></p>
+</blockquote>
+<h3 id="61-cot-思维链详解">6.1 CoT 思维链详解
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>范式</th>
+          <th>适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>普通 CoT</td>
+          <td>数学推导、逻辑分析</td>
+      </tr>
+      <tr>
+          <td>自治 CoT</td>
+          <td>模型自我验证推理路径</td>
+      </tr>
+      <tr>
+          <td>工具增强 CoT</td>
+          <td>需要调用工具获取中间结果</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="62-prompt-工程化管理">6.2 Prompt 工程化管理
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>外置化存储</td>
+          <td>Prompt 不应硬编码，使用 .st 文件存储</td>
+      </tr>
+      <tr>
+          <td>配置中心热更新</td>
+          <td>接入 Nacos/Apollo</td>
+      </tr>
+      <tr>
+          <td>变量注入安全</td>
+          <td>用户输入需清洗，防 Prompt Injection</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="63-结构化输出与反思闭环">6.3 结构化输出与反思闭环
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>要点</th>
+          <th>Java 实现</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>强类型映射</td>
+          <td>Java 14+ Record</td>
+      </tr>
+      <tr>
+          <td>JSR-380 校验</td>
+          <td>@NotNull、@Size 等注解</td>
+      </tr>
+      <tr>
+          <td>Retry Loop</td>
+          <td>设定最大重试次数（如 3 次）</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="七阶段四rag--知识图谱">七、阶段四：RAG + 知识图谱
+</h2><blockquote>
+<p><strong>详细内容</strong>：<a class="link" href="./RAG%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_SpringAI_pgvector/" >RAG知识库实战</a></p>
+</blockquote>
+<h3 id="71-rag-核心概念">7.1 RAG 核心概念
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│                    RAG 系统                                   │
+</span></span><span class="line"><span class="cl">├──────────────────────────┬──────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│     📥 索引阶段           │      🔍 检索阶段                  │
+</span></span><span class="line"><span class="cl">│   文档 → 分块 → 向量化    │   查询 → 检索 → 生成              │
+</span></span><span class="line"><span class="cl">└──────────────────────────┴──────────────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="72-技术选型">7.2 技术选型
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>组件</th>
+          <th>选型</th>
+          <th>理由</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>向量数据库</td>
+          <td>PostgreSQL + pgvector</td>
+          <td>一套数据库，运维简单</td>
+      </tr>
+      <tr>
+          <td>索引算法</td>
+          <td>HNSW</td>
+          <td>毫秒级检索，百万级够用</td>
+      </tr>
+      <tr>
+          <td>Embedding</td>
+          <td>text-embedding-v3</td>
+          <td>1024 维，中文优化</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="73-关键知识点">7.3 关键知识点
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>概念</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>混合检索</strong></td>
+          <td>向量检索 + BM25 关键词检索</td>
+      </tr>
+      <tr>
+          <td><strong>Rerank</strong></td>
+          <td>Cross-Encoder 精排，提升顶部结果准确性</td>
+      </tr>
+      <tr>
+          <td><strong>语义缓存</strong></td>
+          <td>Redis 向量检索命中缓存，降成本 + 降延迟</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="八阶段五agent-核心机制">八、阶段五：Agent 核心机制
+</h2><blockquote>
+<p><strong>详细内容</strong>：<a class="link" href="./AI_Agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_ReAct_MultiAgent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/" >AI Agent核心机制</a></p>
+</blockquote>
+<h3 id="81-agent-调度范式">8.1 Agent 调度范式
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>范式</th>
+          <th>说明</th>
+          <th>适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ReAct</strong></td>
+          <td>Think → Act → Observe 循环，动态纠错</td>
+          <td>工具调用、复杂推理</td>
+      </tr>
+      <tr>
+          <td><strong>Plan-and-Execute</strong></td>
+          <td>先全局规划再逐步执行</td>
+          <td>长任务、多步骤</td>
+      </tr>
+      <tr>
+          <td><strong>Reflection</strong></td>
+          <td>自我纠错闭环</td>
+          <td>代码生成、内容创作</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="82-tool-calling">8.2 Tool Calling
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">用户问题 → LLM 判断需要调用工具 → 返回工具名称+参数 → 执行工具 → 返回结果 → LLM 生成回答
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="83-记忆系统">8.3 记忆系统
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>说明</th>
+          <th>存储</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>短期记忆</td>
+          <td>Redis 缓存对话历史</td>
+          <td>Redis</td>
+      </tr>
+      <tr>
+          <td>长期记忆</td>
+          <td>用户偏好、历史知识</td>
+          <td>Neo4j / 向量库</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="84-mcp-协议">8.4 MCP 协议
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>协议</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>MCP</td>
+          <td>Model Context Protocol，统一工具调用接口</td>
+      </tr>
+      <tr>
+          <td>ACP</td>
+          <td>Agent Communication Protocol，打通 Agent 与 IDE 集成</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="九阶段六工程化框架">九、阶段六：工程化框架
+</h2><blockquote>
+<p><strong>详细内容</strong>：<a class="link" href="./%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_RedisStream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/" >工程化与生产落地</a></p>
+</blockquote>
+<h3 id="91-redis-stream-异步处理">9.1 Redis Stream 异步处理
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">上传请求 → 保存文件 → 发送消息到 Stream → 立即返回
+</span></span><span class="line"><span class="cl">                          ↓
+</span></span><span class="line"><span class="cl">                  Consumer 消费消息
+</span></span><span class="line"><span class="cl">                          ↓
+</span></span><span class="line"><span class="cl">                执行分析/向量化任务
+</span></span><span class="line"><span class="cl">                          ↓
+</span></span><span class="line"><span class="cl">                  更新数据库状态
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>状态流转：<code>PENDING</code> → <code>PROCESSING</code> → <code>COMPLETED / FAILED</code></p>
+<h3 id="92-事务安全">9.2 事务安全
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>要点</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>事务反模式</td>
+          <td>禁止在 @Transactional 方法内调用 LLM</td>
+      </tr>
+      <tr>
+          <td>事务极小化</td>
+          <td>LLM 调用游离在事务外，先校验再落盘</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="93-分布式限流">9.3 分布式限流
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>维度</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>用户维度</td>
+          <td>限制单个用户</td>
+      </tr>
+      <tr>
+          <td>IP 维度</td>
+          <td>限制单个 IP</td>
+      </tr>
+      <tr>
+          <td>接口维度</td>
+          <td>限制单个接口</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="94-finops-成本控制">9.4 FinOps 成本控制
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>要点</th>
+          <th>工具</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Token 计量</td>
+          <td>Micrometer + Prometheus</td>
+      </tr>
+      <tr>
+          <td>成本预警</td>
+          <td>单日 Token 消耗阈值告警</td>
+      </tr>
+      <tr>
+          <td>语义缓存</td>
+          <td>Redis 缓存，降成本 30~50%</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="十阶段七项目实战">十、阶段七：项目实战
+</h2><h3 id="101-智能面试平台">10.1 智能面试平台
+</h3><p>基于大语言模型的智能面试辅助平台，提供三大核心功能：</p>
+<ul>
+<li><strong>智能简历分析</strong>：多维度评分 + 改进建议</li>
+<li><strong>模拟面试系统</strong>：个性化面试题 + 实时问答</li>
+<li><strong>RAG 知识库问答</strong>：私有知识库 + 向量检索</li>
+</ul>
+<h3 id="102-核心技术点">10.2 核心技术点
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>功能</th>
+          <th>技术方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>简历解析</td>
+          <td>Apache Tika 多格式解析</td>
+      </tr>
+      <tr>
+          <td>AI 分析</td>
+          <td>Spring AI + 结构化输出</td>
+      </tr>
+      <tr>
+          <td>向量检索</td>
+          <td>PostgreSQL + pgvector</td>
+      </tr>
+      <tr>
+          <td>流式输出</td>
+          <td>SSE + 虚拟线程</td>
+      </tr>
+      <tr>
+          <td>异步处理</td>
+          <td>Redis Stream</td>
+      </tr>
+      <tr>
+          <td>限流</td>
+          <td>Redis + Lua</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="十一推荐模型选择">十一、推荐模型选择
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>推荐模型</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>开发调试</td>
+          <td>DeepSeek / 通义千问</td>
+          <td>成本低，中文友好</td>
+      </tr>
+      <tr>
+          <td>生产环境</td>
+          <td>GPT / Claude / Gemini</td>
+          <td>稳定性、能力最均衡</td>
+      </tr>
+      <tr>
+          <td>数据安全</td>
+          <td>本地部署 Ollama + Qwen</td>
+          <td>内网环境，数据不出域</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="十二延伸阅读">十二、延伸阅读
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>文档</th>
+          <th>内容</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a class="link" href="./%e5%a4%a7%e6%a8%a1%e5%9e%8b%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5%e8%af%a6%e8%a7%a3_Token_Prompt_%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba/" >大模型核心概念详解</a></td>
+          <td>Token、上下文窗口、Prompt工程、结构化输出</td>
+      </tr>
+      <tr>
+          <td><a class="link" href="./SpringAI%e5%ae%9e%e6%88%98%e6%8c%87%e5%8d%97_%e5%a4%a7%e6%a8%a1%e5%9e%8b%e9%9b%86%e6%88%90_%e6%b5%81%e5%bc%8f%e8%be%93%e5%87%ba/" >Spring AI实战指南</a></td>
+          <td>ChatClient、流式SSE、Function Calling</td>
+      </tr>
+      <tr>
+          <td><a class="link" href="./RAG%e7%9f%a5%e8%af%86%e5%ba%93%e5%ae%9e%e6%88%98_SpringAI_pgvector/" >RAG知识库实战</a></td>
+          <td>向量检索、混合检索、语义缓存</td>
+      </tr>
+      <tr>
+          <td><a class="link" href="./AI_Agent%e6%a0%b8%e5%bf%83%e6%9c%ba%e5%88%b6_ReAct_MultiAgent_%e8%ae%b0%e5%bf%86%e7%b3%bb%e7%bb%9f/" >AI Agent核心机制</a></td>
+          <td>ReAct、Multi-Agent、记忆系统、MCP</td>
+      </tr>
+      <tr>
+          <td><a class="link" href="./%e5%b7%a5%e7%a8%8b%e5%8c%96%e4%b8%8e%e7%94%9f%e4%ba%a7%e8%90%bd%e5%9c%b0_RedisStream_%e5%bc%82%e6%ad%a5%e5%a4%84%e7%90%86/" >工程化与生产落地</a></td>
+          <td>异步处理、限流、FinOps、安全防护</td>
+      </tr>
+  </tbody>
+</table></div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ai/">AI</a>
+        
+            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">大模型</a>
+        
+            <a href="/tags/agent/">Agent</a>
+        
+            <a href="/tags/spring-ai/">Spring AI</a>
+        
+            <a href="/tags/java/">Java</a>
+        
+            <a href="/tags/rag/">RAG</a>
+        
+            <a href="/tags/llm/">LLM</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="/css/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="/js/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/java/go%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BFjava-guide%E7%89%88/">
+        
+        
+            <div class="article-image">
+                <img src="/p/java/go%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BFjava-guide%E7%89%88/img/1.8147d311374726a3e4431ff51a76f3fa_hu_f8f6ee16fee092f3.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Java/Go开发者的AI应用开发Agent学习路线（Java Guide版）"
+                        
+                        data-hash="md5-gUfTETdHJqPkQx/1Gnbz&#43;g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java/Go开发者的AI应用开发Agent学习路线（Java Guide版）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/spring-ai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BAfunction-calling/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring AI实战指南：大模型集成、流式输出、Function Calling</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98spring-ai--pgvector-%E4%BB%8E0%E5%88%B01/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">RAG知识库实战：Spring AI &#43; pgvector 从0到1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3token%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AA%97%E5%8F%A3prompt%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">大模型核心概念详解：Token、上下文窗口、Prompt工程、结构化输出</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Zell
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <p>发布了 25 篇文章 | 共 60461  字</p >
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="/js/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/photoswipe-ui-default.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="/css/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="/css/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="/js/vibrant.min.js"crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://zell.zone/icons/top.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+<style>
+    
+</style>
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+    </body>
+</html>

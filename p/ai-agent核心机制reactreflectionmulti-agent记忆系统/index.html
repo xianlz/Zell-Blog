@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 从只会&quot;被动回答&quot;的闲聊机器人，到现在能自主查资料、写代码、甚至操作电脑的 AI Agent，各种新概念（如 ReAct、Plan-and-Execute、Reflection、Multi-Agent、MCP）层出不穷。\n">
+<title>AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统</title>
+
+
+
+<link rel="stylesheet" href="/music-player/APlayer.min.css">
+<script src="/music-player/APlayer.min.js"></script>
+
+<script src="/music-player/Meting.min.js"></script>
+
+
+<link rel='canonical' href='https://zell.zone/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统">
+<meta property='og:description' content="前言 从只会&quot;被动回答&quot;的闲聊机器人，到现在能自主查资料、写代码、甚至操作电脑的 AI Agent，各种新概念（如 ReAct、Plan-and-Execute、Reflection、Multi-Agent、MCP）层出不穷。\n">
+<meta property='og:url' content='https://zell.zone/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/'>
+<meta property='og:site_name' content='Zell Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='Agent' /><meta property='article:tag' content='ReAct' /><meta property='article:tag' content='Multi-Agent' /><meta property='article:tag' content='记忆系统' /><meta property='article:tag' content='MCP' /><meta property='article:published_time' content='2026-04-13T10:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-04-13T10:00:00&#43;08:00'/><meta property='og:image' content='https://zell.zone/img/cover.jpg' />
+<meta name="twitter:title" content="AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统">
+<meta name="twitter:description" content="前言 从只会&quot;被动回答&quot;的闲聊机器人，到现在能自主查资料、写代码、甚至操作电脑的 AI Agent，各种新概念（如 ReAct、Plan-and-Execute、Reflection、Multi-Agent、MCP）层出不穷。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zell.zone/img/cover.jpg' />
+    <link rel="icon" href="https://zell.zone/favicon.ico">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_931a78b9ce29985d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">⛰️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Zell Blog</a></h1>
+            <h2 class="site-description">悟已往之不谏
+知来者之可追
+</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='490200536@qq.com'
+                        target="_blank"
+                        title="email"
+                        rel="me"
+                    >
+                        
+                        
+                            <!--
+tags: [technology, e-mail, site, cm, group]
+category: Brand
+unicode: "f328"
+version: "1.86"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 18l9 -6.462l-9 -5.538v12h18v-12l-9 5.538" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/xianlz'
+                        target="_blank"
+                        title="Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.bilibili.com/'
+                        target="_blank"
+                        title="bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <rect x="50" y="70" width="200" height="160" rx="15" fill="none" stroke="#00A1D6" stroke-width="8"/>
+  <line x1="110" y1="70" x2="90" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <line x1="190" y1="70" x2="210" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="90" cy="40" r="5" fill="#00A1D6"/>
+  <circle cx="210" cy="40" r="5" fill="#00A1D6"/>
+  <rect x="70" y="90" width="160" height="120" rx="5" fill="#00A1D6" opacity="0.8"/>
+  <path d="M100,160 C105,150 115,145 125,150 C135,155 140,165 135,175 C130,185 120,190 110,185 C100,180 95,170 100,160 Z" fill="#FB7299"/>
+  <circle cx="115" cy="155" r="5" fill="white"/>
+  <path d="M180,160 C185,150 195,145 205,150 C215,155 220,165 215,175 C210,185 200,190 190,185 C180,180 175,170 180,160 Z" fill="#00A1D6"/>
+  <circle cx="195" cy="155" r="5" fill="white"/>
+  <path d="M60,100 L65,90 L70,100 L80,105 L70,110 L65,120 L60,110 L50,105 Z" fill="#FFC107"/>
+  <path d="M240,130 L245,120 L250,130 L260,135 L250,140 L245,150 L240,140 L230,135 Z" fill="#FFC107"/>
+  <path d="M70,200 L75,190 L80,200 L90,205 L80,210 L75,220 L70,210 L60,205 Z" fill="#FFC107"/>
+  <text x="150" y="260" text-anchor="middle" font-family="Microsoft YaHei" font-size="24" font-weight="bold" fill="#00A1D6">哔哩哔哩</text>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://zell.zone/en/" >English</option>
+                                
+                                    <option value="https://zell.zone/" selected>简体中文</option>
+                                
+                                    <option value="https://zell.zone/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+               
+                
+                <li id="dark-mode-toggle">
+                    <!--
+tags: [temperature, hot, wheater, thermometer, forecast]
+category: Weather
+version: "1.73"
+unicode: "f236"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
+  <path d="M6.343 17.657l-1.414 1.414" />
+  <path d="M6.343 6.343l-1.414 -1.414" />
+  <path d="M17.657 6.343l1.414 -1.414" />
+  <path d="M17.657 17.657l1.414 1.414" />
+  <path d="M4 12h-2" />
+  <path d="M12 4v-2" />
+  <path d="M20 12h2" />
+  <path d="M12 20v2" />
+</svg>
+
+                    <!--
+tags: [night, dark mode]
+category: Weather
+version: "1.21"
+unicode: "ece7"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#2196f3"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+  <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+  <path d="M19 11h2m-1 -1v2" />
+</svg>
+
+                    
+                </li>
+                
+
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一ai-agent-基础概念">一、AI Agent 基础概念</a>
+      <ol>
+        <li><a href="#11-什么是-ai-agent">1.1 什么是 AI Agent</a></li>
+        <li><a href="#12-agent-的三大核心组件">1.2 Agent 的三大核心组件</a></li>
+        <li><a href="#13-agent-loop-运转机制">1.3 Agent Loop 运转机制</a></li>
+        <li><a href="#14-agent-vs-传统编程">1.4 Agent vs 传统编程</a></li>
+      </ol>
+    </li>
+    <li><a href="#二agent-调度范式">二、Agent 调度范式</a>
+      <ol>
+        <li><a href="#21-react-范式">2.1 ReAct 范式</a></li>
+        <li><a href="#22-plan-and-execute-范式">2.2 Plan-and-Execute 范式</a></li>
+        <li><a href="#23-reflection-范式">2.3 Reflection 范式</a></li>
+        <li><a href="#24-多范式对比总结">2.4 多范式对比总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#三tool-calling-机制">三、Tool Calling 机制</a>
+      <ol>
+        <li><a href="#31-tool-calling-原理">3.1 Tool Calling 原理</a></li>
+        <li><a href="#32-工具定义">3.2 工具定义</a></li>
+        <li><a href="#33-java-实现">3.3 Java 实现</a></li>
+        <li><a href="#34-mcp-协议">3.4 MCP 协议</a></li>
+        <li><a href="#35-安全防护">3.5 安全防护</a></li>
+      </ol>
+    </li>
+    <li><a href="#四multi-agent-系统">四、Multi-Agent 系统</a>
+      <ol>
+        <li><a href="#41-什么是-multi-agent">4.1 什么是 Multi-Agent</a></li>
+        <li><a href="#42-agent-间通信">4.2 Agent 间通信</a></li>
+        <li><a href="#43-吴恩达的-multi-agent-范式">4.3 吴恩达的 Multi-Agent 范式</a></li>
+      </ol>
+    </li>
+    <li><a href="#五记忆系统">五、记忆系统</a>
+      <ol>
+        <li><a href="#51-为什么需要记忆">5.1 为什么需要记忆</a></li>
+        <li><a href="#52-记忆的三种类型">5.2 记忆的三种类型</a></li>
+        <li><a href="#53-记忆存储形式">5.3 记忆存储形式</a></li>
+        <li><a href="#54-记忆生命周期">5.4 记忆生命周期</a></li>
+        <li><a href="#55-记忆检索优化">5.5 记忆检索优化</a></li>
+        <li><a href="#56-生产级记忆系统产品">5.6 生产级记忆系统产品</a></li>
+      </ol>
+    </li>
+    <li><a href="#六工程实践">六、工程实践</a>
+      <ol>
+        <li><a href="#61-agent-开发框架">6.1 Agent 开发框架</a></li>
+        <li><a href="#62-状态持久化">6.2 状态持久化</a></li>
+        <li><a href="#63-断点续执行">6.3 断点续执行</a></li>
+        <li><a href="#64-多租户隔离">6.4 多租户隔离</a></li>
+      </ol>
+    </li>
+    <li><a href="#七常见挑战与解决方案">七、常见挑战与解决方案</a></li>
+    <li><a href="#八总结">八、总结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/">
+                
+                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ai/" >
+                AI
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/">AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-13 10:00:00</time>
+            </div>
+        
+
+        
+            <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.00008 5.75C2.00008 5.33579 2.33587 5 2.75008 5H21.2501C21.6643 5 22.0001 5.33579 22.0001 5.75C22.0001 6.16421 21.6643 6.5 21.2501 6.5H2.75008C2.33587 6.5 2.00008 6.16421 2.00008 5.75ZM2.00008 12.25C2.00008 11.8358 2.33587 11.5 2.75008 11.5H21.2501C21.6643 11.5 22.0001 11.8358 22.0001 12.25C22.0001 12.6642 21.6643 13 21.2501 13H2.75008C2.33587 13 2.00008 12.6642 2.00008 12.25ZM19.0001 18.75C19.0001 18.3358 19.3359 18 19.7501 18H21.2501C21.6643 18 22.0001 18.3358 22.0001 18.75C22.0001 19.1642 21.6643 19.5 21.2501 19.5H19.7501C19.3359 19.5 19.0001 19.1642 19.0001 18.75Z" fill="#212121"/>
+<path d="M2.4161 18.7377C2.62675 18.5972 2.83063 18.4376 3.02344 18.2633V22.25C3.02344 22.6642 3.35922 23 3.77344 23C4.18765 23 4.52344 22.6642 4.52344 22.25V15.75C4.52344 15.356 4.21966 15.033 3.83356 15.0024C3.46481 14.9719 3.12137 15.2183 3.04013 15.5897C2.91354 16.1684 2.34841 16.98 1.58405 17.4896C1.23941 17.7194 1.14628 18.185 1.37604 18.5297C1.60581 18.8743 2.07146 18.9674 2.4161 18.7377Z" fill="#212121"/>
+<path d="M8 17.5227C8 16.995 8.44352 16.5 8.98577 16.5C9.39293 16.5 9.7207 16.6909 9.87916 16.9345C10.015 17.1434 10.0966 17.4998 9.78558 18.0292C9.63607 18.2837 9.41005 18.5114 9.10403 18.7531C8.95157 18.8735 8.78845 18.9904 8.61108 19.1158L8.53729 19.1679C8.38506 19.2753 8.2221 19.3902 8.06469 19.5087C7.32108 20.0683 6.5 20.8536 6.5 22.25C6.5 22.6642 6.83579 23 7.25 23L7.25818 23L7.26636 23H10.7006C11.1148 23 11.4506 22.6642 11.4506 22.25C11.4506 21.8358 11.1148 21.5 10.7006 21.5H8.18765C8.34843 21.2182 8.61059 20.9752 8.96663 20.7072C9.1041 20.6038 9.24601 20.5036 9.39926 20.3955L9.47685 20.3407C9.65545 20.2145 9.84717 20.0775 10.0337 19.9302C10.4057 19.6364 10.7945 19.2731 11.0789 18.789C11.6358 17.8411 11.6253 16.868 11.1365 16.1166C10.6704 15.4 9.84098 15 8.98577 15C7.50821 15 6.5 16.2777 6.5 17.5227C6.5 17.9369 6.83579 18.2727 7.25 18.2727C7.66421 18.2727 8 17.9369 8 17.5227Z" fill="#212121"/>
+<path d="M14.4711 17.1377C14.5032 17.0255 14.5795 16.8666 14.722 16.7409C14.8504 16.6276 15.0775 16.5 15.5 16.5C16.2612 16.5 16.5 17.0002 16.5 17.2273C16.5 17.4724 16.4476 17.7178 16.3102 17.8907C16.1989 18.0308 15.9315 18.25 15.2083 18.25C14.7941 18.25 14.4583 18.5858 14.4583 19C14.4583 19.4142 14.7941 19.75 15.2083 19.75C15.4818 19.75 15.8597 19.7864 16.1427 19.9191C16.2745 19.9809 16.3571 20.0505 16.4071 20.1207C16.4519 20.1837 16.5 20.287 16.5 20.4773C16.5 20.965 16.3477 21.1807 16.2193 21.2891C16.0682 21.4167 15.8239 21.5 15.5 21.5C15.138 21.5 14.9331 21.4374 14.8074 21.3578C14.6961 21.2873 14.5677 21.1538 14.4624 20.8338C14.3329 20.4403 13.909 20.2263 13.5155 20.3558C13.1221 20.4852 12.9081 20.9092 13.0375 21.3026C13.2239 21.8689 13.533 22.3263 14.005 22.6252C14.4627 22.9149 14.9869 23 15.5 23C16.051 23 16.6817 22.8618 17.1869 22.4353C17.7147 21.9898 18 21.3191 18 20.4773C18 20.0027 17.8701 19.5891 17.6288 19.2504C17.5501 19.14 17.4631 19.0423 17.3708 18.9559C17.4104 18.9135 17.4483 18.8695 17.4844 18.8241C17.9223 18.2731 18 17.6321 18 17.2273C18 16.1543 17.072 15 15.5 15C14.7345 15 14.1485 15.2466 13.7298 15.616C13.3252 15.9728 13.1205 16.4048 13.0288 16.7259C12.9151 17.1242 13.1457 17.5393 13.544 17.653C13.9423 17.7667 14.3574 17.536 14.4711 17.1377Z" fill="#212121"/>
+</svg>
+
+                <time class="article-time--reading">
+                    本文共 3744 字
+                </time>
+            </div>
+        
+
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+            <div id="viewCount">
+                <?xml version="1.0" ?><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="-0.0000027" x2="512" y1="256" y2="256"><stop offset="0" style="stop-color:#E24263"/><stop offset="1" style="stop-color:#DD1E47"/></linearGradient><circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666641" x2="469.3333435" y1="256.0005188" y2="256.0005188"><stop offset="0" style="stop-color:#DD1E47"/><stop offset="1" style="stop-color:#E24263"/></linearGradient><path d="M256,469.3338623c-117.6309967,0-213.3333435-95.7023926-213.3333435-213.3333435    c0-117.6314545,95.7023392-213.333313,213.3333435-213.333313c117.6362,0,213.3333435,95.7018661,213.3333435,213.333313    C469.3333435,373.6314697,373.6362,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/></g><g><path d="M264,189.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S339.4841919,189.5839996,264,189.5839996z M264,313.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C313.4761963,291.3247986,291.3247375,313.4757385,264,313.4757385z" opacity="0.3"/><circle cx="264.0000916" cy="263.9997253" opacity="0.3" r="15.4838667"/></g><g><path d="M256,181.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S331.4841919,181.5839996,256,181.5839996z M256,305.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C305.4761963,283.3247986,283.3247375,305.4757385,256,305.4757385z" fill="#FFFFFF"/><circle cx="256.0000916" cy="255.9997406" fill="#FFFFFF" r="15.4838667"/></g></g></svg>
+                <time class="article-time--reading">
+                    
+                    <span id="vercount_value_page_pv"> </span>次
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言
+</h2><p>从只会&quot;被动回答&quot;的闲聊机器人，到现在能自主查资料、写代码、甚至操作电脑的 AI Agent，各种新概念（如 ReAct、Plan-and-Execute、Reflection、Multi-Agent、MCP）层出不穷。</p>
+<p>AI Agent 代表了软件工程的一次范式转移。过去我们需要穷举边缘情况，把规则写死在代码里；现在则将决策权交给 AI，换取处理复杂场景的灵活性。</p>
+<h2 id="一ai-agent-基础概念">一、AI Agent 基础概念
+</h2><h3 id="11-什么是-ai-agent">1.1 什么是 AI Agent
+</h3><p>**AI Agent（人工智能智能体）**是一种能够感知环境、进行决策并执行动作的自主软件系统。它以大语言模型（LLM）为&quot;大脑&quot;，代表用户自动化完成复杂任务。</p>
+<p><strong>与传统编程的对比</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>方式</th>
+          <th>遇到预设外的情况时&hellip;</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>传统编程</td>
+          <td>报错或走默认分支，需重新开发</td>
+      </tr>
+      <tr>
+          <td>Workflow</td>
+          <td>走预设兜底路径，无法真正理解情境</td>
+      </tr>
+      <tr>
+          <td><strong>Agent</strong></td>
+          <td>AI 实时分析情境，动态调整策略</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="12-agent-的三大核心组件">1.2 Agent 的三大核心组件
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│                     AI Agent                                │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│  🤖 大脑 (LLM)        │ 感知环境、推理、决策                │
+</span></span><span class="line"><span class="cl">│  🔧 工具 (Tools)      │ 调用外部系统、执行动作               │
+</span></span><span class="line"><span class="cl">│  📝 记忆 (Memory)     │ 保存上下文、积累经验                 │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="13-agent-loop-运转机制">1.3 Agent Loop 运转机制
+</h3><p>Agent 的核心是一个循环：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────┐    Think     ┌─────────┐
+</span></span><span class="line"><span class="cl">│   LLM   │ ──────────▶ │  Agent  │
+</span></span><span class="line"><span class="cl">└─────────┘              └─────────┘
+</span></span><span class="line"><span class="cl">     ▲                       │
+</span></span><span class="line"><span class="cl">     │                       ▼
+</span></span><span class="line"><span class="cl">     │                 ┌─────────┐
+</span></span><span class="line"><span class="cl">     │                 │  Tool   │
+</span></span><span class="line"><span class="cl">     │                 │ Calling │
+</span></span><span class="line"><span class="cl">     │                 └─────────┘
+</span></span><span class="line"><span class="cl">     │                       │
+</span></span><span class="line"><span class="cl">     │                       ▼
+</span></span><span class="line"><span class="cl">     └───────────────── Observe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Loop 三大步骤</strong>：</p>
+<ol>
+<li><strong>Think</strong>：分析当前状态，决定下一步行动</li>
+<li><strong>Act</strong>：调用工具或执行动作</li>
+<li><strong>Observe</strong>：获取执行结果，更新状态</li>
+</ol>
+<h3 id="14-agent-vs-传统编程">1.4 Agent vs 传统编程
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>维度</th>
+          <th>传统编程</th>
+          <th>Workflow</th>
+          <th>Agent</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>技能要求</strong></td>
+          <td>编程语言 + 算法 + 系统设计</td>
+          <td>编程原理 + 图形化编排</td>
+          <td>自然语言描述意图</td>
+      </tr>
+      <tr>
+          <td><strong>修改成本</strong></td>
+          <td>数天至数周</td>
+          <td>数小时至数天</td>
+          <td>分钟级</td>
+      </tr>
+      <tr>
+          <td><strong>适用场景</strong></td>
+          <td>逻辑固定、高性能</td>
+          <td>流程清晰、步骤有限</td>
+          <td>动态决策、不确定步骤</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="二agent-调度范式">二、Agent 调度范式
+</h2><h3 id="21-react-范式">2.1 ReAct 范式
+</h3><p><strong>ReAct = Reasoning + Acting</strong></p>
+<p>将&quot;思维链（CoT）推理&quot;与&quot;外部环境交互行动&quot;相结合，弥补单纯 LLM 缺乏实时信息和容易产生幻觉的缺陷。</p>
+<p><strong>工作流程</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">用户问题 → Think(分析) → Act(调用工具) → Observe(观察结果)
+</span></span><span class="line"><span class="cl">    ↑                                                   │
+</span></span><span class="line"><span class="cl">    └───────────────────────────────────────────────────┘
+</span></span><span class="line"><span class="cl">              循环往复直至任务完成
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>ReAct 示例</strong>（排查线上服务变慢）：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>步骤</th>
+          <th>动作</th>
+          <th>结果</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>Think：需要先了解系统状态</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>Act：调用监控工具查询 CPU/内存</td>
+          <td>CPU 飙升至 98%，有慢 SQL 告警</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>Think：CPU 高可能是数据库问题</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>Act：调用日志工具查询慢 SQL</td>
+          <td>发现语句未命中索引</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>Think：需要通知负责人</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>Act：调用邮件工具发送通知</td>
+          <td>邮件发送成功</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="22-plan-and-execute-范式">2.2 Plan-and-Execute 范式
+</h3><p><strong>LangChain 团队于 2023 年提出</strong>，先全局规划再逐步执行。</p>
+<p><strong>与 ReAct 的对比</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>维度</th>
+          <th>ReAct</th>
+          <th>Plan-and-Execute</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>规划方式</strong></td>
+          <td>动态、逐步规划</td>
+          <td>静态、全局预规划</td>
+      </tr>
+      <tr>
+          <td><strong>适用场景</strong></td>
+          <td>动态环境、需实时纠偏</td>
+          <td>步骤明确的长期复杂任务</td>
+      </tr>
+      <tr>
+          <td><strong>容错能力</strong></td>
+          <td>强（每步可动态修正）</td>
+          <td>弱（环境变化需重新规划）</td>
+      </tr>
+      <tr>
+          <td><strong>上下文管理</strong></td>
+          <td>随迭代持续增长</td>
+          <td>执行步骤相对独立，更可控</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="23-reflection-范式">2.3 Reflection 范式
+</h3><p><strong>自我纠错闭环</strong>：让 Agent 反思自己的输出，不断改进。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ReflectionAgent</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">problem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">solution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">llm</span><span class="p">.</span><span class="na">generate</span><span class="p">(</span><span class="n">problem</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 自我评估</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">EvaluationResult</span><span class="w"> </span><span class="n">eval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">evaluator</span><span class="p">.</span><span class="na">evaluate</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">solution</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">eval</span><span class="p">.</span><span class="na">isSatisfactory</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 反思改进</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">reflection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">llm</span><span class="p">.</span><span class="na">reflect</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">solution</span><span class="p">,</span><span class="w"> </span><span class="n">eval</span><span class="p">.</span><span class="na">getFeedback</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">solution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">llm</span><span class="p">.</span><span class="na">improve</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">reflection</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">solution</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="24-多范式对比总结">2.4 多范式对比总结
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>范式</th>
+          <th>核心思想</th>
+          <th>适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ReAct</strong></td>
+          <td>边推理边行动，动态纠错</td>
+          <td>工具调用、复杂推理</td>
+      </tr>
+      <tr>
+          <td><strong>Plan-and-Execute</strong></td>
+          <td>先规划后执行</td>
+          <td>长任务、多步骤</td>
+      </tr>
+      <tr>
+          <td><strong>Reflection</strong></td>
+          <td>自我反思改进</td>
+          <td>代码生成、内容创作</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="三tool-calling-机制">三、Tool Calling 机制
+</h2><h3 id="31-tool-calling-原理">3.1 Tool Calling 原理
+</h3><p>Tool Calling 允许 LLM 调用我们定义的 Java 方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">用户问题 → LLM 判断需要调用工具 → 返回工具名称+参数 → 执行工具 → 返回结果 → LLM 生成回答
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="32-工具定义">3.2 工具定义
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;queryDatabase&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;查询数据库获取用户信息&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;parameters&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;object&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;sql&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;SQL 查询语句&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;required&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;sql&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="33-java-实现">3.3 Java 实现
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">chatClient</span><span class="p">(</span><span class="n">ChatClient</span><span class="p">.</span><span class="na">Builder</span><span class="w"> </span><span class="n">builder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">builder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">defaultFunction</span><span class="p">(</span><span class="s">&#34;queryDatabase&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QueryDatabaseFunction</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">defaultFunction</span><span class="p">(</span><span class="s">&#34;sendEmail&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SendEmailFunction</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">QueryDatabaseFunction</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Function</span><span class="o">&lt;</span><span class="n">DatabaseRequest</span><span class="p">,</span><span class="w"> </span><span class="n">DatabaseResponse</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">DatabaseResponse</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">DatabaseRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">jdbcTemplate</span><span class="p">.</span><span class="na">queryForObject</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">getSql</span><span class="p">(),</span><span class="w"> </span><span class="n">DatabaseResponse</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="34-mcp-协议">3.4 MCP 协议
+</h3><p><strong>MCP（Model Context Protocol）</strong> 是 Anthropic 提出的新兴标准化协议，统一工具调用接口。</p>
+<p><strong>MCP 原语类型</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>作用</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Tools</strong></td>
+          <td>可执行的函数</td>
+          <td>查询数据库、发送邮件</td>
+      </tr>
+      <tr>
+          <td><strong>Resources</strong></td>
+          <td>只读数据资源</td>
+          <td>本地文件、数据库记录</td>
+      </tr>
+      <tr>
+          <td><strong>Prompts</strong></td>
+          <td>可复用的提示模板</td>
+          <td>代码审查模板、故障报告模板</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="35-安全防护">3.5 安全防护
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>风险</th>
+          <th>防护措施</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Prompt Injection</td>
+          <td>用户输入清洗、XML 标签隔离</td>
+      </tr>
+      <tr>
+          <td>权限控制</td>
+          <td>基于 Token/Session 的权限校验</td>
+      </tr>
+      <tr>
+          <td>超时熔断</td>
+          <td>CompletableFuture + Timeout / Sentinel</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="四multi-agent-系统">四、Multi-Agent 系统
+</h2><h3 id="41-什么是-multi-agent">4.1 什么是 Multi-Agent
+</h3><p><strong>Multi-Agent 系统</strong>是指多个独立 Agent 通过协作完成单一复杂任务的架构，每个 Agent 专注于特定角色或职能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│                   Multi-Agent 系统                          │
+</span></span><span class="line"><span class="cl">│                                                             │
+</span></span><span class="line"><span class="cl">│   ┌─────────┐   ┌─────────┐   ┌─────────┐                 │
+</span></span><span class="line"><span class="cl">│   │ Agent A │◀──│  通信   │──▶│ Agent B │                 │
+</span></span><span class="line"><span class="cl">│   │ (搜索)  │   │  (队列) │   │ (写作)  │                 │
+</span></span><span class="line"><span class="cl">│   └─────────┘   └─────────┘   └─────────┘                 │
+</span></span><span class="line"><span class="cl">│        │              │              │                    │
+</span></span><span class="line"><span class="cl">│        └──────────────┼──────────────┘                    │
+</span></span><span class="line"><span class="cl">│                       ▼                                     │
+</span></span><span class="line"><span class="cl">│                ┌─────────────┐                              │
+</span></span><span class="line"><span class="cl">│                │  Agent C    │                              │
+</span></span><span class="line"><span class="cl">│                │ (审核)      │                              │
+</span></span><span class="line"><span class="cl">│                └─────────────┘                              │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="42-agent-间通信">4.2 Agent 间通信
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>方式</th>
+          <th>实现</th>
+          <th>适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>消息队列</strong></td>
+          <td>Kafka / Redis Stream</td>
+          <td>松耦合、异步处理</td>
+      </tr>
+      <tr>
+          <td><strong>接口调用</strong></td>
+          <td>REST / gRPC</td>
+          <td>紧耦合、同步调用</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="43-吴恩达的-multi-agent-范式">4.3 吴恩达的 Multi-Agent 范式
+</h3><p>这是人工智能先驱吴恩达倡导的宏观概念，是上述所有范式的终极整合。</p>
+<p><strong>核心思想</strong>：让不同的专业 Agent 各司其职，通过协作完成复杂任务。</p>
+<h2 id="五记忆系统">五、记忆系统
+</h2><h3 id="51-为什么需要记忆">5.1 为什么需要记忆
+</h3><p>LLM 的上下文窗口有限，Token 成本高昂。每次对话结束后，所有交互信息都会随 Session 消失。</p>
+<p><strong>记忆系统的价值</strong>：</p>
+<ul>
+<li>让 Agent 在单次对话中保持连贯性</li>
+<li>跨越多个 Session 积累用户偏好</li>
+<li>从&quot;一次性工具&quot;进化为&quot;长期协作伙伴&quot;</li>
+</ul>
+<h3 id="52-记忆的三种类型">5.2 记忆的三种类型
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>说明</th>
+          <th>存储方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>短期记忆</strong></td>
+          <td>当前对话的上下文</td>
+          <td>Redis（滑动窗口）</td>
+      </tr>
+      <tr>
+          <td><strong>长期记忆</strong></td>
+          <td>用户偏好、历史知识</td>
+          <td>Neo4j / 向量库</td>
+      </tr>
+      <tr>
+          <td><strong>工作记忆</strong></td>
+          <td>当前任务相关的信息</td>
+          <td>动态加载</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="53-记忆存储形式">5.3 记忆存储形式
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>形式</th>
+          <th>说明</th>
+          <th>典型实现</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>外部化存储</strong></td>
+          <td>自然语言存储在外部数据库</td>
+          <td>向量库中的文本块</td>
+      </tr>
+      <tr>
+          <td><strong>参数化存储</strong></td>
+          <td>编码进模型参数</td>
+          <td>LoRA 适配器、SFT 微调</td>
+      </tr>
+      <tr>
+          <td><strong>隐式存储</strong></td>
+          <td>承载在模型内部表示中</td>
+          <td>KV Cache、激活值</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="54-记忆生命周期">5.4 记忆生命周期
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
+</span></span><span class="line"><span class="cl">│  写入   │───▶│  读取   │───▶│  压缩   │───▶│  遗忘   │
+</span></span><span class="line"><span class="cl">└─────────┘    └─────────┘    └─────────┘    └─────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>操作</th>
+          <th>说明</th>
+          <th>工程实现</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>写入</strong></td>
+          <td>将原始交互转化为可存储的结构化信息</td>
+          <td>LLM 提取事实三元组</td>
+      </tr>
+      <tr>
+          <td><strong>读取</strong></td>
+          <td>根据上下文检索相关记忆</td>
+          <td>向量检索 + BM25</td>
+      </tr>
+      <tr>
+          <td><strong>压缩</strong></td>
+          <td>将短期记忆转化为长期记忆</td>
+          <td>对话摘要</td>
+      </tr>
+      <tr>
+          <td><strong>遗忘</strong></td>
+          <td>淘汰低价值或过时记忆</td>
+          <td>权重衰减</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="55-记忆检索优化">5.5 记忆检索优化
+</h3><p><strong>混合检索策略</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>索引类型</th>
+          <th>作用</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Vector</strong></td>
+          <td>捕捉语义相似性</td>
+          <td>&ldquo;Java&rdquo; 和 &ldquo;Spring&rdquo; 语义相关</td>
+      </tr>
+      <tr>
+          <td><strong>Graph</strong></td>
+          <td>捕捉关系</td>
+          <td>实体之间的关联</td>
+      </tr>
+      <tr>
+          <td><strong>Keyword</strong></td>
+          <td>捕捉专有名词</td>
+          <td>精确匹配 &ldquo;Java 21&rdquo;</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="56-生产级记忆系统产品">5.6 生产级记忆系统产品
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>产品</th>
+          <th>核心思想</th>
+          <th>技术亮点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Mem0</strong></td>
+          <td>两阶段记忆流水线</td>
+          <td>实体提取 → 关系生成</td>
+      </tr>
+      <tr>
+          <td><strong>Letta</strong></td>
+          <td>操作系统虚拟内存分页</td>
+          <td>Main ↔ External Context 动态交换</td>
+      </tr>
+      <tr>
+          <td><strong>Graphiti</strong></td>
+          <td>时间感知知识图谱</td>
+          <td>情景/语义/社区三层子图</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="六工程实践">六、工程实践
+</h2><h3 id="61-agent-开发框架">6.1 Agent 开发框架
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>框架</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>LangChain4j</strong></td>
+          <td>Java 版 LangChain，支持 Agent 编排</td>
+      </tr>
+      <tr>
+          <td><strong>Spring AI</strong></td>
+          <td>与 Spring 生态集成，工具调用支持</td>
+      </tr>
+      <tr>
+          <td><strong>Agent-Flex</strong></td>
+          <td>专注于 Agent 编排</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="62-状态持久化">6.2 状态持久化
+</h3><p>长任务需要状态机持久化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// Spring State Machine</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AgentStateMachineConfig</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">StateMachine</span><span class="o">&lt;</span><span class="n">AgentState</span><span class="p">,</span><span class="w"> </span><span class="n">AgentEvent</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">stateMachine</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 定义状态转换规则</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 状态节点持久化</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AgentTask</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">AgentState</span><span class="w"> </span><span class="n">currentState</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">context</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">AgentStep</span><span class="o">&gt;</span><span class="w"> </span><span class="n">completedSteps</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="63-断点续执行">6.3 断点续执行
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AgentExecutor</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">taskId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">AgentTask</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">taskRepository</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">taskId</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 从上一断点继续</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">AgentState</span><span class="w"> </span><span class="n">lastState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">task</span><span class="p">.</span><span class="na">getCurrentState</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">task</span><span class="p">.</span><span class="na">getContext</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 继续执行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">executeFrom</span><span class="p">(</span><span class="n">task</span><span class="p">.</span><span class="na">getNextStep</span><span class="p">(),</span><span class="w"> </span><span class="n">context</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="64-多租户隔离">6.4 多租户隔离
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TenantContext</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 通过 ThreadLocal 或 MDC 传递租户 ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getCurrentTenantId</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">MDC</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&#34;tenant_id&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 在检索时自动注入租户过滤</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">Document</span><span class="o">&gt;</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vectorStore</span><span class="p">.</span><span class="na">similaritySearch</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SearchRequest</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">query</span><span class="p">(</span><span class="n">question</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">filterExpression</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">MetadataFilterExpression</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">eq</span><span class="p">(</span><span class="s">&#34;tenant_id&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">TenantContext</span><span class="p">.</span><span class="na">getCurrentTenantId</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="七常见挑战与解决方案">七、常见挑战与解决方案
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>挑战</th>
+          <th>具体问题</th>
+          <th>解决方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>上下文截断</strong></td>
+          <td>长任务中历史信息被截断导致&quot;遗忘&quot;</td>
+          <td>记忆压缩 + 分层上下文</td>
+      </tr>
+      <tr>
+          <td><strong>幻觉传播</strong></td>
+          <td>工具调用结果并不总能纠正错误推理</td>
+          <td>Reflection 自我纠错</td>
+      </tr>
+      <tr>
+          <td><strong>成本失控</strong></td>
+          <td>多轮迭代 + 工具调用 Token 消耗极高</td>
+          <td>Token 监控 + 阈值告警</td>
+      </tr>
+      <tr>
+          <td><strong>安全风险</strong></td>
+          <td>Prompt Injection 攻击</td>
+          <td>输入清洗 + 权限校验</td>
+      </tr>
+      <tr>
+          <td><strong>规划瓶颈</strong></td>
+          <td>深度多步推理容易陷入局部最优</td>
+          <td>Plan-and-Execute 全局规划</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="八总结">八、总结
+</h2><p>AI Agent 代表着从&quot;被动工具&quot;向&quot;自主执行的数字实体&quot;的演进：</p>
+<ol>
+<li><strong>ReAct</strong>：边推理边行动，动态纠错的循环机制</li>
+<li><strong>Plan-and-Execute</strong>：先全局规划再逐步执行的静态规划</li>
+<li><strong>Reflection</strong>：自我反思改进的闭环机制</li>
+<li><strong>Multi-Agent</strong>：多 Agent 协作完成复杂任务</li>
+<li><strong>记忆系统</strong>：短期记忆 + 长期记忆支撑持续上下文</li>
+<li><strong>MCP 协议</strong>：标准化的工具调用接口</li>
+</ol>
+<p>构建 Agent 系统需要关注的工程问题：</p>
+<ul>
+<li>状态持久化与断点续执行</li>
+<li>多租户隔离与安全防护</li>
+<li>Token 成本监控与控制</li>
+<li>记忆质量管理与检索优化</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ai/">AI</a>
+        
+            <a href="/tags/agent/">Agent</a>
+        
+            <a href="/tags/react/">ReAct</a>
+        
+            <a href="/tags/multi-agent/">Multi-Agent</a>
+        
+            <a href="/tags/%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/">记忆系统</a>
+        
+            <a href="/tags/mcp/">MCP</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="/css/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="/js/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/java/go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%AE%8C%E7%BB%93%E7%AF%87/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java/Go开发者AI应用开发Agent学习路线（完结篇）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/java/go%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BFjava-guide%E7%89%88/">
+        
+        
+            <div class="article-image">
+                <img src="/p/java/go%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BFjava-guide%E7%89%88/img/1.8147d311374726a3e4431ff51a76f3fa_hu_f8f6ee16fee092f3.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Java/Go开发者的AI应用开发Agent学习路线（Java Guide版）"
+                        
+                        data-hash="md5-gUfTETdHJqPkQx/1Gnbz&#43;g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java/Go开发者的AI应用开发Agent学习路线（Java Guide版）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98spring-ai--pgvector-%E4%BB%8E0%E5%88%B01/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">RAG知识库实战：Spring AI &#43; pgvector 从0到1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/spring-ai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BAfunction-calling/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring AI实战指南：大模型集成、流式输出、Function Calling</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3token%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AA%97%E5%8F%A3prompt%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">大模型核心概念详解：Token、上下文窗口、Prompt工程、结构化输出</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Zell
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <p>发布了 25 篇文章 | 共 60461  字</p >
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="/js/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/photoswipe-ui-default.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="/css/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="/css/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="/js/vibrant.min.js"crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://zell.zone/icons/top.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+<style>
+    
+</style>
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+    </body>
+</html>
