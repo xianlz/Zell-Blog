@@ -8,12 +8,12 @@
         <language>en-us</language>
         <copyright>Zell</copyright>
         <lastBuildDate>Mon, 13 Apr 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://zell.zone/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统</title>
-        <link>https://zell.zone/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/</link>
+        <title>AI_Agent核心机制_ReAct_MultiAgent_记忆系统</title>
+        <link>https://zell.zone/p/ai_agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6_react_multiagent_%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/ai_agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6_react_multiagent_%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post AI_Agent核心机制_ReAct_MultiAgent_记忆系统" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;从只会&amp;quot;被动回答&amp;quot;的闲聊机器人，到现在能自主查资料、写代码、甚至操作电脑的 AI Agent，各种新概念（如 ReAct、Plan-and-Execute、Reflection、Multi-Agent、MCP）层出不穷。&lt;/p&gt;
 &lt;p&gt;AI Agent 代表了软件工程的一次范式转移。过去我们需要穷举边缘情况，把规则写死在代码里；现在则将决策权交给 AI，换取处理复杂场景的灵活性。&lt;/p&gt;
 &lt;h2 id=&#34;一ai-agent-基础概念&#34;&gt;一、AI Agent 基础概念
@@ -848,12 +848,12 @@
 </description>
         </item>
         <item>
-        <title>Java/Go开发者AI应用开发Agent学习路线（完结篇）</title>
-        <link>https://zell.zone/p/java/go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%AE%8C%E7%BB%93%E7%AF%87/</link>
+        <title>Java_Go开发者AI应用开发Agent学习路线</title>
+        <link>https://zell.zone/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/java/go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%AE%8C%E7%BB%93%E7%AF%87/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post Java/Go开发者AI应用开发Agent学习路线（完结篇）" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post Java_Go开发者AI应用开发Agent学习路线" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;AI 时代，Java/后端开发者的机会在哪里？&lt;strong&gt;工程化落地&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;大模型本身是概率性的&amp;quot;黑盒&amp;quot;，但把它变成稳定、可观测、可扩展的生产级服务，恰恰是 Java/Go 工程师的主场——高并发架构、数据库优化、系统稳定性治理，这些能力可以直接复用。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1711,12 +1711,12 @@
 </description>
         </item>
         <item>
-        <title>RAG知识库实战：Spring AI &#43; pgvector 从0到1</title>
-        <link>https://zell.zone/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98spring-ai--pgvector-%E4%BB%8E0%E5%88%B01/</link>
+        <title>RAG知识库实战_SpringAI_pgvector</title>
+        <link>https://zell.zone/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98_springai_pgvector/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98spring-ai--pgvector-%E4%BB%8E0%E5%88%B01/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post RAG知识库实战：Spring AI &#43; pgvector 从0到1" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98_springai_pgvector/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post RAG知识库实战_SpringAI_pgvector" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;RAG（检索增强生成）已成为企业级 AI 应用的核心技术栈。通过将外部知识库与大语言模型结合，RAG 能够显著提升回答的准确性和可追溯性。&lt;/p&gt;
 &lt;h2 id=&#34;一rag-简介&#34;&gt;一、RAG 简介
 &lt;/h2&gt;&lt;h3 id=&#34;11-什么是-rag&#34;&gt;1.1 什么是 RAG
@@ -2534,12 +2534,12 @@
 </description>
         </item>
         <item>
-        <title>Spring AI实战指南：大模型集成、流式输出、Function Calling</title>
-        <link>https://zell.zone/p/spring-ai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BAfunction-calling/</link>
+        <title>SpringAI实战指南_大模型集成_流式输出</title>
+        <link>https://zell.zone/p/springai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97_%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90_%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/spring-ai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BAfunction-calling/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post Spring AI实战指南：大模型集成、流式输出、Function Calling" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/springai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97_%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90_%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post SpringAI实战指南_大模型集成_流式输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;Spring AI 是 Spring 官方打造的 AI 应用开发框架，旨在将 AI 能力无缝集成到 Spring 生态系统中。它侧重于提供构建 AI 应用所需的&lt;strong&gt;底层原子能力抽象&lt;/strong&gt;，让 Java 开发者可以像使用其他 Spring 组件一样，轻松地与大语言模型进行交互。&lt;/p&gt;
 &lt;h2 id=&#34;一spring-ai-核心能力&#34;&gt;一、Spring AI 核心能力
 &lt;/h2&gt;&lt;table&gt;
@@ -3401,12 +3401,12 @@
 </description>
         </item>
         <item>
-        <title>大模型核心概念详解：Token、上下文窗口、Prompt工程、结构化输出</title>
-        <link>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3token%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AA%97%E5%8F%A3prompt%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</link>
+        <title>大模型核心概念详解_Token_Prompt_结构化输出</title>
+        <link>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3token%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AA%97%E5%8F%A3prompt%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 大模型核心概念详解：Token、上下文窗口、Prompt工程、结构化输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 大模型核心概念详解_Token_Prompt_结构化输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;在使用 Spring AI 开发大模型应用时，你是否遇到过这些问题：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;为什么同一个 Prompt 每次输出结果不一样？&lt;/li&gt;
@@ -4224,12 +4224,12 @@
 </description>
         </item>
         <item>
-        <title>工程化与生产落地：Redis Stream异步处理、分布式限流、FinOps成本控制</title>
-        <link>https://zell.zone/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0redis-stream%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81finops%E6%88%90%E6%9C%AC%E6%8E%A7%E5%88%B6/</link>
+        <title>工程化与生产落地_RedisStream_异步处理</title>
+        <link>https://zell.zone/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0_redisstream_%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0redis-stream%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81finops%E6%88%90%E6%9C%AC%E6%8E%A7%E5%88%B6/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 工程化与生产落地：Redis Stream异步处理、分布式限流、FinOps成本控制" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0_redisstream_%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 工程化与生产落地_RedisStream_异步处理" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;很多 AI 项目只停留在调用一个 API。而真实的工程问题包括：如何处理大模型响应慢的问题？如何让大模型输出格式固定？如何让大模型基于私有文档回答？&lt;/p&gt;
 &lt;p&gt;本文聚焦工程化落地：异步处理、事务安全、稳定性、成本控制。&lt;/p&gt;
 &lt;h2 id=&#34;一异步任务场景&#34;&gt;一、异步任务场景

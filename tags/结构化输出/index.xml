@@ -8,12 +8,12 @@
         <language>en-us</language>
         <copyright>Zell</copyright>
         <lastBuildDate>Mon, 13 Apr 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>大模型核心概念详解：Token、上下文窗口、Prompt工程、结构化输出</title>
-        <link>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3token%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AA%97%E5%8F%A3prompt%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</link>
+        <title>大模型核心概念详解_Token_Prompt_结构化输出</title>
+        <link>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3token%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AA%97%E5%8F%A3prompt%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 大模型核心概念详解：Token、上下文窗口、Prompt工程、结构化输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 大模型核心概念详解_Token_Prompt_结构化输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;在使用 Spring AI 开发大模型应用时，你是否遇到过这些问题：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;为什么同一个 Prompt 每次输出结果不一样？&lt;/li&gt;

@@ -8,12 +8,12 @@
         <language>en-us</language>
         <copyright>Zell</copyright>
         <lastBuildDate>Mon, 13 Apr 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/mcp/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统</title>
-        <link>https://zell.zone/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/</link>
+        <title>AI_Agent核心机制_ReAct_MultiAgent_记忆系统</title>
+        <link>https://zell.zone/p/ai_agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6_react_multiagent_%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/ai-agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6reactreflectionmulti-agent%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post AI Agent核心机制：ReAct、Reflection、Multi-Agent、记忆系统" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/ai_agent%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6_react_multiagent_%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post AI_Agent核心机制_ReAct_MultiAgent_记忆系统" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;从只会&amp;quot;被动回答&amp;quot;的闲聊机器人，到现在能自主查资料、写代码、甚至操作电脑的 AI Agent，各种新概念（如 ReAct、Plan-and-Execute、Reflection、Multi-Agent、MCP）层出不穷。&lt;/p&gt;
 &lt;p&gt;AI Agent 代表了软件工程的一次范式转移。过去我们需要穷举边缘情况，把规则写死在代码里；现在则将决策权交给 AI，换取处理复杂场景的灵活性。&lt;/p&gt;
 &lt;h2 id=&#34;一ai-agent-基础概念&#34;&gt;一、AI Agent 基础概念

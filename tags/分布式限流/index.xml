@@ -8,12 +8,12 @@
         <language>en-us</language>
         <copyright>Zell</copyright>
         <lastBuildDate>Mon, 13 Apr 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>工程化与生产落地：Redis Stream异步处理、分布式限流、FinOps成本控制</title>
-        <link>https://zell.zone/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0redis-stream%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81finops%E6%88%90%E6%9C%AC%E6%8E%A7%E5%88%B6/</link>
+        <title>工程化与生产落地_RedisStream_异步处理</title>
+        <link>https://zell.zone/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0_redisstream_%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
-        <guid>https://zell.zone/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0redis-stream%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81finops%E6%88%90%E6%9C%AC%E6%8E%A7%E5%88%B6/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 工程化与生产落地：Redis Stream异步处理、分布式限流、FinOps成本控制" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <guid>https://zell.zone/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0_redisstream_%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/</guid>
+        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 工程化与生产落地_RedisStream_异步处理" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;很多 AI 项目只停留在调用一个 API。而真实的工程问题包括：如何处理大模型响应慢的问题？如何让大模型输出格式固定？如何让大模型基于私有文档回答？&lt;/p&gt;
 &lt;p&gt;本文聚焦工程化落地：异步处理、事务安全、稳定性、成本控制。&lt;/p&gt;
 &lt;h2 id=&#34;一异步任务场景&#34;&gt;一、异步任务场景
