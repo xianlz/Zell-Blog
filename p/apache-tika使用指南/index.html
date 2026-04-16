@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么是 Apache Tika？ Apache Tika 是一个内容分析工具包，用于从各种格式的文档中检测和提取元数据及文本内容。Tika 支持检测和解析超过 1000 种文件类型，包括：\n文档格式：PDF、Microsoft Office、OpenDocument、RTF、HTML 等 图片格式：JPEG、PNG、TIFF 等（可提取 EXIF 元数据） 邮件格式：MIME 消息 归档格式：ZIP、TAR、GZIP 等 音频/视频：MP3、MP4、AVI 等的元数据 其他：XML、JSON、CSV 等结构化格式 项目集成 Maven 依赖 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 &lt;properties&gt; &lt;tika.version&gt;3.2.2&lt;/tika.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- 核心库 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-core&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 解析器包（包含所有主流文档格式的解析器） --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-parsers-standard-package&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;/dependencies&gt; 注意：tika-parsers-standard-package 会包含所有解析器，如果需要更小的包体积，可以只引入特定解析器。\n">
+<title>Apache Tika使用指南</title>
+
+
+
+<link rel="stylesheet" href="/music-player/APlayer.min.css">
+<script src="/music-player/APlayer.min.js"></script>
+
+<script src="/music-player/Meting.min.js"></script>
+
+
+<link rel='canonical' href='https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="Apache Tika使用指南">
+<meta property='og:description' content="什么是 Apache Tika？ Apache Tika 是一个内容分析工具包，用于从各种格式的文档中检测和提取元数据及文本内容。Tika 支持检测和解析超过 1000 种文件类型，包括：\n文档格式：PDF、Microsoft Office、OpenDocument、RTF、HTML 等 图片格式：JPEG、PNG、TIFF 等（可提取 EXIF 元数据） 邮件格式：MIME 消息 归档格式：ZIP、TAR、GZIP 等 音频/视频：MP3、MP4、AVI 等的元数据 其他：XML、JSON、CSV 等结构化格式 项目集成 Maven 依赖 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 &lt;properties&gt; &lt;tika.version&gt;3.2.2&lt;/tika.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- 核心库 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-core&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 解析器包（包含所有主流文档格式的解析器） --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-parsers-standard-package&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;/dependencies&gt; 注意：tika-parsers-standard-package 会包含所有解析器，如果需要更小的包体积，可以只引入特定解析器。\n">
+<meta property='og:url' content='https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/'>
+<meta property='og:site_name' content='Zell Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Apache Tika' /><meta property='article:tag' content='文档解析' /><meta property='article:tag' content='内容提取' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2026-04-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-16T00:00:00&#43;00:00'/><meta property='og:image' content='https://zell.zone/img/1.jpg' />
+<meta name="twitter:title" content="Apache Tika使用指南">
+<meta name="twitter:description" content="什么是 Apache Tika？ Apache Tika 是一个内容分析工具包，用于从各种格式的文档中检测和提取元数据及文本内容。Tika 支持检测和解析超过 1000 种文件类型，包括：\n文档格式：PDF、Microsoft Office、OpenDocument、RTF、HTML 等 图片格式：JPEG、PNG、TIFF 等（可提取 EXIF 元数据） 邮件格式：MIME 消息 归档格式：ZIP、TAR、GZIP 等 音频/视频：MP3、MP4、AVI 等的元数据 其他：XML、JSON、CSV 等结构化格式 项目集成 Maven 依赖 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 &lt;properties&gt; &lt;tika.version&gt;3.2.2&lt;/tika.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- 核心库 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-core&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 解析器包（包含所有主流文档格式的解析器） --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-parsers-standard-package&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;/dependencies&gt; 注意：tika-parsers-standard-package 会包含所有解析器，如果需要更小的包体积，可以只引入特定解析器。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zell.zone/img/1.jpg' />
+    <link rel="icon" href="https://zell.zone/favicon.ico">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_931a78b9ce29985d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">⛰️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Zell Blog</a></h1>
+            <h2 class="site-description">悟已往之不谏
+知来者之可追
+</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='490200536@qq.com'
+                        target="_blank"
+                        title="email"
+                        rel="me"
+                    >
+                        
+                        
+                            <!--
+tags: [technology, e-mail, site, cm, group]
+category: Brand
+unicode: "f328"
+version: "1.86"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 18l9 -6.462l-9 -5.538v12h18v-12l-9 5.538" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/xianlz'
+                        target="_blank"
+                        title="Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.bilibili.com/'
+                        target="_blank"
+                        title="bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <rect x="50" y="70" width="200" height="160" rx="15" fill="none" stroke="#00A1D6" stroke-width="8"/>
+  <line x1="110" y1="70" x2="90" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <line x1="190" y1="70" x2="210" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="90" cy="40" r="5" fill="#00A1D6"/>
+  <circle cx="210" cy="40" r="5" fill="#00A1D6"/>
+  <rect x="70" y="90" width="160" height="120" rx="5" fill="#00A1D6" opacity="0.8"/>
+  <path d="M100,160 C105,150 115,145 125,150 C135,155 140,165 135,175 C130,185 120,190 110,185 C100,180 95,170 100,160 Z" fill="#FB7299"/>
+  <circle cx="115" cy="155" r="5" fill="white"/>
+  <path d="M180,160 C185,150 195,145 205,150 C215,155 220,165 215,175 C210,185 200,190 190,185 C180,180 175,170 180,160 Z" fill="#00A1D6"/>
+  <circle cx="195" cy="155" r="5" fill="white"/>
+  <path d="M60,100 L65,90 L70,100 L80,105 L70,110 L65,120 L60,110 L50,105 Z" fill="#FFC107"/>
+  <path d="M240,130 L245,120 L250,130 L260,135 L250,140 L245,150 L240,140 L230,135 Z" fill="#FFC107"/>
+  <path d="M70,200 L75,190 L80,200 L90,205 L80,210 L75,220 L70,210 L60,205 Z" fill="#FFC107"/>
+  <text x="150" y="260" text-anchor="middle" font-family="Microsoft YaHei" font-size="24" font-weight="bold" fill="#00A1D6">哔哩哔哩</text>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://zell.zone/en/" >English</option>
+                                
+                                    <option value="https://zell.zone/" selected>简体中文</option>
+                                
+                                    <option value="https://zell.zone/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+               
+                
+                <li id="dark-mode-toggle">
+                    <!--
+tags: [temperature, hot, wheater, thermometer, forecast]
+category: Weather
+version: "1.73"
+unicode: "f236"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
+  <path d="M6.343 17.657l-1.414 1.414" />
+  <path d="M6.343 6.343l-1.414 -1.414" />
+  <path d="M17.657 6.343l1.414 -1.414" />
+  <path d="M17.657 17.657l1.414 1.414" />
+  <path d="M4 12h-2" />
+  <path d="M12 4v-2" />
+  <path d="M20 12h2" />
+  <path d="M12 20v2" />
+</svg>
+
+                    <!--
+tags: [night, dark mode]
+category: Weather
+version: "1.21"
+unicode: "ece7"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#2196f3"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+  <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+  <path d="M19 11h2m-1 -1v2" />
+</svg>
+
+                    
+                </li>
+                
+
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#什么是-apache-tika">什么是 Apache Tika？</a></li>
+    <li><a href="#项目集成">项目集成</a>
+      <ol>
+        <li><a href="#maven-依赖">Maven 依赖</a></li>
+      </ol>
+    </li>
+    <li><a href="#基础使用">基础使用</a>
+      <ol>
+        <li><a href="#1-简单文本提取">1. 简单文本提取</a></li>
+        <li><a href="#2-自动检测文件类型">2. 自动检测文件类型</a></li>
+      </ol>
+    </li>
+    <li><a href="#进阶使用">进阶使用</a>
+      <ol>
+        <li><a href="#使用-parser-api-进行精细控制">使用 Parser API 进行精细控制</a></li>
+        <li><a href="#禁用嵌入资源解析">禁用嵌入资源解析</a></li>
+      </ol>
+    </li>
+    <li><a href="#提取元数据">提取元数据</a>
+      <ol>
+        <li><a href="#获取文档元数据">获取文档元数据</a></li>
+        <li><a href="#pdf-专用元数据">PDF 专用元数据</a></li>
+      </ol>
+    </li>
+    <li><a href="#解析特定格式">解析特定格式</a>
+      <ol>
+        <li><a href="#解析-pdf">解析 PDF</a></li>
+        <li><a href="#解析-microsoft-office-文档">解析 Microsoft Office 文档</a></li>
+        <li><a href="#解析-html">解析 HTML</a></li>
+      </ol>
+    </li>
+    <li><a href="#文本清洗处理">文本清洗处理</a></li>
+    <li><a href="#最佳实践">最佳实践</a>
+      <ol>
+        <li><a href="#1-使用流式处理大文件">1. 使用流式处理大文件</a></li>
+        <li><a href="#2-设置合理的超时">2. 设置合理的超时</a></li>
+        <li><a href="#3-处理编码问题">3. 处理编码问题</a></li>
+        <li><a href="#4-并行解析多个文件">4. 并行解析多个文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#支持的文件类型一览">支持的文件类型一览</a></li>
+    <li><a href="#性能优化建议">性能优化建议</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+                
+                    <img src="/img/1.jpg" loading="lazy" alt="Featured image of post Apache Tika使用指南" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java%E5%B7%A5%E5%85%B7/" >
+                Java工具
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">Apache Tika使用指南</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-16 00:00:00</time>
+            </div>
+        
+
+        
+            <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.00008 5.75C2.00008 5.33579 2.33587 5 2.75008 5H21.2501C21.6643 5 22.0001 5.33579 22.0001 5.75C22.0001 6.16421 21.6643 6.5 21.2501 6.5H2.75008C2.33587 6.5 2.00008 6.16421 2.00008 5.75ZM2.00008 12.25C2.00008 11.8358 2.33587 11.5 2.75008 11.5H21.2501C21.6643 11.5 22.0001 11.8358 22.0001 12.25C22.0001 12.6642 21.6643 13 21.2501 13H2.75008C2.33587 13 2.00008 12.6642 2.00008 12.25ZM19.0001 18.75C19.0001 18.3358 19.3359 18 19.7501 18H21.2501C21.6643 18 22.0001 18.3358 22.0001 18.75C22.0001 19.1642 21.6643 19.5 21.2501 19.5H19.7501C19.3359 19.5 19.0001 19.1642 19.0001 18.75Z" fill="#212121"/>
+<path d="M2.4161 18.7377C2.62675 18.5972 2.83063 18.4376 3.02344 18.2633V22.25C3.02344 22.6642 3.35922 23 3.77344 23C4.18765 23 4.52344 22.6642 4.52344 22.25V15.75C4.52344 15.356 4.21966 15.033 3.83356 15.0024C3.46481 14.9719 3.12137 15.2183 3.04013 15.5897C2.91354 16.1684 2.34841 16.98 1.58405 17.4896C1.23941 17.7194 1.14628 18.185 1.37604 18.5297C1.60581 18.8743 2.07146 18.9674 2.4161 18.7377Z" fill="#212121"/>
+<path d="M8 17.5227C8 16.995 8.44352 16.5 8.98577 16.5C9.39293 16.5 9.7207 16.6909 9.87916 16.9345C10.015 17.1434 10.0966 17.4998 9.78558 18.0292C9.63607 18.2837 9.41005 18.5114 9.10403 18.7531C8.95157 18.8735 8.78845 18.9904 8.61108 19.1158L8.53729 19.1679C8.38506 19.2753 8.2221 19.3902 8.06469 19.5087C7.32108 20.0683 6.5 20.8536 6.5 22.25C6.5 22.6642 6.83579 23 7.25 23L7.25818 23L7.26636 23H10.7006C11.1148 23 11.4506 22.6642 11.4506 22.25C11.4506 21.8358 11.1148 21.5 10.7006 21.5H8.18765C8.34843 21.2182 8.61059 20.9752 8.96663 20.7072C9.1041 20.6038 9.24601 20.5036 9.39926 20.3955L9.47685 20.3407C9.65545 20.2145 9.84717 20.0775 10.0337 19.9302C10.4057 19.6364 10.7945 19.2731 11.0789 18.789C11.6358 17.8411 11.6253 16.868 11.1365 16.1166C10.6704 15.4 9.84098 15 8.98577 15C7.50821 15 6.5 16.2777 6.5 17.5227C6.5 17.9369 6.83579 18.2727 7.25 18.2727C7.66421 18.2727 8 17.9369 8 17.5227Z" fill="#212121"/>
+<path d="M14.4711 17.1377C14.5032 17.0255 14.5795 16.8666 14.722 16.7409C14.8504 16.6276 15.0775 16.5 15.5 16.5C16.2612 16.5 16.5 17.0002 16.5 17.2273C16.5 17.4724 16.4476 17.7178 16.3102 17.8907C16.1989 18.0308 15.9315 18.25 15.2083 18.25C14.7941 18.25 14.4583 18.5858 14.4583 19C14.4583 19.4142 14.7941 19.75 15.2083 19.75C15.4818 19.75 15.8597 19.7864 16.1427 19.9191C16.2745 19.9809 16.3571 20.0505 16.4071 20.1207C16.4519 20.1837 16.5 20.287 16.5 20.4773C16.5 20.965 16.3477 21.1807 16.2193 21.2891C16.0682 21.4167 15.8239 21.5 15.5 21.5C15.138 21.5 14.9331 21.4374 14.8074 21.3578C14.6961 21.2873 14.5677 21.1538 14.4624 20.8338C14.3329 20.4403 13.909 20.2263 13.5155 20.3558C13.1221 20.4852 12.9081 20.9092 13.0375 21.3026C13.2239 21.8689 13.533 22.3263 14.005 22.6252C14.4627 22.9149 14.9869 23 15.5 23C16.051 23 16.6817 22.8618 17.1869 22.4353C17.7147 21.9898 18 21.3191 18 20.4773C18 20.0027 17.8701 19.5891 17.6288 19.2504C17.5501 19.14 17.4631 19.0423 17.3708 18.9559C17.4104 18.9135 17.4483 18.8695 17.4844 18.8241C17.9223 18.2731 18 17.6321 18 17.2273C18 16.1543 17.072 15 15.5 15C14.7345 15 14.1485 15.2466 13.7298 15.616C13.3252 15.9728 13.1205 16.4048 13.0288 16.7259C12.9151 17.1242 13.1457 17.5393 13.544 17.653C13.9423 17.7667 14.3574 17.536 14.4711 17.1377Z" fill="#212121"/>
+</svg>
+
+                <time class="article-time--reading">
+                    本文共 2183 字
+                </time>
+            </div>
+        
+
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+            <div id="viewCount">
+                <?xml version="1.0" ?><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="-0.0000027" x2="512" y1="256" y2="256"><stop offset="0" style="stop-color:#E24263"/><stop offset="1" style="stop-color:#DD1E47"/></linearGradient><circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666641" x2="469.3333435" y1="256.0005188" y2="256.0005188"><stop offset="0" style="stop-color:#DD1E47"/><stop offset="1" style="stop-color:#E24263"/></linearGradient><path d="M256,469.3338623c-117.6309967,0-213.3333435-95.7023926-213.3333435-213.3333435    c0-117.6314545,95.7023392-213.333313,213.3333435-213.333313c117.6362,0,213.3333435,95.7018661,213.3333435,213.333313    C469.3333435,373.6314697,373.6362,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/></g><g><path d="M264,189.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S339.4841919,189.5839996,264,189.5839996z M264,313.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C313.4761963,291.3247986,291.3247375,313.4757385,264,313.4757385z" opacity="0.3"/><circle cx="264.0000916" cy="263.9997253" opacity="0.3" r="15.4838667"/></g><g><path d="M256,181.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S331.4841919,181.5839996,256,181.5839996z M256,305.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C305.4761963,283.3247986,283.3247375,305.4757385,256,305.4757385z" fill="#FFFFFF"/><circle cx="256.0000916" cy="255.9997406" fill="#FFFFFF" r="15.4838667"/></g></g></svg>
+                <time class="article-time--reading">
+                    
+                    <span id="vercount_value_page_pv"> </span>次
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="什么是-apache-tika">什么是 Apache Tika？
+</h2><p>Apache Tika 是一个内容分析工具包，用于从各种格式的文档中检测和提取元数据及文本内容。Tika 支持检测和解析超过 1000 种文件类型，包括：</p>
+<ul>
+<li><strong>文档格式</strong>：PDF、Microsoft Office、OpenDocument、RTF、HTML 等</li>
+<li><strong>图片格式</strong>：JPEG、PNG、TIFF 等（可提取 EXIF 元数据）</li>
+<li><strong>邮件格式</strong>：MIME 消息</li>
+<li><strong>归档格式</strong>：ZIP、TAR、GZIP 等</li>
+<li><strong>音频/视频</strong>：MP3、MP4、AVI 等的元数据</li>
+<li><strong>其他</strong>：XML、JSON、CSV 等结构化格式</li>
+</ul>
+<h2 id="项目集成">项目集成
+</h2><h3 id="maven-依赖">Maven 依赖
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;properties&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;tika.version&gt;</span>3.2.2<span class="nt">&lt;/tika.version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/properties&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 核心库 --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.apache.tika<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>tika-core<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;version&gt;</span>${tika.version}<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 解析器包（包含所有主流文档格式的解析器） --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;groupId&gt;</span>org.apache.tika<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>tika-parsers-standard-package<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;version&gt;</span>${tika.version}<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependencies&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意：<code>tika-parsers-standard-package</code> 会包含所有解析器，如果需要更小的包体积，可以只引入特定解析器。</p>
+</blockquote>
+<h2 id="基础使用">基础使用
+</h2><h3 id="1-简单文本提取">1. 简单文本提取
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.Tika</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.multipart.MultipartFile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DocumentService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Tika</span><span class="w"> </span><span class="n">tika</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Tika</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">extractText</span><span class="p">(</span><span class="n">MultipartFile</span><span class="w"> </span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">inputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">tika</span><span class="p">.</span><span class="na">parseToString</span><span class="p">(</span><span class="n">inputStream</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-自动检测文件类型">2. 自动检测文件类型
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.Tika</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.mime.MimeType</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.mime.MimeTypeException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ContentTypeDetectionService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Tika</span><span class="w"> </span><span class="n">tika</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Tika</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">detectContentType</span><span class="p">(</span><span class="n">MultipartFile</span><span class="w"> </span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">inputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 根据文件内容检测类型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">tika</span><span class="p">.</span><span class="na">detect</span><span class="p">(</span><span class="n">inputStream</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getOriginalFilename</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 检测失败时回退到 HTTP Content-Type</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getContentType</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="进阶使用">进阶使用
+</h2><h3 id="使用-parser-api-进行精细控制">使用 Parser API 进行精细控制
+</h3><p>在项目实践中，我们使用 <code>AutoDetectParser</code> 和 <code>ParseContext</code> 进行更精细的控制：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.AutoDetectParser</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.ParseContext</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.Parser</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.sax.BodyContentHandler</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.metadata.Metadata</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.exception.TikaException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.extractor.EmbeddedDocumentExtractor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.pdf.PDFParserConfig</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.multipart.MultipartFile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DocumentParseService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MAX_TEXT_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">1024</span><span class="p">;</span><span class="w"> </span><span class="c1">// 5MB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">parseContent</span><span class="p">(</span><span class="n">MultipartFile</span><span class="w"> </span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">inputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">parseContent</span><span class="p">(</span><span class="n">inputStream</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">parseContent</span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">inputStream</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">throws</span><span class="w"> </span><span class="n">TikaException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">SAXException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 1. 创建自动检测解析器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">AutoDetectParser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AutoDetectParser</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 2. 创建内容处理器，限制最大文本长度</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BodyContentHandler</span><span class="w"> </span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BodyContentHandler</span><span class="p">(</span><span class="n">MAX_TEXT_LENGTH</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 3. 创建元数据对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Metadata</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Metadata</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 4. 创建解析上下文</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ParseContext</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ParseContext</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 5. 显式指定 Parser 到 Context（增强健壮性）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Parser</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">parser</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 6. 禁用嵌入文档解析（避免提取图片引用和临时文件路径）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">EmbeddedDocumentExtractor</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="k">new</span><span class="w"> </span><span class="n">NoOpEmbeddedDocumentExtractor</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 7. PDF 专用配置：关闭图片提取，按位置排序文本</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">PDFParserConfig</span><span class="w"> </span><span class="n">pdfConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PDFParserConfig</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">pdfConfig</span><span class="p">.</span><span class="na">setExtractInlineImages</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">pdfConfig</span><span class="p">.</span><span class="na">setSortByPosition</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">context</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">PDFParserConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">pdfConfig</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 8. 执行解析</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">parser</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">inputStream</span><span class="p">,</span><span class="w"> </span><span class="n">handler</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">handler</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="禁用嵌入资源解析">禁用嵌入资源解析
+</h3><p>在解析 PDF 等文档时，Tika 默认会尝试提取嵌入的图片和附件，这可能导致提取到无用的临时文件路径：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.extractor.EmbeddedDocumentExtractor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 自定义空提取器，不处理嵌入资源</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">NoOpEmbeddedDocumentExtractor</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">EmbeddedDocumentExtractor</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">shouldParseEmbedded</span><span class="p">(</span><span class="n">Metadata</span><span class="w"> </span><span class="n">metadata</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// 不解析任何嵌入资源</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">parseEmbedded</span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">inputStream</span><span class="p">,</span><span class="w"> </span><span class="n">ContentHandler</span><span class="w"> </span><span class="n">contentHandler</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                             </span><span class="n">Metadata</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">outputHtml</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 空实现，不做任何提取</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="提取元数据">提取元数据
+</h2><h3 id="获取文档元数据">获取文档元数据
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.AutoDetectParser</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.metadata.Metadata</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.metadata.TikaCoreProperties</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">extractMetadata</span><span class="p">(</span><span class="n">InputStream</span><span class="w"> </span><span class="n">inputStream</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">AutoDetectParser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AutoDetectParser</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">BodyContentHandler</span><span class="w"> </span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BodyContentHandler</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Metadata</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Metadata</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">parser</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">inputStream</span><span class="p">,</span><span class="w"> </span><span class="n">handler</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 获取常用元数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;标题: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">TikaCoreProperties</span><span class="p">.</span><span class="na">TITLE</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;作者: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">TikaCoreProperties</span><span class="p">.</span><span class="na">CREATOR</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;创建日期: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">TikaCoreProperties</span><span class="p">.</span><span class="na">CREATED</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;修改日期: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">TikaCoreProperties</span><span class="p">.</span><span class="na">MODIFIED</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;文件类型: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&#34;Content-Type&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 打印所有元数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">names</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">name</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="pdf-专用元数据">PDF 专用元数据
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.metadata.PDF</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// PDF 特有元数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;PDF 标题: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">PDF</span><span class="p">.</span><span class="na">TITLE</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;PDF 作者: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">PDF</span><span class="p">.</span><span class="na">AUTHOR</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;PDF 创建者: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">PDF</span><span class="p">.</span><span class="na">CREATOR</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;页数: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">metadata</span><span class="p">.</span><span class="na">getInt</span><span class="p">(</span><span class="n">PDF</span><span class="p">.</span><span class="na">NUMBER_OF_PAGES</span><span class="p">));</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="解析特定格式">解析特定格式
+</h2><h3 id="解析-pdf">解析 PDF
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.pdf.PDFParser</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.pdf.PDFParserConfig</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">PDFParser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PDFParser</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">PDFParserConfig</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PDFParserConfig</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">config</span><span class="p">.</span><span class="na">setExtractInlineImages</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">  </span><span class="c1">// 不提取内联图片</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">config</span><span class="p">.</span><span class="na">setSortByPosition</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">       </span><span class="c1">// 按位置排序文本（适合中文）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">config</span><span class="p">.</span><span class="na">setSuppressDuplicateOverlappingText</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// 抑制重复文本</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">ParseContext</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ParseContext</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">context</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">PDFParserConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解析-microsoft-office-文档">解析 Microsoft Office 文档
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.microsoft.ooxml.OOXMLParser</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.microsoft.ParserFactory</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.microsoft.OfficeParserConfig</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Word、Excel、PowerPoint 都使用 OOXMLParser</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">OOXMLParser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OOXMLParser</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">OfficeParserConfig</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OfficeParserConfig</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">config</span><span class="p">.</span><span class="na">setConcatenatePhrases</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// 合并短语</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">ParseContext</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ParseContext</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">context</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">OfficeParserConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解析-html">解析 HTML
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.html.HtmlParser</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.html.HtmlParserConfig</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 包含 Jsoup 解析器配置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">HtmlParser</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HtmlParser</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">HtmlParserConfig</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HtmlParserConfig</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">config</span><span class="p">.</span><span class="na">setJavascript</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w">    </span><span class="c1">// 不执行 JavaScript</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">config</span><span class="p">.</span><span class="na">setMaxTextLength</span><span class="p">(</span><span class="n">10000</span><span class="p">);</span><span class="w"> </span><span class="c1">// 最大文本长度</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">ParseContext</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ParseContext</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">context</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">HtmlParserConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="文本清洗处理">文本清洗处理
+</h2><p>Tika 提取的文本通常需要进一步清洗才能用于后续处理（如 RAG、知识库等）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TextCleaningService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 图片文件名行：image123.png</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Pattern</span><span class="w"> </span><span class="n">IMAGE_FILENAME_LINE</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Pattern</span><span class="p">.</span><span class="na">compile</span><span class="p">(</span><span class="s">&#34;(?m)^image\\d+\\.(png|jpe?g|gif|bmp|webp)\\s*$&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// HTTP/HTTPS 图片链接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Pattern</span><span class="w"> </span><span class="n">IMAGE_URL</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Pattern</span><span class="p">.</span><span class="na">compile</span><span class="p">(</span><span class="s">&#34;https?://\\S+?\\.(png|jpe?g|gif|bmp|webp)(\\?\\S*)?&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                          </span><span class="n">Pattern</span><span class="p">.</span><span class="na">CASE_INSENSITIVE</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 文件协议 URL（Tika PDF 临时文件路径等）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Pattern</span><span class="w"> </span><span class="n">FILE_URL</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Pattern</span><span class="p">.</span><span class="na">compile</span><span class="p">(</span><span class="s">&#34;file:(//)?\\S+&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">Pattern</span><span class="p">.</span><span class="na">CASE_INSENSITIVE</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 分隔线</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Pattern</span><span class="w"> </span><span class="n">SEPARATOR_LINE</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Pattern</span><span class="p">.</span><span class="na">compile</span><span class="p">(</span><span class="s">&#34;(?m)^\\s*[-_*=]{3,}\\s*$&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 控制字符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Pattern</span><span class="w"> </span><span class="n">CONTROL_CHARS</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Pattern</span><span class="p">.</span><span class="na">compile</span><span class="p">(</span><span class="s">&#34;[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">cleanText</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">text</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">text</span><span class="p">.</span><span class="na">isBlank</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 语义去噪</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CONTROL_CHARS</span><span class="p">.</span><span class="na">matcher</span><span class="p">(</span><span class="n">t</span><span class="p">).</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IMAGE_FILENAME_LINE</span><span class="p">.</span><span class="na">matcher</span><span class="p">(</span><span class="n">t</span><span class="p">).</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IMAGE_URL</span><span class="p">.</span><span class="na">matcher</span><span class="p">(</span><span class="n">t</span><span class="p">).</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FILE_URL</span><span class="p">.</span><span class="na">matcher</span><span class="p">(</span><span class="n">t</span><span class="p">).</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SEPARATOR_LINE</span><span class="p">.</span><span class="na">matcher</span><span class="p">(</span><span class="n">t</span><span class="p">).</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 格式规范化</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="na">replace</span><span class="p">(</span><span class="s">&#34;\r\n&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;\n&#34;</span><span class="p">).</span><span class="na">replace</span><span class="p">(</span><span class="s">&#34;\r&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;\n&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">&#34;(?m)[ \t]+$&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="na">replaceAll</span><span class="p">(</span><span class="s">&#34;\\n{3,}&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;\n\n&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="na">strip</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="最佳实践">最佳实践
+</h2><h3 id="1-使用流式处理大文件">1. 使用流式处理大文件
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 使用 TikaInputStream 处理大文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.io.TikaInputStream</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">TikaInputStream</span><span class="w"> </span><span class="n">tis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TikaInputStream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">file</span><span class="p">.</span><span class="na">toPath</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">parser</span><span class="p">.</span><span class="na">parse</span><span class="p">(</span><span class="n">tis</span><span class="p">,</span><span class="w"> </span><span class="n">handler</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-设置合理的超时">2. 设置合理的超时
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.tika.parser.ParseContext</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">ParseContext</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ParseContext</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">context</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="s">&#34;parseMax.timeout&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;300000&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 5 分钟超时</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-处理编码问题">3. 处理编码问题
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 对于纯文本文件，指定编码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Metadata</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Metadata</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">metadata</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">Metadata</span><span class="p">.</span><span class="na">CONTENT_TYPE</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;text/plain; charset=UTF-8&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">InputStreamReader</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InputStreamReader</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">(),</span><span class="w"> </span><span class="n">StandardCharsets</span><span class="p">.</span><span class="na">UTF_8</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-并行解析多个文件">4. 并行解析多个文件
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Async</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">CompletableFuture</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nf">parseDocuments</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">MultipartFile</span><span class="o">&gt;</span><span class="w"> </span><span class="n">files</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">CompletableFuture</span><span class="p">.</span><span class="na">supplyAsync</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">files</span><span class="p">.</span><span class="na">parallelStream</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="n">parseContent</span><span class="p">(</span><span class="n">file</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">toList</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="支持的文件类型一览">支持的文件类型一览
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>类别</th>
+          <th>格式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>文档</td>
+          <td>PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODF, RTF, TXT</td>
+      </tr>
+      <tr>
+          <td>网页</td>
+          <td>HTML, XHTML, XML</td>
+      </tr>
+      <tr>
+          <td>邮件</td>
+          <td>MIME, EML, PST, OST</td>
+      </tr>
+      <tr>
+          <td>图片</td>
+          <td>JPEG, PNG, GIF, TIFF, BMP, WebP</td>
+      </tr>
+      <tr>
+          <td>归档</td>
+          <td>ZIP, TAR, GZIP, BZIP2, 7Z</td>
+      </tr>
+      <tr>
+          <td>音频</td>
+          <td>MP3, WAV, FLAC, OGG</td>
+      </tr>
+      <tr>
+          <td>视频</td>
+          <td>MP4, AVI, MOV, WMV, FLV</td>
+      </tr>
+      <tr>
+          <td>设计</td>
+          <td>PSD, AI, Sketch</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="性能优化建议">性能优化建议
+</h2><ol>
+<li><strong>使用 <code>AutoDetectParser</code> 自动检测</strong>：智能选择解析器</li>
+<li><strong>禁用不需要的解析器</strong>：减少启动时间和内存占用</li>
+<li><strong>设置 <code>MAX_TEXT_LENGTH</code></strong>：防止无限提取</li>
+<li><strong>使用流式处理</strong>：避免一次性加载整个文件到内存</li>
+<li><strong>禁用嵌入资源提取</strong>：如不需要图片和附件</li>
+</ol>
+<h2 id="总结">总结
+</h2><p>Apache Tika 是 Java 项目中文档解析的首选工具，它提供了：</p>
+<ul>
+<li>统一的 API 来处理多种文档格式</li>
+<li>自动检测文件类型</li>
+<li>丰富的元数据提取能力</li>
+<li>可配置的解析行为</li>
+<li>良好的扩展性</li>
+</ul>
+<p>通过本指南，你应该能够使用 Tika 构建文档解析服务，实现简历解析、知识库构建、文档检索等功能。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/apache-tika/">Apache Tika</a>
+        
+            <a href="/tags/%E6%96%87%E6%A1%A3%E8%A7%A3%E6%9E%90/">文档解析</a>
+        
+            <a href="/tags/%E5%86%85%E5%AE%B9%E6%8F%90%E5%8F%96/">内容提取</a>
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="/css/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="/js/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/mapstruct%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/1.jpg" loading="lazy" data-key="" data-hash="/img/1.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">MapStruct使用指南</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Zell
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <p>发布了 27 篇文章 | 共 60988  字</p >
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="/js/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/photoswipe-ui-default.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="/css/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="/css/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="/js/vibrant.min.js"crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://zell.zone/icons/top.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+<style>
+    
+</style>
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+    </body>
+</html>

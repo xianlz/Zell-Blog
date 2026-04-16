@@ -7,7 +7,87 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>Zell</copyright>
-        <lastBuildDate>Mon, 13 Apr 2026 10:00:00 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 16 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://zell.zone/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Apache Tika</title>
+        <link>https://zell.zone/tags/apache-tika/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/apache-tika/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>AWS SDK</title>
+        <link>https://zell.zone/tags/aws-sdk/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/aws-sdk/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Java</title>
+        <link>https://zell.zone/tags/java/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/java/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MapStruct</title>
+        <link>https://zell.zone/tags/mapstruct/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/mapstruct/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>RustFS</title>
+        <link>https://zell.zone/tags/rustfs/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/rustfs/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>S3</title>
+        <link>https://zell.zone/tags/s3/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/s3/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>对象存储</title>
+        <link>https://zell.zone/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>对象映射</title>
+        <link>https://zell.zone/tags/%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>内容提取</title>
+        <link>https://zell.zone/tags/%E5%86%85%E5%AE%B9%E6%8F%90%E5%8F%96/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/%E5%86%85%E5%AE%B9%E6%8F%90%E5%8F%96/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>文档解析</title>
+        <link>https://zell.zone/tags/%E6%96%87%E6%A1%A3%E8%A7%A3%E6%9E%90/</link>
+        <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://zell.zone/tags/%E6%96%87%E6%A1%A3%E8%A7%A3%E6%9E%90/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Agent</title>
         <link>https://zell.zone/tags/agent/</link>
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
@@ -37,14 +117,6 @@
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
         <guid>https://zell.zone/tags/function-calling/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Java</title>
-        <link>https://zell.zone/tags/java/</link>
-        <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
-        
-        <guid>https://zell.zone/tags/java/</guid>
         <description></description>
         </item>
         <item>
