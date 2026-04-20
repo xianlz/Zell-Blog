@@ -483,7 +483,7 @@ unicode: "ece7"
 </svg>
 
                 <time class="article-time--reading">
-                    本文共 3082 字
+                    本文共 3083 字
                 </time>
             </div>
         
@@ -1074,6 +1074,7 @@ unicode: "ece7"
 </span><span class="lnt">95
 </span><span class="lnt">96
 </span><span class="lnt">97
+</span><span class="lnt">98
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="w">
@@ -1124,7 +1125,8 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">redisService</span><span class="p">.</span><span class="na">streamConsumeMessages</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">streamKey</span><span class="p">(),</span><span class="w"> </span><span class="n">groupName</span><span class="p">(),</span><span class="w"> </span><span class="n">consumerName</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="w"> </span><span class="n">POLL_INTERVAL_MS</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">AsyncTaskStreamConstants</span><span class="p">.</span><span class="na">BATCH_SIZE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">AsyncTaskStreamConstants</span><span class="p">.</span><span class="na">POLL_INTERVAL_MS</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="k">this</span><span class="p">::</span><span class="n">processMessage</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1974,7 +1976,7 @@ unicode: "ece7"
         
         
 
-        <p>发布了 28 篇文章 | 共 64070  字</p >
+        <p>发布了 28 篇文章 | 共 64071  字</p >
     </section>
 </footer>
 
