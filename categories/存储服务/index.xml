@@ -13,7 +13,7 @@
         <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
         
         <guid>https://zell.zone/p/rustfs%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
-        <description>&lt;img src="https://zell.zone/img/1.jpg" alt="Featured image of post RustFS使用指南" /&gt;&lt;h2 id=&#34;什么是-rustfs&#34;&gt;什么是 RustFS？
+        <description>&lt;img src="https://zell.zone/p/rustfs%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1.jpg" alt="Featured image of post RustFS使用指南" /&gt;&lt;h2 id=&#34;什么是-rustfs&#34;&gt;什么是 RustFS？
 &lt;/h2&gt;&lt;p&gt;RustFS 是一个基于 Rust 实现的高性能 S3 兼容对象存储服务。在本项目中，我们使用 AWS SDK v2 访问 RustFS，享受与 AWS S3 完全兼容的 API。RustFS 提供了：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;S3 兼容 API&lt;/strong&gt;：使用标准的 S3 协议，可与现有 S3 工具无缝集成&lt;/li&gt;

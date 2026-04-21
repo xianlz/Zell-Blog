@@ -13,7 +13,7 @@
         <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
         
         <guid>https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
-        <description>&lt;img src="https://zell.zone/img/1.jpg" alt="Featured image of post Apache Tika使用指南" /&gt;&lt;h2 id=&#34;什么是-apache-tika&#34;&gt;什么是 Apache Tika？
+        <description>&lt;img src="https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1.jpg" alt="Featured image of post Apache Tika使用指南" /&gt;&lt;h2 id=&#34;什么是-apache-tika&#34;&gt;什么是 Apache Tika？
 &lt;/h2&gt;&lt;p&gt;Apache Tika 是一个内容分析工具包，用于从各种格式的文档中检测和提取元数据及文本内容。Tika 支持检测和解析超过 1000 种文件类型，包括：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;文档格式&lt;/strong&gt;：PDF、Microsoft Office、OpenDocument、RTF、HTML 等&lt;/li&gt;
@@ -731,7 +731,7 @@
         <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
         
         <guid>https://zell.zone/p/mapstruct%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
-        <description>&lt;img src="https://zell.zone/img/1.jpg" alt="Featured image of post MapStruct使用指南" /&gt;&lt;h2 id=&#34;什么是mapstruct&#34;&gt;什么是MapStruct？
+        <description>&lt;img src="https://zell.zone/p/mapstruct%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1.jpg" alt="Featured image of post MapStruct使用指南" /&gt;&lt;h2 id=&#34;什么是mapstruct&#34;&gt;什么是MapStruct？
 &lt;/h2&gt;&lt;p&gt;MapStruct 是一个 Java 注解处理器，用于生成类型安全、高性能的对象映射代码。与传统的反射式映射库（如 BeanUtils、ModelMapper）不同，MapStruct 在编译时生成映射代码，不使用反射，因此具有以下优势：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;编译时类型安全&lt;/strong&gt;：编译期即可发现映射错误&lt;/li&gt;

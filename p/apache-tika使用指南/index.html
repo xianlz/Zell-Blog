@@ -18,10 +18,10 @@
 <meta property='og:description' content="什么是 Apache Tika？ Apache Tika 是一个内容分析工具包，用于从各种格式的文档中检测和提取元数据及文本内容。Tika 支持检测和解析超过 1000 种文件类型，包括：\n文档格式：PDF、Microsoft Office、OpenDocument、RTF、HTML 等 图片格式：JPEG、PNG、TIFF 等（可提取 EXIF 元数据） 邮件格式：MIME 消息 归档格式：ZIP、TAR、GZIP 等 音频/视频：MP3、MP4、AVI 等的元数据 其他：XML、JSON、CSV 等结构化格式 项目集成 Maven 依赖 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 &lt;properties&gt; &lt;tika.version&gt;3.2.2&lt;/tika.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- 核心库 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-core&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 解析器包（包含所有主流文档格式的解析器） --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-parsers-standard-package&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;/dependencies&gt; 注意：tika-parsers-standard-package 会包含所有解析器，如果需要更小的包体积，可以只引入特定解析器。\n">
 <meta property='og:url' content='https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/'>
 <meta property='og:site_name' content='Zell Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Apache Tika' /><meta property='article:tag' content='文档解析' /><meta property='article:tag' content='内容提取' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2026-04-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-16T00:00:00&#43;00:00'/><meta property='og:image' content='https://zell.zone/img/1.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Apache Tika' /><meta property='article:tag' content='文档解析' /><meta property='article:tag' content='内容提取' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2026-04-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-16T00:00:00&#43;00:00'/><meta property='og:image' content='https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1.jpg' />
 <meta name="twitter:title" content="Apache Tika使用指南">
 <meta name="twitter:description" content="什么是 Apache Tika？ Apache Tika 是一个内容分析工具包，用于从各种格式的文档中检测和提取元数据及文本内容。Tika 支持检测和解析超过 1000 种文件类型，包括：\n文档格式：PDF、Microsoft Office、OpenDocument、RTF、HTML 等 图片格式：JPEG、PNG、TIFF 等（可提取 EXIF 元数据） 邮件格式：MIME 消息 归档格式：ZIP、TAR、GZIP 等 音频/视频：MP3、MP4、AVI 等的元数据 其他：XML、JSON、CSV 等结构化格式 项目集成 Maven 依赖 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 &lt;properties&gt; &lt;tika.version&gt;3.2.2&lt;/tika.version&gt; &lt;/properties&gt; &lt;dependencies&gt; &lt;!-- 核心库 --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-core&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;!-- 解析器包（包含所有主流文档格式的解析器） --&gt; &lt;dependency&gt; &lt;groupId&gt;org.apache.tika&lt;/groupId&gt; &lt;artifactId&gt;tika-parsers-standard-package&lt;/artifactId&gt; &lt;version&gt;${tika.version}&lt;/version&gt; &lt;/dependency&gt; &lt;/dependencies&gt; 注意：tika-parsers-standard-package 会包含所有解析器，如果需要更小的包体积，可以只引入特定解析器。\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://zell.zone/img/1.jpg' />
+    <meta name="twitter:image" content='https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1.jpg' />
     <link rel="icon" href="https://zell.zone/favicon.ico">
 
     </head>
@@ -421,8 +421,12 @@ unicode: "ece7"
     <header class="article-header">
         <div class="article-image">
             <a href="/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
-                
-                    <img src="/img/1.jpg" loading="lazy" alt="Featured image of post Apache Tika使用指南" />
+                <img src="/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1_hu_b958d11750facbe1.jpg"
+                        srcset="/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1_hu_b958d11750facbe1.jpg 800w, /p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1_hu_c121716ca14eafb.jpg 1600w"
+                        width="800" 
+                        height="392" 
+                        loading="lazy"
+                        alt="Featured image of post Apache Tika使用指南" />
                 
             </a>
         </div>
@@ -1292,8 +1296,13 @@ unicode: "ece7"
         
         
             <div class="article-image">
-                
-                    <img src="/img/1.jpg" loading="lazy" data-key="" data-hash="/img/1.jpg"/>
+                <img src="/p/mapstruct%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1.8f2d09dfe6f159ac9aba1b0e8447b1b2_hu_1032537f4b46c922.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post MapStruct使用指南"
+                        
+                        data-hash="md5-jy0J3&#43;bxWayauhsOhEexsg==">
                 
             </div>
         

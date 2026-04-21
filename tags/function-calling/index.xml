@@ -13,7 +13,7 @@
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
         <guid>https://zell.zone/p/springai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97_%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90_%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post SpringAI实战指南_大模型集成_流式输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <description>&lt;img src="https://zell.zone/p/springai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97_%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90_%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/img/cover.jpg" alt="Featured image of post SpringAI实战指南_大模型集成_流式输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;Spring AI 是 Spring 官方打造的 AI 应用开发框架，旨在将 AI 能力无缝集成到 Spring 生态系统中。它侧重于提供构建 AI 应用所需的&lt;strong&gt;底层原子能力抽象&lt;/strong&gt;，让 Java 开发者可以像使用其他 Spring 组件一样，轻松地与大语言模型进行交互。&lt;/p&gt;
 &lt;h2 id=&#34;一spring-ai-核心能力&#34;&gt;一、Spring AI 核心能力
 &lt;/h2&gt;&lt;table&gt;

@@ -18,10 +18,10 @@
 <meta property='og:description' content="前言 在使用 Spring AI 开发大模型应用时，你是否遇到过这些问题：\n为什么同一个 Prompt 每次输出结果不一样？ 上下文窗口 128K 到底能放多少内容？ Temperature 设成多少才能稳定输出 JSON？ RAG 检索效果不好该怎么调优？ 这些问题的答案，都藏在大模型的核心概念里。理解这些概念，是从&quot;会用 API&quot;进阶到&quot;能调优、能排查问题&quot;的关键一步。\n">
 <meta property='og:url' content='https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/'>
 <meta property='og:site_name' content='Zell Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='大模型' /><meta property='article:tag' content='Token' /><meta property='article:tag' content='Prompt' /><meta property='article:tag' content='结构化输出' /><meta property='article:tag' content='Spring AI' /><meta property='article:published_time' content='2026-04-13T10:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-04-13T10:00:00&#43;08:00'/><meta property='og:image' content='https://zell.zone/img/cover.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='AI' /><meta property='article:tag' content='大模型' /><meta property='article:tag' content='Token' /><meta property='article:tag' content='Prompt' /><meta property='article:tag' content='结构化输出' /><meta property='article:tag' content='Spring AI' /><meta property='article:published_time' content='2026-04-13T10:00:00&#43;08:00'/><meta property='article:modified_time' content='2026-04-13T10:00:00&#43;08:00'/><meta property='og:image' content='https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/img/cover.jpg' />
 <meta name="twitter:title" content="大模型核心概念详解_Token_Prompt_结构化输出">
 <meta name="twitter:description" content="前言 在使用 Spring AI 开发大模型应用时，你是否遇到过这些问题：\n为什么同一个 Prompt 每次输出结果不一样？ 上下文窗口 128K 到底能放多少内容？ Temperature 设成多少才能稳定输出 JSON？ RAG 检索效果不好该怎么调优？ 这些问题的答案，都藏在大模型的核心概念里。理解这些概念，是从&quot;会用 API&quot;进阶到&quot;能调优、能排查问题&quot;的关键一步。\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://zell.zone/img/cover.jpg' />
+    <meta name="twitter:image" content='https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/img/cover.jpg' />
     <link rel="icon" href="https://zell.zone/favicon.ico">
 
     </head>
@@ -435,8 +435,12 @@ unicode: "ece7"
     <header class="article-header">
         <div class="article-image">
             <a href="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/">
-                
-                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post 大模型核心概念详解_Token_Prompt_结构化输出" />
+                <img src="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/img/cover_hu_98616330a5de96b0.jpg"
+                        srcset="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/img/cover_hu_98616330a5de96b0.jpg 800w, /p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/img/cover_hu_5337b80118d807b5.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 大模型核心概念详解_Token_Prompt_结构化输出" />
                 
             </a>
         </div>
@@ -1415,8 +1419,13 @@ unicode: "ece7"
         
         
             <div class="article-image">
-                
-                    <img src="/img/1.jpg" loading="lazy" data-key="" data-hash="/img/1.jpg"/>
+                <img src="/p/spring-ai%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA%E5%AE%9E%E6%88%98/img/1.cb5f73a9ff2bc9a4dc694490481a4508_hu_6a4282947f17a1b4.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Spring AI结构化输出实战"
+                        
+                        data-hash="md5-y19zqf8ryaTcaUSQSBpFCA==">
                 
             </div>
         
@@ -1434,8 +1443,13 @@ unicode: "ece7"
         
         
             <div class="article-image">
-                
-                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                <img src="/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/img/cover.8bd843135c5b179c72076e5ac78beb6e_hu_7c676f552d3ad8fd.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Java_Go开发者ai应用开发agent学习路线"
+                        
+                        data-hash="md5-i9hDE1xbF5xyB25ax4vrbg==">
                 
             </div>
         
@@ -1453,8 +1467,13 @@ unicode: "ece7"
         
         
             <div class="article-image">
-                
-                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                <img src="/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98_springai_pgvector/img/cover.0334b98f42d0d0f5f6e614b68fef9f7e_hu_d95d1caeabe110cf.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post RAG知识库实战_SpringAI_pgvector"
+                        
+                        data-hash="md5-AzS5j0LQ0PX25hS2j&#43;&#43;ffg==">
                 
             </div>
         
@@ -1472,8 +1491,13 @@ unicode: "ece7"
         
         
             <div class="article-image">
-                
-                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                <img src="/p/springai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97_%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90_%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/img/cover.7eca5771e8675f6cfb59c6e8b73c9212_hu_982a30d7dccc815b.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post SpringAI实战指南_大模型集成_流式输出"
+                        
+                        data-hash="md5-fspXcehnX2z7WcbotzySEg==">
                 
             </div>
         
@@ -1491,8 +1515,13 @@ unicode: "ece7"
         
         
             <div class="article-image">
-                
-                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                <img src="/p/%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%B8%8E%E7%94%9F%E4%BA%A7%E8%90%BD%E5%9C%B0_redisstream_%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/img/cover.431cc1a9edb79ac684f69c7accecc804_hu_40ade086096a2c45.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 工程化与生产落地_RedisStream_异步处理"
+                        
+                        data-hash="md5-QxzBqe23msaE9px6zOzIBA==">
                 
             </div>
         

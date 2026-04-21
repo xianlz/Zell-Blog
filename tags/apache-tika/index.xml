@@ -13,7 +13,7 @@
         <pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate>
         
         <guid>https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
-        <description>&lt;img src="https://zell.zone/img/1.jpg" alt="Featured image of post Apache Tika使用指南" /&gt;&lt;h2 id=&#34;什么是-apache-tika&#34;&gt;什么是 Apache Tika？
+        <description>&lt;img src="https://zell.zone/p/apache-tika%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/img/1.jpg" alt="Featured image of post Apache Tika使用指南" /&gt;&lt;h2 id=&#34;什么是-apache-tika&#34;&gt;什么是 Apache Tika？
 &lt;/h2&gt;&lt;p&gt;Apache Tika 是一个内容分析工具包，用于从各种格式的文档中检测和提取元数据及文本内容。Tika 支持检测和解析超过 1000 种文件类型，包括：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;文档格式&lt;/strong&gt;：PDF、Microsoft Office、OpenDocument、RTF、HTML 等&lt;/li&gt;

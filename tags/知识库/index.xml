@@ -13,7 +13,7 @@
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
         <guid>https://zell.zone/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98_springai_pgvector/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post RAG知识库实战_SpringAI_pgvector" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <description>&lt;img src="https://zell.zone/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98_springai_pgvector/img/cover.jpg" alt="Featured image of post RAG知识库实战_SpringAI_pgvector" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;RAG（检索增强生成）已成为企业级 AI 应用的核心技术栈。通过将外部知识库与大语言模型结合，RAG 能够显著提升回答的准确性和可追溯性。&lt;/p&gt;
 &lt;h2 id=&#34;一rag-简介&#34;&gt;一、RAG 简介
 &lt;/h2&gt;&lt;h3 id=&#34;11-什么是-rag&#34;&gt;1.1 什么是 RAG

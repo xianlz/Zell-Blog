@@ -13,7 +13,7 @@
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
         <guid>https://zell.zone/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post Java_Go开发者ai应用开发agent学习路线" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <description>&lt;img src="https://zell.zone/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/img/cover.jpg" alt="Featured image of post Java_Go开发者ai应用开发agent学习路线" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;AI 时代，Java/后端开发者的机会在哪里？&lt;strong&gt;工程化落地&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;大模型本身是概率性的&amp;quot;黑盒&amp;quot;，但把它变成稳定、可观测、可扩展的生产级服务，恰恰是 Java/Go 工程师的主场——高并发架构、数据库优化、系统稳定性治理，这些能力可以直接复用。&lt;/p&gt;
 &lt;blockquote&gt;
@@ -876,7 +876,7 @@
         <pubDate>Mon, 13 Apr 2026 10:00:00 +0800</pubDate>
         
         <guid>https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/</guid>
-        <description>&lt;img src="https://zell.zone/img/cover.jpg" alt="Featured image of post 大模型核心概念详解_Token_Prompt_结构化输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+        <description>&lt;img src="https://zell.zone/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/img/cover.jpg" alt="Featured image of post 大模型核心概念详解_Token_Prompt_结构化输出" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
 &lt;/h2&gt;&lt;p&gt;在使用 Spring AI 开发大模型应用时，你是否遇到过这些问题：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;为什么同一个 Prompt 每次输出结果不一样？&lt;/li&gt;
