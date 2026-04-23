@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="什么是 Spring Data JPA？ Spring Data JPA 是 Spring Data 家族的一员，基于 JPA（Java Persistence API）标准实现，提供了一套简化的数据访问层解决方案。它对 Repository 层进行了抽象，让你只需要声明接口方法，无需编写实现代码。\n">
+<title>Spring Data JPA 学习指南</title>
+
+
+
+<link rel="stylesheet" href="/music-player/APlayer.min.css">
+<script src="/music-player/APlayer.min.js"></script>
+
+<script src="/music-player/Meting.min.js"></script>
+
+
+<link rel='canonical' href='https://zell.zone/p/spring-data-jpa-%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="Spring Data JPA 学习指南">
+<meta property='og:description' content="什么是 Spring Data JPA？ Spring Data JPA 是 Spring Data 家族的一员，基于 JPA（Java Persistence API）标准实现，提供了一套简化的数据访问层解决方案。它对 Repository 层进行了抽象，让你只需要声明接口方法，无需编写实现代码。\n">
+<meta property='og:url' content='https://zell.zone/p/spring-data-jpa-%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/'>
+<meta property='og:site_name' content='Zell Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spring Data JPA' /><meta property='article:tag' content='Hibernate' /><meta property='article:tag' content='MyBatis' /><meta property='article:tag' content='MyBatis-Plus' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2026-04-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-04-22T00:00:00&#43;00:00'/><meta property='og:image' content='https://zell.zone/img/1.jpg' />
+<meta name="twitter:title" content="Spring Data JPA 学习指南">
+<meta name="twitter:description" content="什么是 Spring Data JPA？ Spring Data JPA 是 Spring Data 家族的一员，基于 JPA（Java Persistence API）标准实现，提供了一套简化的数据访问层解决方案。它对 Repository 层进行了抽象，让你只需要声明接口方法，无需编写实现代码。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zell.zone/img/1.jpg' />
+    <link rel="icon" href="https://zell.zone/favicon.ico">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_931a78b9ce29985d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">⛰️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Zell Blog</a></h1>
+            <h2 class="site-description">悟已往之不谏
+知来者之可追
+</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='490200536@qq.com'
+                        target="_blank"
+                        title="email"
+                        rel="me"
+                    >
+                        
+                        
+                            <!--
+tags: [technology, e-mail, site, cm, group]
+category: Brand
+unicode: "f328"
+version: "1.86"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 18l9 -6.462l-9 -5.538v12h18v-12l-9 5.538" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/xianlz'
+                        target="_blank"
+                        title="Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.bilibili.com/'
+                        target="_blank"
+                        title="bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <rect x="50" y="70" width="200" height="160" rx="15" fill="none" stroke="#00A1D6" stroke-width="8"/>
+  <line x1="110" y1="70" x2="90" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <line x1="190" y1="70" x2="210" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="90" cy="40" r="5" fill="#00A1D6"/>
+  <circle cx="210" cy="40" r="5" fill="#00A1D6"/>
+  <rect x="70" y="90" width="160" height="120" rx="5" fill="#00A1D6" opacity="0.8"/>
+  <path d="M100,160 C105,150 115,145 125,150 C135,155 140,165 135,175 C130,185 120,190 110,185 C100,180 95,170 100,160 Z" fill="#FB7299"/>
+  <circle cx="115" cy="155" r="5" fill="white"/>
+  <path d="M180,160 C185,150 195,145 205,150 C215,155 220,165 215,175 C210,185 200,190 190,185 C180,180 175,170 180,160 Z" fill="#00A1D6"/>
+  <circle cx="195" cy="155" r="5" fill="white"/>
+  <path d="M60,100 L65,90 L70,100 L80,105 L70,110 L65,120 L60,110 L50,105 Z" fill="#FFC107"/>
+  <path d="M240,130 L245,120 L250,130 L260,135 L250,140 L245,150 L240,140 L230,135 Z" fill="#FFC107"/>
+  <path d="M70,200 L75,190 L80,200 L90,205 L80,210 L75,220 L70,210 L60,205 Z" fill="#FFC107"/>
+  <text x="150" y="260" text-anchor="middle" font-family="Microsoft YaHei" font-size="24" font-weight="bold" fill="#00A1D6">哔哩哔哩</text>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://zell.zone/en/" >English</option>
+                                
+                                    <option value="https://zell.zone/" selected>简体中文</option>
+                                
+                                    <option value="https://zell.zone/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+               
+                
+                <li id="dark-mode-toggle">
+                    <!--
+tags: [temperature, hot, wheater, thermometer, forecast]
+category: Weather
+version: "1.73"
+unicode: "f236"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
+  <path d="M6.343 17.657l-1.414 1.414" />
+  <path d="M6.343 6.343l-1.414 -1.414" />
+  <path d="M17.657 6.343l1.414 -1.414" />
+  <path d="M17.657 17.657l1.414 1.414" />
+  <path d="M4 12h-2" />
+  <path d="M12 4v-2" />
+  <path d="M20 12h2" />
+  <path d="M12 20v2" />
+</svg>
+
+                    <!--
+tags: [night, dark mode]
+category: Weather
+version: "1.21"
+unicode: "ece7"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#2196f3"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+  <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+  <path d="M19 11h2m-1 -1v2" />
+</svg>
+
+                    
+                </li>
+                
+
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#什么是-spring-data-jpa">什么是 Spring Data JPA？</a>
+      <ol>
+        <li><a href="#jpa-与-hibernate-的关系">JPA 与 Hibernate 的关系</a></li>
+      </ol>
+    </li>
+    <li><a href="#项目集成">项目集成</a>
+      <ol>
+        <li><a href="#maven-依赖">Maven 依赖</a></li>
+        <li><a href="#基础配置">基础配置</a></li>
+      </ol>
+    </li>
+    <li><a href="#快速开始">快速开始</a>
+      <ol>
+        <li><a href="#定义实体">定义实体</a></li>
+        <li><a href="#定义-repository">定义 Repository</a></li>
+      </ol>
+    </li>
+    <li><a href="#方法命名规则">方法命名规则</a>
+      <ol>
+        <li><a href="#常用关键字">常用关键字</a></li>
+      </ol>
+    </li>
+    <li><a href="#jpql-与原生-sql">JPQL 与原生 SQL</a>
+      <ol>
+        <li><a href="#jpqljava-persistence-query-language">JPQL（Java Persistence Query Language）</a></li>
+        <li><a href="#原生-sql">原生 SQL</a></li>
+        <li><a href="#更新和删除">更新和删除</a></li>
+      </ol>
+    </li>
+    <li><a href="#jpa-与-mybatis-对比">JPA 与 MyBatis 对比</a>
+      <ol>
+        <li><a href="#jpa-优势">JPA 优势</a></li>
+        <li><a href="#mybatis-优势">MyBatis 优势</a></li>
+      </ol>
+    </li>
+    <li><a href="#jpa-与-mybatis-plus-对比">JPA 与 MyBatis-Plus 对比</a>
+      <ol>
+        <li><a href="#mybatis-plus-lambda-查询">MyBatis-Plus Lambda 查询</a></li>
+        <li><a href="#jpa-specification复杂查询">JPA Specification（复杂查询）</a></li>
+      </ol>
+    </li>
+    <li><a href="#分页与排序">分页与排序</a>
+      <ol>
+        <li><a href="#jpa-分页">JPA 分页</a></li>
+        <li><a href="#mybatis-plus-分页">MyBatis-Plus 分页</a></li>
+      </ol>
+    </li>
+    <li><a href="#事务管理">事务管理</a></li>
+    <li><a href="#常见问题处理">常见问题处理</a>
+      <ol>
+        <li><a href="#1-n1-查询问题">1. N+1 查询问题</a></li>
+        <li><a href="#2-实体状态转换">2. 实体状态转换</a></li>
+        <li><a href="#3-json-字段映射">3. JSON 字段映射</a></li>
+      </ol>
+    </li>
+    <li><a href="#最佳实践">最佳实践</a>
+      <ol>
+        <li><a href="#1-合理使用-transactional">1. 合理使用 @Transactional</a></li>
+        <li><a href="#2-使用-projection-减少数据传输">2. 使用 Projection 减少数据传输</a></li>
+        <li><a href="#3-使用-example-进行动态查询">3. 使用 Example 进行动态查询</a></li>
+        <li><a href="#4-审计字段自动填充">4. 审计字段自动填充</a></li>
+      </ol>
+    </li>
+    <li><a href="#项目中的实际使用">项目中的实际使用</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/spring-data-jpa-%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/">
+                
+                    <img src="/img/1.jpg" loading="lazy" alt="Featured image of post Spring Data JPA 学习指南" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java%E6%8C%81%E4%B9%85%E5%B1%82/" >
+                Java持久层
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/spring-data-jpa-%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97/">Spring Data JPA 学习指南</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-22 00:00:00</time>
+            </div>
+        
+
+        
+            <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.00008 5.75C2.00008 5.33579 2.33587 5 2.75008 5H21.2501C21.6643 5 22.0001 5.33579 22.0001 5.75C22.0001 6.16421 21.6643 6.5 21.2501 6.5H2.75008C2.33587 6.5 2.00008 6.16421 2.00008 5.75ZM2.00008 12.25C2.00008 11.8358 2.33587 11.5 2.75008 11.5H21.2501C21.6643 11.5 22.0001 11.8358 22.0001 12.25C22.0001 12.6642 21.6643 13 21.2501 13H2.75008C2.33587 13 2.00008 12.6642 2.00008 12.25ZM19.0001 18.75C19.0001 18.3358 19.3359 18 19.7501 18H21.2501C21.6643 18 22.0001 18.3358 22.0001 18.75C22.0001 19.1642 21.6643 19.5 21.2501 19.5H19.7501C19.3359 19.5 19.0001 19.1642 19.0001 18.75Z" fill="#212121"/>
+<path d="M2.4161 18.7377C2.62675 18.5972 2.83063 18.4376 3.02344 18.2633V22.25C3.02344 22.6642 3.35922 23 3.77344 23C4.18765 23 4.52344 22.6642 4.52344 22.25V15.75C4.52344 15.356 4.21966 15.033 3.83356 15.0024C3.46481 14.9719 3.12137 15.2183 3.04013 15.5897C2.91354 16.1684 2.34841 16.98 1.58405 17.4896C1.23941 17.7194 1.14628 18.185 1.37604 18.5297C1.60581 18.8743 2.07146 18.9674 2.4161 18.7377Z" fill="#212121"/>
+<path d="M8 17.5227C8 16.995 8.44352 16.5 8.98577 16.5C9.39293 16.5 9.7207 16.6909 9.87916 16.9345C10.015 17.1434 10.0966 17.4998 9.78558 18.0292C9.63607 18.2837 9.41005 18.5114 9.10403 18.7531C8.95157 18.8735 8.78845 18.9904 8.61108 19.1158L8.53729 19.1679C8.38506 19.2753 8.2221 19.3902 8.06469 19.5087C7.32108 20.0683 6.5 20.8536 6.5 22.25C6.5 22.6642 6.83579 23 7.25 23L7.25818 23L7.26636 23H10.7006C11.1148 23 11.4506 22.6642 11.4506 22.25C11.4506 21.8358 11.1148 21.5 10.7006 21.5H8.18765C8.34843 21.2182 8.61059 20.9752 8.96663 20.7072C9.1041 20.6038 9.24601 20.5036 9.39926 20.3955L9.47685 20.3407C9.65545 20.2145 9.84717 20.0775 10.0337 19.9302C10.4057 19.6364 10.7945 19.2731 11.0789 18.789C11.6358 17.8411 11.6253 16.868 11.1365 16.1166C10.6704 15.4 9.84098 15 8.98577 15C7.50821 15 6.5 16.2777 6.5 17.5227C6.5 17.9369 6.83579 18.2727 7.25 18.2727C7.66421 18.2727 8 17.9369 8 17.5227Z" fill="#212121"/>
+<path d="M14.4711 17.1377C14.5032 17.0255 14.5795 16.8666 14.722 16.7409C14.8504 16.6276 15.0775 16.5 15.5 16.5C16.2612 16.5 16.5 17.0002 16.5 17.2273C16.5 17.4724 16.4476 17.7178 16.3102 17.8907C16.1989 18.0308 15.9315 18.25 15.2083 18.25C14.7941 18.25 14.4583 18.5858 14.4583 19C14.4583 19.4142 14.7941 19.75 15.2083 19.75C15.4818 19.75 15.8597 19.7864 16.1427 19.9191C16.2745 19.9809 16.3571 20.0505 16.4071 20.1207C16.4519 20.1837 16.5 20.287 16.5 20.4773C16.5 20.965 16.3477 21.1807 16.2193 21.2891C16.0682 21.4167 15.8239 21.5 15.5 21.5C15.138 21.5 14.9331 21.4374 14.8074 21.3578C14.6961 21.2873 14.5677 21.1538 14.4624 20.8338C14.3329 20.4403 13.909 20.2263 13.5155 20.3558C13.1221 20.4852 12.9081 20.9092 13.0375 21.3026C13.2239 21.8689 13.533 22.3263 14.005 22.6252C14.4627 22.9149 14.9869 23 15.5 23C16.051 23 16.6817 22.8618 17.1869 22.4353C17.7147 21.9898 18 21.3191 18 20.4773C18 20.0027 17.8701 19.5891 17.6288 19.2504C17.5501 19.14 17.4631 19.0423 17.3708 18.9559C17.4104 18.9135 17.4483 18.8695 17.4844 18.8241C17.9223 18.2731 18 17.6321 18 17.2273C18 16.1543 17.072 15 15.5 15C14.7345 15 14.1485 15.2466 13.7298 15.616C13.3252 15.9728 13.1205 16.4048 13.0288 16.7259C12.9151 17.1242 13.1457 17.5393 13.544 17.653C13.9423 17.7667 14.3574 17.536 14.4711 17.1377Z" fill="#212121"/>
+</svg>
+
+                <time class="article-time--reading">
+                    本文共 2201 字
+                </time>
+            </div>
+        
+
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+            <div id="viewCount">
+                <?xml version="1.0" ?><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="-0.0000027" x2="512" y1="256" y2="256"><stop offset="0" style="stop-color:#E24263"/><stop offset="1" style="stop-color:#DD1E47"/></linearGradient><circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666641" x2="469.3333435" y1="256.0005188" y2="256.0005188"><stop offset="0" style="stop-color:#DD1E47"/><stop offset="1" style="stop-color:#E24263"/></linearGradient><path d="M256,469.3338623c-117.6309967,0-213.3333435-95.7023926-213.3333435-213.3333435    c0-117.6314545,95.7023392-213.333313,213.3333435-213.333313c117.6362,0,213.3333435,95.7018661,213.3333435,213.333313    C469.3333435,373.6314697,373.6362,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/></g><g><path d="M264,189.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S339.4841919,189.5839996,264,189.5839996z M264,313.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C313.4761963,291.3247986,291.3247375,313.4757385,264,313.4757385z" opacity="0.3"/><circle cx="264.0000916" cy="263.9997253" opacity="0.3" r="15.4838667"/></g><g><path d="M256,181.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S331.4841919,181.5839996,256,181.5839996z M256,305.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C305.4761963,283.3247986,283.3247375,305.4757385,256,305.4757385z" fill="#FFFFFF"/><circle cx="256.0000916" cy="255.9997406" fill="#FFFFFF" r="15.4838667"/></g></g></svg>
+                <time class="article-time--reading">
+                    
+                    <span id="vercount_value_page_pv"> </span>次
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="什么是-spring-data-jpa">什么是 Spring Data JPA？
+</h2><p>Spring Data JPA 是 Spring Data 家族的一员，基于 JPA（Java Persistence API）标准实现，提供了一套简化的数据访问层解决方案。它对 Repository 层进行了抽象，让你只需要声明接口方法，无需编写实现代码。</p>
+<h3 id="jpa-与-hibernate-的关系">JPA 与 Hibernate 的关系
+</h3><ul>
+<li><strong>JPA</strong>：Java 持久化 API，是 Java EE 制定的持久化标准接口</li>
+<li><strong>Hibernate</strong>：JPA 的一个实现（还有 EclipseLink、OpenJPA 等）</li>
+</ul>
+<p>Spring Data JPA 并不是替代 Hibernate，而是对 Hibernate 进行了封装，让使用更加简便。</p>
+<h2 id="项目集成">项目集成
+</h2><h3 id="maven-依赖">Maven 依赖
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.postgresql<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>postgresql<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="基础配置">基础配置
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">datasource</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">jdbc:postgresql://localhost:5432/mydb</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">postgres</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">driver-class-name</span><span class="p">:</span><span class="w"> </span><span class="l">org.postgresql.Driver</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jpa</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hibernate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ddl-auto</span><span class="p">:</span><span class="w"> </span><span class="l">validate </span><span class="w"> </span><span class="c"># 生产环境用 validate，开发环境用 update</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">show-sql</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">        </span><span class="c"># 显示 SQL 语句</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hibernate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">format_sql</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c"># 格式化 SQL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">dialect</span><span class="p">:</span><span class="w"> </span><span class="l">org.hibernate.dialect.PostgreSQLDialect</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="快速开始">快速开始
+</h2><h3 id="定义实体">定义实体
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Table</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;knowledge_bases&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">indexes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Index</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;idx_kb_hash&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">columnList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;fileHash&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">unique</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Index</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;idx_kb_category&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">columnList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;category&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">KnowledgeBaseEntity</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">nullable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">unique</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">64</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">fileHash</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">nullable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Enumerated</span><span class="p">(</span><span class="n">EnumType</span><span class="p">.</span><span class="na">STRING</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">20</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">VectorStatus</span><span class="w"> </span><span class="n">vectorStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VectorStatus</span><span class="p">.</span><span class="na">PENDING</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@PrePersist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onCreate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">uploadedAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="定义-repository">定义 Repository
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">KnowledgeRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="p">,</span><span class="w"> </span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 方法名查询 - 按向量化状态查找</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllByVectorStatusOrderByUploadedAtDesc</span><span class="p">(</span><span class="n">VectorStatus</span><span class="w"> </span><span class="n">status</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 方法名查询 - 按分类查找</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByCategoryOrderByUploadedAtDesc</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 方法名查询 - 模糊搜索</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByFileHash</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">fileHash</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// JPQL 查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;SELECT k FROM KnowledgeBaseEntity k WHERE LOWER(k.name) LIKE LOWER(CONCAT(&#39;%&#39;, :keyword, &#39;%&#39;))&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">searchByKeyword</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&#34;keyword&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">keyword</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 聚合查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;SELECT COALESCE(SUM(k.accessCount), 0) FROM KnowledgeBaseEntity k&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="nf">sumAccessCount</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 原生 SQL 查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;SELECT DISTINCT category FROM knowledge_bases WHERE category IS NOT NULL ORDER BY category&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">nativeQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllCategories</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="方法命名规则">方法命名规则
+</h2><p>JPA 支持通过方法命名自动生成查询，方法名遵循特定规则：</p>
+<h3 id="常用关键字">常用关键字
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>关键字</th>
+          <th>示例</th>
+          <th>生成的 SQL</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>findBy</code></td>
+          <td><code>findByName(String name)</code></td>
+          <td><code>WHERE name = ?</code></td>
+      </tr>
+      <tr>
+          <td><code>findByNameContaining</code></td>
+          <td><code>findByNameContaining(String keyword)</code></td>
+          <td><code>WHERE name LIKE '%keyword%'</code></td>
+      </tr>
+      <tr>
+          <td><code>findByNameStartingWith</code></td>
+          <td><code>findByNameStartingWith(String prefix)</code></td>
+          <td><code>WHERE name LIKE 'prefix%'</code></td>
+      </tr>
+      <tr>
+          <td><code>findByAgeGreaterThan</code></td>
+          <td><code>findByAgeGreaterThan(int age)</code></td>
+          <td><code>WHERE age &gt; ?</code></td>
+      </tr>
+      <tr>
+          <td><code>findByAgeBetween</code></td>
+          <td><code>findByAgeBetween(int min, int max)</code></td>
+          <td><code>WHERE age BETWEEN ? AND ?</code></td>
+      </tr>
+      <tr>
+          <td><code>findByNameOrAge</code></td>
+          <td><code>findByNameOrAge(String name, int age)</code></td>
+          <td><code>WHERE name = ? OR age = ?</code></td>
+      </tr>
+      <tr>
+          <td><code>findByNameOrderByAgeDesc</code></td>
+          <td><code>findByNameOrderByAgeDesc(String name)</code></td>
+          <td><code>WHERE name = ? ORDER BY age DESC</code></td>
+      </tr>
+      <tr>
+          <td><code>countBy</code></td>
+          <td><code>countByName(String name)</code></td>
+          <td><code>SELECT COUNT(*) WHERE name = ?</code></td>
+      </tr>
+      <tr>
+          <td><code>existsBy</code></td>
+          <td><code>existsByName(String name)</code></td>
+          <td><code>SELECT COUNT(*) &gt; 0 WHERE name = ?</code></td>
+      </tr>
+      <tr>
+          <td><code>deleteBy</code></td>
+          <td><code>deleteByName(String name)</code></td>
+          <td><code>DELETE FROM ... WHERE name = ?</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="jpql-与原生-sql">JPQL 与原生 SQL
+</h2><h3 id="jpqljava-persistence-query-language">JPQL（Java Persistence Query Language）
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;SELECT k FROM KnowledgeBaseEntity k WHERE LOWER(k.name) LIKE LOWER(CONCAT(&#39;%&#39;, :keyword, &#39;%&#39;)) ORDER BY k.uploadedAt DESC&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">searchByKeyword</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&#34;keyword&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">keywords</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="原生-sql">原生 SQL
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;SELECT * FROM knowledge_bases WHERE file_hash = :hash&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">nativeQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Optional</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByFileHashNative</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&#34;hash&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">fileHash</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="更新和删除">更新和删除
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Modifying</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;UPDATE KnowledgeBaseEntity k SET k.vectorStatus = :status WHERE k.id = :id&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="w"> </span><span class="nf">updateVectorStatus</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="nd">@Param</span><span class="p">(</span><span class="s">&#34;status&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">VectorStatus</span><span class="w"> </span><span class="n">status</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Modifying</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;DELETE FROM KnowledgeBaseEntity k WHERE k.id = :id&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="w"> </span><span class="nf">deleteByIdCustom</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="jpa-与-mybatis-对比">JPA 与 MyBatis 对比
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>JPA</th>
+          <th>MyBatis</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>学习曲线</strong></td>
+          <td>较陡（概念多）</td>
+          <td>平缓（SQL 直观）</td>
+      </tr>
+      <tr>
+          <td><strong>SQL 控制</strong></td>
+          <td>自动生成，不可控</td>
+          <td>完全自己编写</td>
+      </tr>
+      <tr>
+          <td><strong>灵活性</strong></td>
+          <td>低（受限于框架）</td>
+          <td>高（完全掌控 SQL）</td>
+      </tr>
+      <tr>
+          <td><strong>开发效率</strong></td>
+          <td>高（方法名查询）</td>
+          <td>中（需写 SQL）</td>
+      </tr>
+      <tr>
+          <td><strong>动态 SQL</strong></td>
+          <td>支持但不够灵活</td>
+          <td>强大（OGNL 表达式）</td>
+      </tr>
+      <tr>
+          <td><strong>性能调优</strong></td>
+          <td>困难（黑盒）</td>
+          <td>容易（自己写 SQL）</td>
+      </tr>
+      <tr>
+          <td><strong>多表关联</strong></td>
+          <td>支持（但复杂）</td>
+          <td>更灵活</td>
+      </tr>
+      <tr>
+          <td><strong>适用场景</strong></td>
+          <td>简单 CRUD、领域驱动设计</td>
+          <td>复杂查询、报表、系统</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="jpa-优势">JPA 优势
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 一行代码实现复杂查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userRepository</span><span class="p">.</span><span class="na">findByNameContainingAndAgeGreaterThan</span><span class="p">(</span><span class="s">&#34;张&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">25</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="mybatis-优势">MyBatis 优势
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- MyBatis 可以精确控制每一条 SQL --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;complexSearch&#34;</span> <span class="na">resultType=</span><span class="s">&#34;User&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    SELECT u.*, COUNT(o.id) as order_count
+</span></span><span class="line"><span class="cl">    FROM users u
+</span></span><span class="line"><span class="cl">    LEFT JOIN orders o ON u.id = o.user_id
+</span></span><span class="line"><span class="cl">    WHERE u.status = &#39;ACTIVE&#39;
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;name != null&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        AND u.name LIKE #{name}
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/if&gt;</span>
+</span></span><span class="line"><span class="cl">    GROUP BY u.id
+</span></span><span class="line"><span class="cl">    HAVING COUNT(o.id) &gt; #{minOrders}
+</span></span><span class="line"><span class="cl">    ORDER BY order_count DESC
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="jpa-与-mybatis-plus-对比">JPA 与 MyBatis-Plus 对比
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>JPA</th>
+          <th>MyBatis-Plus</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>底层框架</strong></td>
+          <td>Hibernate</td>
+          <td>MyBatis</td>
+      </tr>
+      <tr>
+          <td><strong>SQL 生成</strong></td>
+          <td>自动</td>
+          <td>自动 + 手写</td>
+      </tr>
+      <tr>
+          <td><strong>方法名查询</strong></td>
+          <td>支持</td>
+          <td>支持（更强大）</td>
+      </tr>
+      <tr>
+          <td><strong>条件构造器</strong></td>
+          <td>Criteria API（复杂）</td>
+          <td>Lambda 表达式（简洁）</td>
+      </tr>
+      <tr>
+          <td><strong>分页插件</strong></td>
+          <td>Pageable（繁琐）</td>
+          <td>IPage（简洁）</td>
+      </tr>
+      <tr>
+          <td><strong>逻辑删除</strong></td>
+          <td>需手动处理</td>
+          <td>内置支持</td>
+      </tr>
+      <tr>
+          <td><strong>自动填充</strong></td>
+          <td>不支持</td>
+          <td>支持（createTime, updateTime）</td>
+      </tr>
+      <tr>
+          <td><strong>多租户</strong></td>
+          <td>不支持</td>
+          <td>内置支持</td>
+      </tr>
+      <tr>
+          <td><strong>乐观锁</strong></td>
+          <td>@Version 注解</td>
+          <td>@Version 注解</td>
+      </tr>
+      <tr>
+          <td><strong>热加载</strong></td>
+          <td>需重启</td>
+          <td>无需重启</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="mybatis-plus-lambda-查询">MyBatis-Plus Lambda 查询
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// MyBatis-Plus 的 LambdaQueryWrapper 更简洁</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userService</span><span class="p">.</span><span class="na">lambdaQuery</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">like</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">getName</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;张&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">gt</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">getAge</span><span class="p">,</span><span class="w"> </span><span class="n">25</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">eq</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">getStatus</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;ACTIVE&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">orderByDesc</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">getCreateTime</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">list</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="jpa-specification复杂查询">JPA Specification（复杂查询）
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// JPA 处理复杂查询需要使用 Specification</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Specification</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">cb</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Predicate</span><span class="o">&gt;</span><span class="w"> </span><span class="n">predicates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">predicates</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">cb</span><span class="p">.</span><span class="na">like</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;%&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;%&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">age</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">predicates</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">cb</span><span class="p">.</span><span class="na">greaterThan</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="s">&#34;age&#34;</span><span class="p">),</span><span class="w"> </span><span class="n">age</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cb</span><span class="p">.</span><span class="na">and</span><span class="p">(</span><span class="n">predicates</span><span class="p">.</span><span class="na">toArray</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Predicate</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userRepository</span><span class="p">.</span><span class="na">findAll</span><span class="p">(</span><span class="n">spec</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="分页与排序">分页与排序
+</h2><h3 id="jpa-分页">JPA 分页
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 使用 Pageable</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Page</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userRepository</span><span class="p">.</span><span class="na">findAll</span><span class="p">(</span><span class="n">PageRequest</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">Sort</span><span class="p">.</span><span class="na">by</span><span class="p">(</span><span class="s">&#34;createTime&#34;</span><span class="p">).</span><span class="na">descending</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 自定义分页查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;SELECT k FROM KnowledgeBaseEntity k ORDER BY k.uploadedAt DESC&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Page</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllOrderByUploadedAtDesc</span><span class="p">(</span><span class="n">Pageable</span><span class="w"> </span><span class="n">pageable</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 返回分页信息</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Page</span><span class="o">&lt;</span><span class="n">KnowledgeBaseDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getUsers</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Pageable</span><span class="w"> </span><span class="n">pageable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PageRequest</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">userRepository</span><span class="p">.</span><span class="na">findAll</span><span class="p">(</span><span class="n">pageable</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="k">this</span><span class="p">::</span><span class="n">toDTO</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="mybatis-plus-分页">MyBatis-Plus 分页
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 使用 IPage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">IPage</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Page</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">userMapper</span><span class="p">.</span><span class="na">selectPage</span><span class="p">(</span><span class="n">page</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="事务管理">事务管理
+</h2><p>JPA 的事务管理非常简单：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">KnowledgeBaseService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">deleteKnowledgeBase</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 所有操作在一个事务中</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">knowledgeRepository</span><span class="p">.</span><span class="na">deleteById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">vectorRepository</span><span class="p">.</span><span class="na">deleteByKnowledgeBaseId</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 如果抛出异常，自动回滚</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 读取-only 事务，提升性能</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transactional</span><span class="p">(</span><span class="n">readOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAll</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">knowledgeRepository</span><span class="p">.</span><span class="na">findAll</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="常见问题处理">常见问题处理
+</h2><h3 id="1-n1-查询问题">1. N+1 查询问题
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 问题：访问关联对象时触发额外查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ResumeAnalysisEntity</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ManyToOne</span><span class="p">(</span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FetchType</span><span class="p">.</span><span class="na">LAZY</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@JoinColumn</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;resume_id&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ResumeEntity</span><span class="w"> </span><span class="n">resume</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 解决：使用 @EntityGraph 或 JOIN FETCH</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;SELECT a FROM ResumeAnalysisEntity a JOIN FETCH a.resume WHERE a.id = :id&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Optional</span><span class="o">&lt;</span><span class="n">ResumeAnalysisEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByIdWithResume</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-实体状态转换">2. 实体状态转换
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 游离对象（detached）不能直接修改</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 解决方案：从数据库重新查询</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">updateUser</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">User</span><span class="w"> </span><span class="n">managed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userRepository</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">getId</span><span class="p">()).</span><span class="na">orElseThrow</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">managed</span><span class="p">.</span><span class="na">setName</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span><span class="w">  </span><span class="c1">// 修改托管对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 事务提交时自动 flush</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-json-字段映射">3. JSON 字段映射
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// PostgreSQL 的 JSONB 字段</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@JdbcTypeCode</span><span class="p">(</span><span class="n">SQLTypes</span><span class="p">.</span><span class="na">JSON</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Column</span><span class="p">(</span><span class="n">columnDefinition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;jsonb&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">metadata</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="最佳实践">最佳实践
+</h2><h3 id="1-合理使用-transactional">1. 合理使用 @Transactional
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 读操作不加事务，减少数据库压力</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Transactional</span><span class="p">(</span><span class="n">readOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAll</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 写操作必须加事务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 删除操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Transactional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-使用-projection-减少数据传输">2. 使用 Projection 减少数据传输
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 接口投影</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">UserNameOnly</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getName</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">getEmail</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 方法投影</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">UserNameOnly</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findUserNames</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// DTO 投影</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;SELECT new com.example.UserDTO(u.id, u.name) FROM User u&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">UserDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllUserDTO</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-使用-example-进行动态查询">3. 使用 Example 进行动态查询
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ExampleMatcher</span><span class="w"> </span><span class="n">matcher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExampleMatcher</span><span class="p">.</span><span class="na">matching</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">withIgnorePaths</span><span class="p">(</span><span class="s">&#34;id&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">withIncludeNullValues</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="na">withMatcher</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">ExampleMatcher</span><span class="p">.</span><span class="na">GenericPropertyMatchers</span><span class="p">.</span><span class="na">contains</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Example</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Example</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">matcher</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repository</span><span class="p">.</span><span class="na">findAll</span><span class="p">(</span><span class="n">example</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-审计字段自动填充">4. 审计字段自动填充
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@CreatedDate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Column</span><span class="p">(</span><span class="n">nullable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">updatable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">createdAt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@LastModifiedDate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">updatedAt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 启用审计</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@EntityScan</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@EnableJpaAuditing</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="项目中的实际使用">项目中的实际使用
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">KnowledgeRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="p">,</span><span class="w"> </span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 方法名查询 - 按分类和上传时间查找</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByCategoryOrderByUploadedAtDesc</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 方法名查询 - 统计状态数量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="nf">countByVectorStatus</span><span class="p">(</span><span class="n">VectorStatus</span><span class="w"> </span><span class="n">vectorStatus</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// JPQL 查询 - 模糊搜索</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;SELECT k FROM KnowledgeBaseEntity k WHERE LOWER(k.name) LIKE LOWER(CONCAT(&#39;%&#39;, :keyword, &#39;%&#39;)) OR LOWER(k.originalFilename) LIKE LOWER(CONCAT(&#39;%&#39;, :keyword, &#39;%&#39;)) ORDER BY k.uploadedAt DESC&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">KnowledgeBaseEntity</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">searchByKeyword</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">keywords</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 原生 SQL - 聚合统计</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Query</span><span class="p">(</span><span class="s">&#34;SELECT COALESCE(SUM(k.accessCount), 0) FROM KnowledgeBaseEntity k&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="nf">sumAccessCount</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>推荐方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>简单 CRUD</td>
+          <td>JPA / MyBatis-Plus</td>
+      </tr>
+      <tr>
+          <td>复杂报表</td>
+          <td>MyBatis / MyBatis-Plus</td>
+      </tr>
+      <tr>
+          <td>领域驱动设计</td>
+          <td>JPA</td>
+      </tr>
+      <tr>
+          <td>快速开发</td>
+          <td>MyBatis-Plus</td>
+      </tr>
+      <tr>
+          <td>需要精确控制 SQL</td>
+          <td>MyBatis</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>Spring Data JPA 适合：</p>
+<ul>
+<li>业务模型相对稳定</li>
+<li>以领域驱动设计为主</li>
+<li>需要快速开发</li>
+</ul>
+<p>MyBatis 适合：</p>
+<ul>
+<li>复杂查询多</li>
+<li>需要精确优化 SQL</li>
+<li>历史项目迁移</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/spring-data-jpa/">Spring Data JPA</a>
+        
+            <a href="/tags/hibernate/">Hibernate</a>
+        
+            <a href="/tags/mybatis/">MyBatis</a>
+        
+            <a href="/tags/mybatis-plus/">MyBatis-Plus</a>
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="/css/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="/js/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Zell
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <p>发布了 32 篇文章 | 共 75016  字</p >
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="/js/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/photoswipe-ui-default.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="/css/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="/css/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="/js/vibrant.min.js"crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://zell.zone/icons/top.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+<style>
+    
+</style>
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+    </body>
+</html>
