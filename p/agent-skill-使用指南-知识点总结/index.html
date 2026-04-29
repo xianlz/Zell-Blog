@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Agent Skill 使用指南 - 知识点总结 一、Agent Skill 概述 1.1 核心定义 Agent Skill 是 Claude Code 的扩展能力集，是预定义的工作流程模板和最佳实践集合。这些技能以结构化的方式引导用户完成特定任务，确保在开发过程中遵循统一的规范和流程。Skill 本质上是一种元工具，它告诉 AI 在什么场景下应该如何思考和行动，而非执行具体的代码操作。\n">
+<title>Agent Skill 使用指南 - 知识点总结</title>
+
+
+
+<link rel="stylesheet" href="/music-player/APlayer.min.css">
+<script src="/music-player/APlayer.min.js"></script>
+
+<script src="/music-player/Meting.min.js"></script>
+
+
+<link rel='canonical' href='https://zell.zone/p/agent-skill-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="Agent Skill 使用指南 - 知识点总结">
+<meta property='og:description' content="Agent Skill 使用指南 - 知识点总结 一、Agent Skill 概述 1.1 核心定义 Agent Skill 是 Claude Code 的扩展能力集，是预定义的工作流程模板和最佳实践集合。这些技能以结构化的方式引导用户完成特定任务，确保在开发过程中遵循统一的规范和流程。Skill 本质上是一种元工具，它告诉 AI 在什么场景下应该如何思考和行动，而非执行具体的代码操作。\n">
+<meta property='og:url' content='https://zell.zone/p/agent-skill-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/'>
+<meta property='og:site_name' content='Zell Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Claude Code' /><meta property='article:tag' content='Agent Skill' /><meta property='article:tag' content='工作流' /><meta property='article:tag' content='效率提升' /><meta property='article:tag' content='提示工程' /><meta property='article:published_time' content='2026-04-29T10:30:00&#43;08:00'/><meta property='article:modified_time' content='2026-04-29T10:30:00&#43;08:00'/><meta property='og:image' content='https://zell.zone/img/default.jpg' />
+<meta name="twitter:title" content="Agent Skill 使用指南 - 知识点总结">
+<meta name="twitter:description" content="Agent Skill 使用指南 - 知识点总结 一、Agent Skill 概述 1.1 核心定义 Agent Skill 是 Claude Code 的扩展能力集，是预定义的工作流程模板和最佳实践集合。这些技能以结构化的方式引导用户完成特定任务，确保在开发过程中遵循统一的规范和流程。Skill 本质上是一种元工具，它告诉 AI 在什么场景下应该如何思考和行动，而非执行具体的代码操作。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zell.zone/img/default.jpg' />
+    <link rel="icon" href="https://zell.zone/favicon.ico">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_931a78b9ce29985d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">⛰️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Zell Blog</a></h1>
+            <h2 class="site-description">悟已往之不谏
+知来者之可追
+</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='490200536@qq.com'
+                        target="_blank"
+                        title="email"
+                        rel="me"
+                    >
+                        
+                        
+                            <!--
+tags: [technology, e-mail, site, cm, group]
+category: Brand
+unicode: "f328"
+version: "1.86"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 18l9 -6.462l-9 -5.538v12h18v-12l-9 5.538" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/xianlz'
+                        target="_blank"
+                        title="Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.bilibili.com/'
+                        target="_blank"
+                        title="bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <rect x="50" y="70" width="200" height="160" rx="15" fill="none" stroke="#00A1D6" stroke-width="8"/>
+  <line x1="110" y1="70" x2="90" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <line x1="190" y1="70" x2="210" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="90" cy="40" r="5" fill="#00A1D6"/>
+  <circle cx="210" cy="40" r="5" fill="#00A1D6"/>
+  <rect x="70" y="90" width="160" height="120" rx="5" fill="#00A1D6" opacity="0.8"/>
+  <path d="M100,160 C105,150 115,145 125,150 C135,155 140,165 135,175 C130,185 120,190 110,185 C100,180 95,170 100,160 Z" fill="#FB7299"/>
+  <circle cx="115" cy="155" r="5" fill="white"/>
+  <path d="M180,160 C185,150 195,145 205,150 C215,155 220,165 215,175 C210,185 200,190 190,185 C180,180 175,170 180,160 Z" fill="#00A1D6"/>
+  <circle cx="195" cy="155" r="5" fill="white"/>
+  <path d="M60,100 L65,90 L70,100 L80,105 L70,110 L65,120 L60,110 L50,105 Z" fill="#FFC107"/>
+  <path d="M240,130 L245,120 L250,130 L260,135 L250,140 L245,150 L240,140 L230,135 Z" fill="#FFC107"/>
+  <path d="M70,200 L75,190 L80,200 L90,205 L80,210 L75,220 L70,210 L60,205 Z" fill="#FFC107"/>
+  <text x="150" y="260" text-anchor="middle" font-family="Microsoft YaHei" font-size="24" font-weight="bold" fill="#00A1D6">哔哩哔哩</text>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://zell.zone/en/" >English</option>
+                                
+                                    <option value="https://zell.zone/" selected>简体中文</option>
+                                
+                                    <option value="https://zell.zone/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+               
+                
+                <li id="dark-mode-toggle">
+                    <!--
+tags: [temperature, hot, wheater, thermometer, forecast]
+category: Weather
+version: "1.73"
+unicode: "f236"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
+  <path d="M6.343 17.657l-1.414 1.414" />
+  <path d="M6.343 6.343l-1.414 -1.414" />
+  <path d="M17.657 6.343l1.414 -1.414" />
+  <path d="M17.657 17.657l1.414 1.414" />
+  <path d="M4 12h-2" />
+  <path d="M12 4v-2" />
+  <path d="M20 12h2" />
+  <path d="M12 20v2" />
+</svg>
+
+                    <!--
+tags: [night, dark mode]
+category: Weather
+version: "1.21"
+unicode: "ece7"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#2196f3"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+  <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+  <path d="M19 11h2m-1 -1v2" />
+</svg>
+
+                    
+                </li>
+                
+
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一agent-skill-概述">一、Agent Skill 概述</a>
+      <ol>
+        <li><a href="#11-核心定义">1.1 核心定义</a></li>
+        <li><a href="#12-学习背景与价值">1.2 学习背景与价值</a></li>
+        <li><a href="#13-发展历程与行业应用">1.3 发展历程与行业应用</a></li>
+      </ol>
+    </li>
+    <li><a href="#二技能分类体系">二、技能分类体系</a>
+      <ol>
+        <li><a href="#21-技能分类概览">2.1 技能分类概览</a></li>
+        <li><a href="#22-流程类技能process-skills">2.2 流程类技能（Process Skills）</a>
+          <ol>
+            <li><a href="#221-brainstorming创意工作">2.2.1 brainstorming（创意工作）</a></li>
+            <li><a href="#222-systematic-debugging系统调试">2.2.2 systematic-debugging（系统调试）</a></li>
+            <li><a href="#223-test-driven-development测试驱动开发">2.2.3 test-driven-development（测试驱动开发）</a></li>
+          </ol>
+        </li>
+        <li><a href="#23-执行类技能execution-skills">2.3 执行类技能（Execution Skills）</a>
+          <ol>
+            <li><a href="#231-executing-plans">2.3.1 executing-plans</a></li>
+            <li><a href="#232-subagent-driven-development">2.3.2 subagent-driven-development</a></li>
+            <li><a href="#233-dispatching-parallel-agents">2.3.3 dispatching-parallel-agents</a></li>
+          </ol>
+        </li>
+        <li><a href="#24-验证类技能verification-skills">2.4 验证类技能（Verification Skills）</a>
+          <ol>
+            <li><a href="#241-verification-before-completion">2.4.1 verification-before-completion</a></li>
+            <li><a href="#242-requesting-code-review">2.4.2 requesting-code-review</a></li>
+            <li><a href="#243-receiving-code-review">2.4.3 receiving-code-review</a></li>
+          </ol>
+        </li>
+        <li><a href="#25-工具类技能utility-skills">2.5 工具类技能（Utility Skills）</a></li>
+      </ol>
+    </li>
+    <li><a href="#三核心使用规则">三、核心使用规则</a>
+      <ol>
+        <li><a href="#31-触发规则1-规则">3.1 触发规则（1% 规则）</a></li>
+        <li><a href="#32-技能优先级">3.2 技能优先级</a></li>
+        <li><a href="#33-技能调用方式">3.3 技能调用方式</a></li>
+        <li><a href="#34-技能选择流程">3.4 技能选择流程</a></li>
+      </ol>
+    </li>
+    <li><a href="#四典型工作流">四、典型工作流</a>
+      <ol>
+        <li><a href="#41-功能开发完整流程">4.1 功能开发完整流程</a></li>
+        <li><a href="#42-bug-修复流程">4.2 Bug 修复流程</a></li>
+        <li><a href="#43-多任务并行流程">4.3 多任务并行流程</a></li>
+      </ol>
+    </li>
+    <li><a href="#五技能详解">五、技能详解</a>
+      <ol>
+        <li><a href="#51-brainstorming-技能">5.1 brainstorming 技能</a></li>
+        <li><a href="#52-systematic-debugging-技能">5.2 systematic-debugging 技能</a></li>
+        <li><a href="#53-verification-before-completion-技能">5.3 verification-before-completion 技能</a></li>
+      </ol>
+    </li>
+    <li><a href="#六常见问题与解决方案">六、常见问题与解决方案</a>
+      <ol>
+        <li><a href="#61-何时必须使用技能">6.1 何时必须使用技能</a></li>
+        <li><a href="#62-技能冲突处理">6.2 技能冲突处理</a></li>
+        <li><a href="#63-技能执行中断">6.3 技能执行中断</a></li>
+      </ol>
+    </li>
+    <li><a href="#七学习总结">七、学习总结</a>
+      <ol>
+        <li><a href="#71-核心收获">7.1 核心收获</a></li>
+        <li><a href="#72-未掌握知识点待深入">7.2 未掌握知识点（待深入）</a></li>
+        <li><a href="#73-后续学习计划">7.3 后续学习计划</a></li>
+      </ol>
+    </li>
+    <li><a href="#八资源推荐">八、资源推荐</a>
+      <ol>
+        <li><a href="#81-官方文档">8.1 官方文档</a></li>
+        <li><a href="#82-学习资源">8.2 学习资源</a></li>
+        <li><a href="#83-社区资源">8.3 社区资源</a></li>
+      </ol>
+    </li>
+    <li><a href="#修订记录">修订记录</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/agent-skill-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
+                
+                    <img src="/img/default.jpg" loading="lazy" alt="Featured image of post Agent Skill 使用指南 - 知识点总结" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ai%E5%B7%A5%E5%85%B7/" >
+                AI工具
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/agent-skill-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">Agent Skill 使用指南 - 知识点总结</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-29 10:30:00</time>
+            </div>
+        
+
+        
+            <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.00008 5.75C2.00008 5.33579 2.33587 5 2.75008 5H21.2501C21.6643 5 22.0001 5.33579 22.0001 5.75C22.0001 6.16421 21.6643 6.5 21.2501 6.5H2.75008C2.33587 6.5 2.00008 6.16421 2.00008 5.75ZM2.00008 12.25C2.00008 11.8358 2.33587 11.5 2.75008 11.5H21.2501C21.6643 11.5 22.0001 11.8358 22.0001 12.25C22.0001 12.6642 21.6643 13 21.2501 13H2.75008C2.33587 13 2.00008 12.6642 2.00008 12.25ZM19.0001 18.75C19.0001 18.3358 19.3359 18 19.7501 18H21.2501C21.6643 18 22.0001 18.3358 22.0001 18.75C22.0001 19.1642 21.6643 19.5 21.2501 19.5H19.7501C19.3359 19.5 19.0001 19.1642 19.0001 18.75Z" fill="#212121"/>
+<path d="M2.4161 18.7377C2.62675 18.5972 2.83063 18.4376 3.02344 18.2633V22.25C3.02344 22.6642 3.35922 23 3.77344 23C4.18765 23 4.52344 22.6642 4.52344 22.25V15.75C4.52344 15.356 4.21966 15.033 3.83356 15.0024C3.46481 14.9719 3.12137 15.2183 3.04013 15.5897C2.91354 16.1684 2.34841 16.98 1.58405 17.4896C1.23941 17.7194 1.14628 18.185 1.37604 18.5297C1.60581 18.8743 2.07146 18.9674 2.4161 18.7377Z" fill="#212121"/>
+<path d="M8 17.5227C8 16.995 8.44352 16.5 8.98577 16.5C9.39293 16.5 9.7207 16.6909 9.87916 16.9345C10.015 17.1434 10.0966 17.4998 9.78558 18.0292C9.63607 18.2837 9.41005 18.5114 9.10403 18.7531C8.95157 18.8735 8.78845 18.9904 8.61108 19.1158L8.53729 19.1679C8.38506 19.2753 8.2221 19.3902 8.06469 19.5087C7.32108 20.0683 6.5 20.8536 6.5 22.25C6.5 22.6642 6.83579 23 7.25 23L7.25818 23L7.26636 23H10.7006C11.1148 23 11.4506 22.6642 11.4506 22.25C11.4506 21.8358 11.1148 21.5 10.7006 21.5H8.18765C8.34843 21.2182 8.61059 20.9752 8.96663 20.7072C9.1041 20.6038 9.24601 20.5036 9.39926 20.3955L9.47685 20.3407C9.65545 20.2145 9.84717 20.0775 10.0337 19.9302C10.4057 19.6364 10.7945 19.2731 11.0789 18.789C11.6358 17.8411 11.6253 16.868 11.1365 16.1166C10.6704 15.4 9.84098 15 8.98577 15C7.50821 15 6.5 16.2777 6.5 17.5227C6.5 17.9369 6.83579 18.2727 7.25 18.2727C7.66421 18.2727 8 17.9369 8 17.5227Z" fill="#212121"/>
+<path d="M14.4711 17.1377C14.5032 17.0255 14.5795 16.8666 14.722 16.7409C14.8504 16.6276 15.0775 16.5 15.5 16.5C16.2612 16.5 16.5 17.0002 16.5 17.2273C16.5 17.4724 16.4476 17.7178 16.3102 17.8907C16.1989 18.0308 15.9315 18.25 15.2083 18.25C14.7941 18.25 14.4583 18.5858 14.4583 19C14.4583 19.4142 14.7941 19.75 15.2083 19.75C15.4818 19.75 15.8597 19.7864 16.1427 19.9191C16.2745 19.9809 16.3571 20.0505 16.4071 20.1207C16.4519 20.1837 16.5 20.287 16.5 20.4773C16.5 20.965 16.3477 21.1807 16.2193 21.2891C16.0682 21.4167 15.8239 21.5 15.5 21.5C15.138 21.5 14.9331 21.4374 14.8074 21.3578C14.6961 21.2873 14.5677 21.1538 14.4624 20.8338C14.3329 20.4403 13.909 20.2263 13.5155 20.3558C13.1221 20.4852 12.9081 20.9092 13.0375 21.3026C13.2239 21.8689 13.533 22.3263 14.005 22.6252C14.4627 22.9149 14.9869 23 15.5 23C16.051 23 16.6817 22.8618 17.1869 22.4353C17.7147 21.9898 18 21.3191 18 20.4773C18 20.0027 17.8701 19.5891 17.6288 19.2504C17.5501 19.14 17.4631 19.0423 17.3708 18.9559C17.4104 18.9135 17.4483 18.8695 17.4844 18.8241C17.9223 18.2731 18 17.6321 18 17.2273C18 16.1543 17.072 15 15.5 15C14.7345 15 14.1485 15.2466 13.7298 15.616C13.3252 15.9728 13.1205 16.4048 13.0288 16.7259C12.9151 17.1242 13.1457 17.5393 13.544 17.653C13.9423 17.7667 14.3574 17.536 14.4711 17.1377Z" fill="#212121"/>
+</svg>
+
+                <time class="article-time--reading">
+                    本文共 3448 字
+                </time>
+            </div>
+        
+
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 7 分钟
+                </time>
+            </div>
+        
+            <div id="viewCount">
+                <?xml version="1.0" ?><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="-0.0000027" x2="512" y1="256" y2="256"><stop offset="0" style="stop-color:#E24263"/><stop offset="1" style="stop-color:#DD1E47"/></linearGradient><circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666641" x2="469.3333435" y1="256.0005188" y2="256.0005188"><stop offset="0" style="stop-color:#DD1E47"/><stop offset="1" style="stop-color:#E24263"/></linearGradient><path d="M256,469.3338623c-117.6309967,0-213.3333435-95.7023926-213.3333435-213.3333435    c0-117.6314545,95.7023392-213.333313,213.3333435-213.333313c117.6362,0,213.3333435,95.7018661,213.3333435,213.333313    C469.3333435,373.6314697,373.6362,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/></g><g><path d="M264,189.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S339.4841919,189.5839996,264,189.5839996z M264,313.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C313.4761963,291.3247986,291.3247375,313.4757385,264,313.4757385z" opacity="0.3"/><circle cx="264.0000916" cy="263.9997253" opacity="0.3" r="15.4838667"/></g><g><path d="M256,181.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S331.4841919,181.5839996,256,181.5839996z M256,305.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C305.4761963,283.3247986,283.3247375,305.4757385,256,305.4757385z" fill="#FFFFFF"/><circle cx="256.0000916" cy="255.9997406" fill="#FFFFFF" r="15.4838667"/></g></g></svg>
+                <time class="article-time--reading">
+                    
+                    <span id="vercount_value_page_pv"> </span>次
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="agent-skill-使用指南---知识点总结">Agent Skill 使用指南 - 知识点总结
+</h1><hr>
+<h2 id="一agent-skill-概述">一、Agent Skill 概述
+</h2><h3 id="11-核心定义">1.1 核心定义
+</h3><p>Agent Skill 是 Claude Code 的扩展能力集，是预定义的工作流程模板和最佳实践集合。这些技能以结构化的方式引导用户完成特定任务，确保在开发过程中遵循统一的规范和流程。Skill 本质上是一种<strong>元工具</strong>，它告诉 AI 在什么场景下应该如何思考和行动，而非执行具体的代码操作。</p>
+<p>Agent Skill 的核心价值在于：<strong>将专家经验封装为可复用的工作流程</strong>，使 AI 能够在特定场景下表现出专家级的判断力和执行力。</p>
+<blockquote>
+<p>! 警示：Agent Skill 是 Claude Code 的内置机制，不可单独下载或安装，只能通过 <code>Skill</code> 工具调用。</p>
+</blockquote>
+<h3 id="12-学习背景与价值">1.2 学习背景与价值
+</h3><p><strong>为什么学习 Agent Skill？</strong></p>
+<ol>
+<li><strong>提升开发效率</strong>：通过结构化的工作流，避免重复试错，直接调用经过验证的最佳实践</li>
+<li><strong>保证工作质量</strong>：在关键节点（如完成前验证、代码审查）强制检查，确保交付质量</li>
+<li><strong>统一团队规范</strong>：所有成员使用相同的技能流程，输出一致性的结果</li>
+<li><strong>降低认知负担</strong>：不需要记住所有细节，技能会引导你完成每个步骤</li>
+</ol>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>复杂功能开发（需要 brainstorming → planning → implementation → review）</li>
+<li>Bug 修复（需要 systematic debugging 避免盲目试错）</li>
+<li>多任务并行处理（需要 dispatching-parallel-agents）</li>
+<li>关键里程碑完成（需要 verification-before-completion）</li>
+</ul>
+<h3 id="13-发展历程与行业应用">1.3 发展历程与行业应用
+</h3><p><strong>技术演进</strong>：</p>
+<ul>
+<li>2024 年：Superpowers 技能集首次发布，包含基础的 brainstorming 和 debugging 技能</li>
+<li>2025 年：扩展至 TDD、code review、parallel execution 等场景</li>
+<li>2026 年：新增 subagent-driven-development、finishing-a-development-branch 等高级技能</li>
+</ul>
+<p><strong>行业应用现状</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>企业类型</th>
+          <th>应用场景</th>
+          <th>使用技能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>初创公司</td>
+          <td>快速迭代开发</td>
+          <td>brainstorming + verification</td>
+      </tr>
+      <tr>
+          <td>中大型企业</td>
+          <td>规范流程管理</td>
+          <td>TDD + code review + finishing-branch</td>
+      </tr>
+      <tr>
+          <td>远程团队</td>
+          <td>协作质量保证</td>
+          <td>requesting-code-review + receiving-code-review</td>
+      </tr>
+      <tr>
+          <td>技术团队</td>
+          <td>复杂系统重构</td>
+          <td>systematic-debugging + executing-plans</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="二技能分类体系">二、技能分类体系
+</h2><h3 id="21-技能分类概览">2.1 技能分类概览
+</h3><p>Agent Skill 可分为四大类别：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>类别</th>
+          <th>技能数量</th>
+          <th>核心作用</th>
+          <th>优先级</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>流程类</td>
+          <td>3</td>
+          <td>决定如何做事（思考方式）</td>
+          <td>最高</td>
+      </tr>
+      <tr>
+          <td>执行类</td>
+          <td>3</td>
+          <td>执行计划和处理任务</td>
+          <td>高</td>
+      </tr>
+      <tr>
+          <td>验证类</td>
+          <td>3</td>
+          <td>质量保证和合规检查</td>
+          <td>高</td>
+      </tr>
+      <tr>
+          <td>工具类</td>
+          <td>4</td>
+          <td>辅助功能和配置</td>
+          <td>中</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="22-流程类技能process-skills">2.2 流程类技能（Process Skills）
+</h3><p><strong>定义</strong>：决定「如何做」的技能，优先于任何实现工作。</p>
+<h4 id="221-brainstorming创意工作">2.2.1 brainstorming（创意工作）
+</h4><p><strong>触发场景</strong>：</p>
+<ul>
+<li>创建新功能</li>
+<li>设计系统架构</li>
+<li>提出解决方案</li>
+<li>任何需要「先想清楚」的场景</li>
+</ul>
+<p><strong>核心原则</strong>：</p>
+<ol>
+<li>探索用户意图，不直接跳入实现</li>
+<li>分析需求和约束条件</li>
+<li>设计多个可行方案</li>
+<li>选择最优路径</li>
+</ol>
+<h4 id="222-systematic-debugging系统调试">2.2.2 systematic-debugging（系统调试）
+</h4><p><strong>触发场景</strong>：</p>
+<ul>
+<li>遇到 bug 或错误</li>
+<li>测试失败</li>
+<li>行为不符合预期</li>
+</ul>
+<p><strong>核心原则</strong>：</p>
+<ol>
+<li>不盲目猜测原因</li>
+<li>系统性收集信息</li>
+<li>形成假设并验证</li>
+<li>追踪根本原因</li>
+</ol>
+<h4 id="223-test-driven-development测试驱动开发">2.2.3 test-driven-development（测试驱动开发）
+</h4><p><strong>触发场景</strong>：</p>
+<ul>
+<li>实现任何新功能</li>
+<li>修复任何 bug</li>
+</ul>
+<p><strong>核心原则</strong>：</p>
+<ol>
+<li>先写测试，再写实现</li>
+<li>小步快走，快速反馈</li>
+<li>重构不改变行为</li>
+</ol>
+<h3 id="23-执行类技能execution-skills">2.3 执行类技能（Execution Skills）
+</h3><h4 id="231-executing-plans">2.3.1 executing-plans
+</h4><p><strong>触发场景</strong>：有书面实现计划需要执行时。</p>
+<p><strong>使用方式</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. 阅读计划文档
+</span></span><span class="line"><span class="cl">2. 按步骤执行
+</span></span><span class="line"><span class="cl">3. 在检查点验证
+</span></span><span class="line"><span class="cl">4. 处理偏差
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="232-subagent-driven-development">2.3.2 subagent-driven-development
+</h4><p><strong>触发场景</strong>：任务可分解为独立子任务时。</p>
+<p><strong>核心优势</strong>：</p>
+<ul>
+<li>并行处理多个独立任务</li>
+<li>隔离复杂任务的上下文</li>
+<li>充分利用多核资源</li>
+</ul>
+<h4 id="233-dispatching-parallel-agents">2.3.3 dispatching-parallel-agents
+</h4><p><strong>触发场景</strong>：2+ 个独立任务需要同时处理。</p>
+<p><strong>前置条件</strong>：</p>
+<ul>
+<li>任务间无共享状态</li>
+<li>无顺序依赖</li>
+</ul>
+<h3 id="24-验证类技能verification-skills">2.4 验证类技能（Verification Skills）
+</h3><h4 id="241-verification-before-completion">2.4.1 verification-before-completion
+</h4><p><strong>触发场景</strong>：声称工作完成前。</p>
+<p><strong>核心检查项</strong>：</p>
+<ol>
+<li>代码是否编译/运行通过</li>
+<li>功能是否满足需求</li>
+<li>边界条件是否处理</li>
+<li>是否有副作用</li>
+</ol>
+<h4 id="242-requesting-code-review">2.4.2 requesting-code-review
+</h4><p><strong>触发场景</strong>：</p>
+<ul>
+<li>完成任务后</li>
+<li>实现重要功能后</li>
+<li>合并前</li>
+</ul>
+<h4 id="243-receiving-code-review">2.4.3 receiving-code-review
+</h4><p><strong>触发场景</strong>：收到代码审查反馈时。</p>
+<p><strong>核心原则</strong>：</p>
+<ol>
+<li>不盲目接受，也不盲目拒绝</li>
+<li>理解反馈的技术依据</li>
+<li>验证假设的正确性</li>
+</ol>
+<h3 id="25-工具类技能utility-skills">2.5 工具类技能（Utility Skills）
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>技能名</th>
+          <th>用途</th>
+          <th>使用频率</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>simplify</code></td>
+          <td>代码质量审查</td>
+          <td>中</td>
+      </tr>
+      <tr>
+          <td><code>loop</code></td>
+          <td>定期循环执行命令</td>
+          <td>低</td>
+      </tr>
+      <tr>
+          <td><code>update-config</code></td>
+          <td>Claude Code 配置</td>
+          <td>低</td>
+      </tr>
+      <tr>
+          <td><code>claude-api</code></td>
+          <td>Claude API 开发</td>
+          <td>低</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="三核心使用规则">三、核心使用规则
+</h2><h3 id="31-触发规则1-规则">3.1 触发规则（1% 规则）
+</h3><p><strong>规则内容</strong>：只要有 1% 的可能性某个技能适用，就必须调用它检查。</p>
+<p><strong>违反示例（需避免的思维）</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>错误思维</th>
+          <th>实际情况</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>&ldquo;这只是个小问题&rdquo;</td>
+          <td>小问题也可能有技能适用</td>
+      </tr>
+      <tr>
+          <td>&ldquo;我需要先探索一下&rdquo;</td>
+          <td>技能告诉你如何探索</td>
+      </tr>
+      <tr>
+          <td>&ldquo;我已经知道怎么做&rdquo;</td>
+          <td>技能可能提供更好方法</td>
+      </tr>
+      <tr>
+          <td>&ldquo;太简单了不需要&rdquo;</td>
+          <td>简单任务也可能需要验证</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>正确思维流程</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">收到任务 → 是否有技能可能适用？ → 是 → 调用 Skill 工具
+</span></span><span class="line"><span class="cl">                                         ↓
+</span></span><span class="line"><span class="cl">                                         否 → 继续
+</span></span><span class="line"><span class="cl">                                         ↓
+</span></span><span class="line"><span class="cl">                                    直接响应
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="32-技能优先级">3.2 技能优先级
+</h3><p><strong>优先级矩阵</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">用户显式指令 &gt; Superpowers 技能 &gt; 默认系统提示
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>说明</strong>：</p>
+<ul>
+<li>用户在 CLAUDE.md 等文件中明确指定的指令具有最高优先级</li>
+<li>如果 CLAUDE.md 说「不要用 TDD」，但 skill 说「要用 TDD」，遵循用户指令</li>
+<li>默认系统提示的优先级最低</li>
+</ul>
+<h3 id="33-技能调用方式">3.3 技能调用方式
+</h3><p><strong>使用 Skill 工具</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tool&#34;</span><span class="p">:</span> <span class="s2">&#34;Skill&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;parameters&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skill&#34;</span><span class="p">:</span> <span class="s2">&#34;superpowers:brainstorming&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>命令行格式</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/skill superpowers:brainstorming
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="34-技能选择流程">3.4 技能选择流程
+</h3><p><strong>决策树</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">任务类型 → 推荐技能
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">新建功能 → brainstorming → test-driven-development → verification
+</span></span><span class="line"><span class="cl">Bug 修复 → systematic-debugging → verification
+</span></span><span class="line"><span class="cl">有计划 → executing-plans
+</span></span><span class="line"><span class="cl">多任务 → dispatching-parallel-agents → subagent-driven-development
+</span></span><span class="line"><span class="cl">完成前 → verification-before-completion
+</span></span><span class="line"><span class="cl">代码审查 → requesting-code-review / receiving-code-review
+</span></span><span class="line"><span class="cl">分支完成 → finishing-a-development-branch
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="四典型工作流">四、典型工作流
+</h2><h3 id="41-功能开发完整流程">4.1 功能开发完整流程
+</h3><p><strong>场景</strong>：开发一个新的用户认证功能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">1. brainstorming
+</span></span><span class="line"><span class="cl">   - 明确需求：用户名密码登录、第三方登录、Token 刷新
+</span></span><span class="line"><span class="cl">   - 分析约束：安全性要求、会话管理、API 兼容性
+</span></span><span class="line"><span class="cl">   - 设计方案：方案 A（传统 Session）、方案 B（JWT）
+</span></span><span class="line"><span class="cl">   - 选择路径：基于项目现状选择 JWT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. test-driven-development
+</span></span><span class="line"><span class="cl">   - 编写登录测试用例
+</span></span><span class="line"><span class="cl">   - 编写 Token 刷新测试用例
+</span></span><span class="line"><span class="cl">   - 编写注销测试用例
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. 实现功能
+</span></span><span class="line"><span class="cl">   - 按测试要求实现
+</span></span><span class="line"><span class="cl">   - 确保所有测试通过
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">4. verification-before-completion
+</span></span><span class="line"><span class="cl">   - 运行完整测试套件
+</span></span><span class="line"><span class="cl">   - 检查代码覆盖率
+</span></span><span class="line"><span class="cl">   - 验证边界条件
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">5. requesting-code-review
+</span></span><span class="line"><span class="cl">   - 提交代码
+</span></span><span class="line"><span class="cl">   - 请求团队审查
+</span></span><span class="line"><span class="cl">   - 处理反馈
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">6. finishing-a-development-branch
+</span></span><span class="line"><span class="cl">   - 合并到主分支
+</span></span><span class="line"><span class="cl">   - 清理开发分支
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="42-bug-修复流程">4.2 Bug 修复流程
+</h3><p><strong>场景</strong>：用户反馈登录后有时会莫名掉线</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">1. systematic-debugging
+</span></span><span class="line"><span class="cl">   - 收集信息：复现步骤、日志、用户环境
+</span></span><span class="line"><span class="cl">   - 形成假设：Token 过期、服务器重启、缓存问题
+</span></span><span class="line"><span class="cl">   - 验证假设：通过日志分析确认是 Token 刷新竞态条件
+</span></span><span class="line"><span class="cl">   - 定位根因：并发请求时 Token 刷新逻辑有 TOCTOU 问题
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. 修复代码
+</span></span><span class="line"><span class="cl">   - 添加分布式锁
+</span></span><span class="line"><span class="cl">   - 重构 Token 刷新逻辑
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. verification-before-completion
+</span></span><span class="line"><span class="cl">   - 编写回归测试
+</span></span><span class="line"><span class="cl">   - 压力测试并发场景
+</span></span><span class="line"><span class="cl">   - 验证修复有效
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">4. requesting-code-review
+</span></span><span class="line"><span class="cl">   - 提交修复
+</span></span><span class="line"><span class="cl">   - 请求审查
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="43-多任务并行流程">4.3 多任务并行流程
+</h3><p><strong>场景</strong>：同时开发用户模块和订单模块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">1. dispatching-parallel-agents
+</span></span><span class="line"><span class="cl">   - 分析任务依赖关系
+</span></span><span class="line"><span class="cl">   - 识别独立任务
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2. subagent-driven-development
+</span></span><span class="line"><span class="cl">   - Agent 1：处理用户模块
+</span></span><span class="line"><span class="cl">   - Agent 2：处理订单模块
+</span></span><span class="line"><span class="cl">   - 并行执行
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3. 汇总结果
+</span></span><span class="line"><span class="cl">   - 验证两个模块
+</span></span><span class="line"><span class="cl">   - 集成测试
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="五技能详解">五、技能详解
+</h2><h3 id="51-brainstorming-技能">5.1 brainstorming 技能
+</h3><p><strong>触发时机</strong>：任何创意性工作前（创建功能、修改行为、设计方案）</p>
+<p><strong>使用流程</strong>：</p>
+<ol>
+<li><strong>探索意图</strong>：理解用户真正想要什么</li>
+<li><strong>分析需求</strong>：功能需求、非功能需求、约束条件</li>
+<li><strong>设计方案</strong>：提出多个可行方案</li>
+<li><strong>选择路径</strong>：推荐最优方案</li>
+</ol>
+<p><strong>输出产物</strong>：</p>
+<ul>
+<li>明确的需求描述</li>
+<li>设计方案决策</li>
+<li>实现路径规划</li>
+</ul>
+<h3 id="52-systematic-debugging-技能">5.2 systematic-debugging 技能
+</h3><p><strong>核心思想</strong>：不盲目猜测，通过系统化方法定位问题。</p>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li><strong>收集信息</strong>：错误信息、环境配置、复现步骤</li>
+<li><strong>形成假设</strong>：基于信息的合理推断</li>
+<li><strong>验证假设</strong>：设计实验验证</li>
+<li><strong>定位根因</strong>：找到真正的 bug 源头</li>
+<li><strong>修复验证</strong>：确保修复有效</li>
+</ol>
+<p><strong>常用命令</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看错误日志</span>
+</span></span><span class="line"><span class="cl">git log --oneline -20
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 检查配置</span>
+</span></span><span class="line"><span class="cl">git diff HEAD~5
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 对比正常和异常状态</span>
+</span></span><span class="line"><span class="cl">git stash list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="53-verification-before-completion-技能">5.3 verification-before-completion 技能
+</h3><p><strong>检查清单</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>检查项</th>
+          <th>通过标准</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>编译/运行</td>
+          <td>无错误，无警告</td>
+      </tr>
+      <tr>
+          <td>功能测试</td>
+          <td>所有用例通过</td>
+      </tr>
+      <tr>
+          <td>边界条件</td>
+          <td>极端输入正常处理</td>
+      </tr>
+      <tr>
+          <td>副作用</td>
+          <td>无意外的状态变更</td>
+      </tr>
+      <tr>
+          <td>性能</td>
+          <td>响应时间在可接受范围</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="六常见问题与解决方案">六、常见问题与解决方案
+</h2><h3 id="61-何时必须使用技能">6.1 何时必须使用技能
+</h3><p><strong>问题</strong>：如何判断是否需要使用技能？</p>
+<p><strong>解决方案</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>所需技能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>开始新功能</td>
+          <td>brainstorming</td>
+      </tr>
+      <tr>
+          <td>写代码实现</td>
+          <td>test-driven-development</td>
+      </tr>
+      <tr>
+          <td>声称完成</td>
+          <td>verification-before-completion</td>
+      </tr>
+      <tr>
+          <td>遇到报错</td>
+          <td>systematic-debugging</td>
+      </tr>
+      <tr>
+          <td>代码提交</td>
+          <td>requesting-code-review</td>
+      </tr>
+      <tr>
+          <td>收到反馈</td>
+          <td>receiving-code-review</td>
+      </tr>
+      <tr>
+          <td>多个任务并行</td>
+          <td>dispatching-parallel-agents</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="62-技能冲突处理">6.2 技能冲突处理
+</h3><p><strong>问题</strong>：多个技能同时适用怎么办？</p>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li><strong>流程技能优先于实现技能</strong></li>
+<li><strong>验证技能优先于执行技能</strong></li>
+<li><strong>优先级相同时，选择最具体的技能</strong></li>
+</ol>
+<h3 id="63-技能执行中断">6.3 技能执行中断
+</h3><p><strong>问题</strong>：执行技能过程中被打断怎么办？</p>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li>记录当前步骤</li>
+<li>使用 <code>TaskCreate</code> 创建待办事项</li>
+<li>继续时从中断处恢复</li>
+<li>使用 <code>TaskList</code> 查看进度</li>
+</ol>
+<hr>
+<h2 id="七学习总结">七、学习总结
+</h2><h3 id="71-核心收获">7.1 核心收获
+</h3><ol>
+<li><strong>Agent Skill 是结构化的工作流</strong>：不是命令，而是指导 AI 如何思考和行动的框架</li>
+<li><strong>1% 触发规则</strong>：宁可多检查，不可漏过任何可能的适用场景</li>
+<li><strong>流程优先于实现</strong>：先确定方法，再执行操作</li>
+<li><strong>验证是质量保障</strong>：任何「完成」前都必须验证</li>
+<li><strong>技能可组合使用</strong>：复杂场景需要多个技能配合</li>
+</ol>
+<h3 id="72-未掌握知识点待深入">7.2 未掌握知识点（待深入）
+</h3><ul>
+<li><input disabled="" type="checkbox"> <code>finishing-a-development-branch</code> 的具体分支清理策略</li>
+<li><input disabled="" type="checkbox"> <code>subagent-driven-development</code> 的上下文隔离机制</li>
+<li><input disabled="" type="checkbox"> <code>loop</code> 技能与 Cron 任务的结合使用</li>
+</ul>
+<h3 id="73-后续学习计划">7.3 后续学习计划
+</h3><ol>
+<li><strong>本周</strong>：熟悉所有技能的触发时机</li>
+<li><strong>下周</strong>：在项目中实践 TDD 工作流</li>
+<li><strong>下月</strong>：掌握多代理并行处理</li>
+</ol>
+<hr>
+<h2 id="八资源推荐">八、资源推荐
+</h2><h3 id="81-官方文档">8.1 官方文档
+</h3><ul>
+<li><a class="link" href="https://docs.anthropic.com/claude-code"  target="_blank" rel="noopener"
+    >Claude Code 官方文档</a> — 最权威的 Agent Skill 使用说明</li>
+<li><a class="link" href="https://github.com/anthropics/claude-code/tree/main/skills"  target="_blank" rel="noopener"
+    >Superpowers 技能集</a> — 所有技能的源码和说明</li>
+</ul>
+<h3 id="82-学习资源">8.2 学习资源
+</h3><ul>
+<li><a class="link" href="https://www.bilibili.com/video/"  target="_blank" rel="noopener"
+    >B 站：Claude Code 入门教程</a> — 视频演示适合入门</li>
+<li><a class="link" href="https://github.com/anthropics/claude-code-examples"  target="_blank" rel="noopener"
+    >GitHub：claude-code-examples</a> — 实战案例集合</li>
+</ul>
+<h3 id="83-社区资源">8.3 社区资源
+</h3><ul>
+<li><a class="link" href="https://discord.gg/claude"  target="_blank" rel="noopener"
+    >Claude Code Discord</a> — 社区讨论和问题解答</li>
+<li><a class="link" href="https://github.com/anthropics/claude-code/issues"  target="_blank" rel="noopener"
+    >GitHub Issues</a> — 问题反馈和功能建议</li>
+</ul>
+<hr>
+<h2 id="修订记录">修订记录
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>修订时间</th>
+          <th>修订内容</th>
+          <th>修订人</th>
+          <th>备注</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>2026-04-29</td>
+          <td>首次发布</td>
+          <td>Claude</td>
+          <td>基于官方文档整理</td>
+      </tr>
+  </tbody>
+</table></div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/claude-code/">Claude Code</a>
+        
+            <a href="/tags/agent-skill/">Agent Skill</a>
+        
+            <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">工作流</a>
+        
+            <a href="/tags/%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/">效率提升</a>
+        
+            <a href="/tags/%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B/">提示工程</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="/css/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="/js/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Zell
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <p>发布了 34 篇文章 | 共 86979  字</p >
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="/js/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/photoswipe-ui-default.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="/css/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="/css/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="/js/vibrant.min.js"crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://zell.zone/icons/top.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+<style>
+    
+</style>
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+    </body>
+</html>

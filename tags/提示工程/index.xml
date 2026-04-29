@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>提示工程 on Zell Blog</title>
+        <link>https://zell.zone/tags/%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B/</link>
+        <description>Recent content in 提示工程 on Zell Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>Zell</copyright>
+        <lastBuildDate>Wed, 29 Apr 2026 10:30:00 +0800</lastBuildDate><atom:link href="https://zell.zone/tags/%E6%8F%90%E7%A4%BA%E5%B7%A5%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Agent Skill 使用指南 - 知识点总结</title>
+        <link>https://zell.zone/p/agent-skill-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</link>
+        <pubDate>Wed, 29 Apr 2026 10:30:00 +0800</pubDate>
+        
+        <guid>https://zell.zone/p/agent-skill-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</guid>
+        <description>&lt;img src="https://zell.zone/img/default.jpg" alt="Featured image of post Agent Skill 使用指南 - 知识点总结" /&gt;&lt;h1 id=&#34;agent-skill-使用指南---知识点总结&#34;&gt;Agent Skill 使用指南 - 知识点总结
+&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&#34;一agent-skill-概述&#34;&gt;一、Agent Skill 概述
+&lt;/h2&gt;&lt;h3 id=&#34;11-核心定义&#34;&gt;1.1 核心定义
+&lt;/h3&gt;&lt;p&gt;Agent Skill 是 Claude Code 的扩展能力集，是预定义的工作流程模板和最佳实践集合。这些技能以结构化的方式引导用户完成特定任务，确保在开发过程中遵循统一的规范和流程。Skill 本质上是一种&lt;strong&gt;元工具&lt;/strong&gt;，它告诉 AI 在什么场景下应该如何思考和行动，而非执行具体的代码操作。&lt;/p&gt;
+&lt;p&gt;Agent Skill 的核心价值在于：&lt;strong&gt;将专家经验封装为可复用的工作流程&lt;/strong&gt;，使 AI 能够在特定场景下表现出专家级的判断力和执行力。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;! 警示：Agent Skill 是 Claude Code 的内置机制，不可单独下载或安装，只能通过 &lt;code&gt;Skill&lt;/code&gt; 工具调用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;12-学习背景与价值&#34;&gt;1.2 学习背景与价值
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;为什么学习 Agent Skill？&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;提升开发效率&lt;/strong&gt;：通过结构化的工作流，避免重复试错，直接调用经过验证的最佳实践&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保证工作质量&lt;/strong&gt;：在关键节点（如完成前验证、代码审查）强制检查，确保交付质量&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;统一团队规范&lt;/strong&gt;：所有成员使用相同的技能流程，输出一致性的结果&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;降低认知负担&lt;/strong&gt;：不需要记住所有细节，技能会引导你完成每个步骤&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;适用场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;复杂功能开发（需要 brainstorming → planning → implementation → review）&lt;/li&gt;
+&lt;li&gt;Bug 修复（需要 systematic debugging 避免盲目试错）&lt;/li&gt;
+&lt;li&gt;多任务并行处理（需要 dispatching-parallel-agents）&lt;/li&gt;
+&lt;li&gt;关键里程碑完成（需要 verification-before-completion）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;13-发展历程与行业应用&#34;&gt;1.3 发展历程与行业应用
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;技术演进&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2024 年：Superpowers 技能集首次发布，包含基础的 brainstorming 和 debugging 技能&lt;/li&gt;
+&lt;li&gt;2025 年：扩展至 TDD、code review、parallel execution 等场景&lt;/li&gt;
+&lt;li&gt;2026 年：新增 subagent-driven-development、finishing-a-development-branch 等高级技能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;行业应用现状&lt;/strong&gt;：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;企业类型&lt;/th&gt;
+          &lt;th&gt;应用场景&lt;/th&gt;
+          &lt;th&gt;使用技能&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;初创公司&lt;/td&gt;
+          &lt;td&gt;快速迭代开发&lt;/td&gt;
+          &lt;td&gt;brainstorming + verification&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;中大型企业&lt;/td&gt;
+          &lt;td&gt;规范流程管理&lt;/td&gt;
+          &lt;td&gt;TDD + code review + finishing-branch&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;远程团队&lt;/td&gt;
+          &lt;td&gt;协作质量保证&lt;/td&gt;
+          &lt;td&gt;requesting-code-review + receiving-code-review&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;技术团队&lt;/td&gt;
+          &lt;td&gt;复杂系统重构&lt;/td&gt;
+          &lt;td&gt;systematic-debugging + executing-plans&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;二技能分类体系&#34;&gt;二、技能分类体系
+&lt;/h2&gt;&lt;h3 id=&#34;21-技能分类概览&#34;&gt;2.1 技能分类概览
+&lt;/h3&gt;&lt;p&gt;Agent Skill 可分为四大类别：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;类别&lt;/th&gt;
+          &lt;th&gt;技能数量&lt;/th&gt;
+          &lt;th&gt;核心作用&lt;/th&gt;
+          &lt;th&gt;优先级&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;流程类&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;决定如何做事（思考方式）&lt;/td&gt;
+          &lt;td&gt;最高&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;执行类&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;执行计划和处理任务&lt;/td&gt;
+          &lt;td&gt;高&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;验证类&lt;/td&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;质量保证和合规检查&lt;/td&gt;
+          &lt;td&gt;高&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;工具类&lt;/td&gt;
+          &lt;td&gt;4&lt;/td&gt;
+          &lt;td&gt;辅助功能和配置&lt;/td&gt;
+          &lt;td&gt;中&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;22-流程类技能process-skills&#34;&gt;2.2 流程类技能（Process Skills）
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：决定「如何做」的技能，优先于任何实现工作。&lt;/p&gt;
+&lt;h4 id=&#34;221-brainstorming创意工作&#34;&gt;2.2.1 brainstorming（创意工作）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建新功能&lt;/li&gt;
+&lt;li&gt;设计系统架构&lt;/li&gt;
+&lt;li&gt;提出解决方案&lt;/li&gt;
+&lt;li&gt;任何需要「先想清楚」的场景&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;核心原则&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;探索用户意图，不直接跳入实现&lt;/li&gt;
+&lt;li&gt;分析需求和约束条件&lt;/li&gt;
+&lt;li&gt;设计多个可行方案&lt;/li&gt;
+&lt;li&gt;选择最优路径&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;222-systematic-debugging系统调试&#34;&gt;2.2.2 systematic-debugging（系统调试）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;遇到 bug 或错误&lt;/li&gt;
+&lt;li&gt;测试失败&lt;/li&gt;
+&lt;li&gt;行为不符合预期&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;核心原则&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;不盲目猜测原因&lt;/li&gt;
+&lt;li&gt;系统性收集信息&lt;/li&gt;
+&lt;li&gt;形成假设并验证&lt;/li&gt;
+&lt;li&gt;追踪根本原因&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;223-test-driven-development测试驱动开发&#34;&gt;2.2.3 test-driven-development（测试驱动开发）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;实现任何新功能&lt;/li&gt;
+&lt;li&gt;修复任何 bug&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;核心原则&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先写测试，再写实现&lt;/li&gt;
+&lt;li&gt;小步快走，快速反馈&lt;/li&gt;
+&lt;li&gt;重构不改变行为&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;23-执行类技能execution-skills&#34;&gt;2.3 执行类技能（Execution Skills）
+&lt;/h3&gt;&lt;h4 id=&#34;231-executing-plans&#34;&gt;2.3.1 executing-plans
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：有书面实现计划需要执行时。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;使用方式&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. 阅读计划文档
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. 按步骤执行
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3. 在检查点验证
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;4. 处理偏差
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;232-subagent-driven-development&#34;&gt;2.3.2 subagent-driven-development
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：任务可分解为独立子任务时。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;核心优势&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;并行处理多个独立任务&lt;/li&gt;
+&lt;li&gt;隔离复杂任务的上下文&lt;/li&gt;
+&lt;li&gt;充分利用多核资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;233-dispatching-parallel-agents&#34;&gt;2.3.3 dispatching-parallel-agents
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：2+ 个独立任务需要同时处理。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;前置条件&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任务间无共享状态&lt;/li&gt;
+&lt;li&gt;无顺序依赖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;24-验证类技能verification-skills&#34;&gt;2.4 验证类技能（Verification Skills）
+&lt;/h3&gt;&lt;h4 id=&#34;241-verification-before-completion&#34;&gt;2.4.1 verification-before-completion
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：声称工作完成前。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;核心检查项&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;代码是否编译/运行通过&lt;/li&gt;
+&lt;li&gt;功能是否满足需求&lt;/li&gt;
+&lt;li&gt;边界条件是否处理&lt;/li&gt;
+&lt;li&gt;是否有副作用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;242-requesting-code-review&#34;&gt;2.4.2 requesting-code-review
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;完成任务后&lt;/li&gt;
+&lt;li&gt;实现重要功能后&lt;/li&gt;
+&lt;li&gt;合并前&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;243-receiving-code-review&#34;&gt;2.4.3 receiving-code-review
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;触发场景&lt;/strong&gt;：收到代码审查反馈时。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;核心原则&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;不盲目接受，也不盲目拒绝&lt;/li&gt;
+&lt;li&gt;理解反馈的技术依据&lt;/li&gt;
+&lt;li&gt;验证假设的正确性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;25-工具类技能utility-skills&#34;&gt;2.5 工具类技能（Utility Skills）
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;技能名&lt;/th&gt;
+          &lt;th&gt;用途&lt;/th&gt;
+          &lt;th&gt;使用频率&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;simplify&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;代码质量审查&lt;/td&gt;
+          &lt;td&gt;中&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;loop&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;定期循环执行命令&lt;/td&gt;
+          &lt;td&gt;低&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;update-config&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Claude Code 配置&lt;/td&gt;
+          &lt;td&gt;低&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;claude-api&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Claude API 开发&lt;/td&gt;
+          &lt;td&gt;低&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;三核心使用规则&#34;&gt;三、核心使用规则
+&lt;/h2&gt;&lt;h3 id=&#34;31-触发规则1-规则&#34;&gt;3.1 触发规则（1% 规则）
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;规则内容&lt;/strong&gt;：只要有 1% 的可能性某个技能适用，就必须调用它检查。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;违反示例（需避免的思维）&lt;/strong&gt;：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;错误思维&lt;/th&gt;
+          &lt;th&gt;实际情况&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&amp;ldquo;这只是个小问题&amp;rdquo;&lt;/td&gt;
+          &lt;td&gt;小问题也可能有技能适用&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&amp;ldquo;我需要先探索一下&amp;rdquo;&lt;/td&gt;
+          &lt;td&gt;技能告诉你如何探索&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&amp;ldquo;我已经知道怎么做&amp;rdquo;&lt;/td&gt;
+          &lt;td&gt;技能可能提供更好方法&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&amp;ldquo;太简单了不需要&amp;rdquo;&lt;/td&gt;
+          &lt;td&gt;简单任务也可能需要验证&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;正确思维流程&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;收到任务 → 是否有技能可能适用？ → 是 → 调用 Skill 工具
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                         ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                         否 → 继续
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                         ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                    直接响应
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;32-技能优先级&#34;&gt;3.2 技能优先级
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;优先级矩阵&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;用户显式指令 &amp;gt; Superpowers 技能 &amp;gt; 默认系统提示
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用户在 CLAUDE.md 等文件中明确指定的指令具有最高优先级&lt;/li&gt;
+&lt;li&gt;如果 CLAUDE.md 说「不要用 TDD」，但 skill 说「要用 TDD」，遵循用户指令&lt;/li&gt;
+&lt;li&gt;默认系统提示的优先级最低&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;33-技能调用方式&#34;&gt;3.3 技能调用方式
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;使用 Skill 工具&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;tool&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Skill&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;#34;parameters&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;skill&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;superpowers:brainstorming&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;命令行格式&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/skill superpowers:brainstorming
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;34-技能选择流程&#34;&gt;3.4 技能选择流程
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;决策树&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;任务类型 → 推荐技能
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;新建功能 → brainstorming → test-driven-development → verification
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Bug 修复 → systematic-debugging → verification
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;有计划 → executing-plans
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;多任务 → dispatching-parallel-agents → subagent-driven-development
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;完成前 → verification-before-completion
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;代码审查 → requesting-code-review / receiving-code-review
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;分支完成 → finishing-a-development-branch
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;四典型工作流&#34;&gt;四、典型工作流
+&lt;/h2&gt;&lt;h3 id=&#34;41-功能开发完整流程&#34;&gt;4.1 功能开发完整流程
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;：开发一个新的用户认证功能&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. brainstorming
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 明确需求：用户名密码登录、第三方登录、Token 刷新
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 分析约束：安全性要求、会话管理、API 兼容性
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 设计方案：方案 A（传统 Session）、方案 B（JWT）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 选择路径：基于项目现状选择 JWT
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. test-driven-development
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 编写登录测试用例
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 编写 Token 刷新测试用例
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 编写注销测试用例
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3. 实现功能
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 按测试要求实现
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 确保所有测试通过
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;4. verification-before-completion
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 运行完整测试套件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 检查代码覆盖率
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 验证边界条件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;5. requesting-code-review
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 提交代码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 请求团队审查
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 处理反馈
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;6. finishing-a-development-branch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 合并到主分支
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 清理开发分支
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;42-bug-修复流程&#34;&gt;4.2 Bug 修复流程
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;：用户反馈登录后有时会莫名掉线&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. systematic-debugging
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 收集信息：复现步骤、日志、用户环境
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 形成假设：Token 过期、服务器重启、缓存问题
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 验证假设：通过日志分析确认是 Token 刷新竞态条件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 定位根因：并发请求时 Token 刷新逻辑有 TOCTOU 问题
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. 修复代码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 添加分布式锁
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 重构 Token 刷新逻辑
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3. verification-before-completion
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 编写回归测试
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 压力测试并发场景
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 验证修复有效
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;4. requesting-code-review
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 提交修复
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 请求审查
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;43-多任务并行流程&#34;&gt;4.3 多任务并行流程
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;：同时开发用户模块和订单模块&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1. dispatching-parallel-agents
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 分析任务依赖关系
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 识别独立任务
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;2. subagent-driven-development
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - Agent 1：处理用户模块
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - Agent 2：处理订单模块
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 并行执行
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;3. 汇总结果
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 验证两个模块
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   - 集成测试
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;五技能详解&#34;&gt;五、技能详解
+&lt;/h2&gt;&lt;h3 id=&#34;51-brainstorming-技能&#34;&gt;5.1 brainstorming 技能
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;触发时机&lt;/strong&gt;：任何创意性工作前（创建功能、修改行为、设计方案）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;使用流程&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;探索意图&lt;/strong&gt;：理解用户真正想要什么&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分析需求&lt;/strong&gt;：功能需求、非功能需求、约束条件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设计方案&lt;/strong&gt;：提出多个可行方案&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;选择路径&lt;/strong&gt;：推荐最优方案&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;输出产物&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;明确的需求描述&lt;/li&gt;
+&lt;li&gt;设计方案决策&lt;/li&gt;
+&lt;li&gt;实现路径规划&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;52-systematic-debugging-技能&#34;&gt;5.2 systematic-debugging 技能
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：不盲目猜测，通过系统化方法定位问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;步骤&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;收集信息&lt;/strong&gt;：错误信息、环境配置、复现步骤&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;形成假设&lt;/strong&gt;：基于信息的合理推断&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;验证假设&lt;/strong&gt;：设计实验验证&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;定位根因&lt;/strong&gt;：找到真正的 bug 源头&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;修复验证&lt;/strong&gt;：确保修复有效&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;常用命令&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 查看错误日志&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log --oneline -20
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 检查配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git diff HEAD~5
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 对比正常和异常状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git stash list
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;53-verification-before-completion-技能&#34;&gt;5.3 verification-before-completion 技能
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;检查清单&lt;/strong&gt;：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;检查项&lt;/th&gt;
+          &lt;th&gt;通过标准&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;编译/运行&lt;/td&gt;
+          &lt;td&gt;无错误，无警告&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;功能测试&lt;/td&gt;
+          &lt;td&gt;所有用例通过&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;边界条件&lt;/td&gt;
+          &lt;td&gt;极端输入正常处理&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;副作用&lt;/td&gt;
+          &lt;td&gt;无意外的状态变更&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;性能&lt;/td&gt;
+          &lt;td&gt;响应时间在可接受范围&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;六常见问题与解决方案&#34;&gt;六、常见问题与解决方案
+&lt;/h2&gt;&lt;h3 id=&#34;61-何时必须使用技能&#34;&gt;6.1 何时必须使用技能
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;：如何判断是否需要使用技能？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;场景&lt;/th&gt;
+          &lt;th&gt;所需技能&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;开始新功能&lt;/td&gt;
+          &lt;td&gt;brainstorming&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;写代码实现&lt;/td&gt;
+          &lt;td&gt;test-driven-development&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;声称完成&lt;/td&gt;
+          &lt;td&gt;verification-before-completion&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;遇到报错&lt;/td&gt;
+          &lt;td&gt;systematic-debugging&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;代码提交&lt;/td&gt;
+          &lt;td&gt;requesting-code-review&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;收到反馈&lt;/td&gt;
+          &lt;td&gt;receiving-code-review&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;多个任务并行&lt;/td&gt;
+          &lt;td&gt;dispatching-parallel-agents&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;62-技能冲突处理&#34;&gt;6.2 技能冲突处理
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;：多个技能同时适用怎么办？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;流程技能优先于实现技能&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;验证技能优先于执行技能&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;优先级相同时，选择最具体的技能&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;63-技能执行中断&#34;&gt;6.3 技能执行中断
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;：执行技能过程中被打断怎么办？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决方案&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;记录当前步骤&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;TaskCreate&lt;/code&gt; 创建待办事项&lt;/li&gt;
+&lt;li&gt;继续时从中断处恢复&lt;/li&gt;
+&lt;li&gt;使用 &lt;code&gt;TaskList&lt;/code&gt; 查看进度&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;七学习总结&#34;&gt;七、学习总结
+&lt;/h2&gt;&lt;h3 id=&#34;71-核心收获&#34;&gt;7.1 核心收获
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Agent Skill 是结构化的工作流&lt;/strong&gt;：不是命令，而是指导 AI 如何思考和行动的框架&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;1% 触发规则&lt;/strong&gt;：宁可多检查，不可漏过任何可能的适用场景&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;流程优先于实现&lt;/strong&gt;：先确定方法，再执行操作&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;验证是质量保障&lt;/strong&gt;：任何「完成」前都必须验证&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;技能可组合使用&lt;/strong&gt;：复杂场景需要多个技能配合&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;72-未掌握知识点待深入&#34;&gt;7.2 未掌握知识点（待深入）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;code&gt;finishing-a-development-branch&lt;/code&gt; 的具体分支清理策略&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;code&gt;subagent-driven-development&lt;/code&gt; 的上下文隔离机制&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; &lt;code&gt;loop&lt;/code&gt; 技能与 Cron 任务的结合使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;73-后续学习计划&#34;&gt;7.3 后续学习计划
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;本周&lt;/strong&gt;：熟悉所有技能的触发时机&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;下周&lt;/strong&gt;：在项目中实践 TDD 工作流&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;下月&lt;/strong&gt;：掌握多代理并行处理&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;八资源推荐&#34;&gt;八、资源推荐
+&lt;/h2&gt;&lt;h3 id=&#34;81-官方文档&#34;&gt;8.1 官方文档
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.anthropic.com/claude-code&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Claude Code 官方文档&lt;/a&gt; — 最权威的 Agent Skill 使用说明&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/anthropics/claude-code/tree/main/skills&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Superpowers 技能集&lt;/a&gt; — 所有技能的源码和说明&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;82-学习资源&#34;&gt;8.2 学习资源
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;B 站：Claude Code 入门教程&lt;/a&gt; — 视频演示适合入门&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/anthropics/claude-code-examples&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub：claude-code-examples&lt;/a&gt; — 实战案例集合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;83-社区资源&#34;&gt;8.3 社区资源
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://discord.gg/claude&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Claude Code Discord&lt;/a&gt; — 社区讨论和问题解答&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/anthropics/claude-code/issues&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub Issues&lt;/a&gt; — 问题反馈和功能建议&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;修订记录&#34;&gt;修订记录
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;修订时间&lt;/th&gt;
+          &lt;th&gt;修订内容&lt;/th&gt;
+          &lt;th&gt;修订人&lt;/th&gt;
+          &lt;th&gt;备注&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2026-04-29&lt;/td&gt;
+          &lt;td&gt;首次发布&lt;/td&gt;
+          &lt;td&gt;Claude&lt;/td&gt;
+          &lt;td&gt;基于官方文档整理&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
