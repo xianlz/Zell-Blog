@@ -381,18 +381,13 @@ unicode: "ece7"
         <li><a href="#22-reference-参考知识库">2.2 Reference 参考知识库</a>
           <ol>
             <li><a href="#221-reference-文件格式">2.2.1 Reference 文件格式</a></li>
+            <li><a href="#222-分类索引机制">2.2.2 分类索引机制</a></li>
           </ol>
         </li>
         <li><a href="#23-spring-ai-集成">2.3 Spring AI 集成</a>
           <ol>
             <li><a href="#231-llmproviderregistry-多-provider-管理">2.3.1 LlmProviderRegistry 多 Provider 管理</a></li>
             <li><a href="#232-配置示例">2.3.2 配置示例</a></li>
-          </ol>
-        </li>
-        <li><a href="#24-structuredoutputinvoker-结构化输出">2.4 StructuredOutputInvoker 结构化输出</a>
-          <ol>
-            <li><a href="#241-核心原理">2.4.1 核心原理</a></li>
-            <li><a href="#242-输出格式生成">2.4.2 输出格式生成</a></li>
           </ol>
         </li>
       </ol>
@@ -411,6 +406,11 @@ unicode: "ece7"
             <li><a href="#322-步骤二编写-skillmd">3.2.2 步骤二：编写 SKILL.md</a></li>
             <li><a href="#323-步骤三编写-skillmetayml">3.2.3 步骤三：编写 skill.meta.yml</a></li>
             <li><a href="#324-步骤四编写-reference-文件">3.2.4 步骤四：编写 Reference 文件</a></li>
+          </ol>
+        </li>
+        <li><a href="#33-配置-skillstool-bean">3.3 配置 SkillsTool Bean</a>
+          <ol>
+            <li><a href="#331-agentutilsconfiguration">3.3.1 AgentUtilsConfiguration</a></li>
             <li><a href="#332-注入到-llmproviderregistry">3.3.2 注入到 LlmProviderRegistry</a></li>
           </ol>
         </li>
@@ -525,7 +525,7 @@ unicode: "ece7"
 </svg>
 
                 <time class="article-time--reading">
-                    本文共 3402 字
+                    本文共 3443 字
                 </time>
             </div>
         
@@ -748,6 +748,7 @@ unicode: "ece7"
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
+</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Java 集合框架
@@ -760,47 +761,31 @@ unicode: "ece7"
 </span></span><span class="line"><span class="cl">| 插入复杂度 | O(n) | O(1) |
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="gu">### 扩容机制
-</span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">```java
-</span></span><span class="line"><span class="cl">int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  // 1.5倍
+</span></span></span><span class="line"><span class="cl">​``<span class="sb">`java 
+</span></span></span><span class="line"><span class="cl"><span class="sb">int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  // 1.5倍
+</span></span></span><span class="line"><span class="cl"><span class="sb">​`</span>``
+</span></span><span class="line"><span class="cl">! 注意：扩容因子 1.5 是为了减少频繁扩容带来的性能损耗
 </span></span></code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<p>! 注意：扩容因子 1.5 是为了减少频繁扩容带来的性能损耗</p>
-</blockquote>
+</div><h4 id="222-分类索引机制">2.2.2 分类索引机制
+</h4><p><code>_shared/references/</code> 下的文件会被索引为<strong>共享知识</strong>，所有 Skill 均可访问：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">---
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">#### 2.2.2 分类索引机制
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">`_shared/references/` 下的文件会被索引为**共享知识**，所有 Skill 均可访问：
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">```yaml
-</span></span><span class="line"><span class="cl">categories:
-</span></span><span class="line"><span class="cl">  - key: JAVA
-</span></span><span class="line"><span class="cl">    label: Java
-</span></span><span class="line"><span class="cl">    priority: CORE
-</span></span><span class="line"><span class="cl">    ref: java.md      # 指向 _shared/references/java.md
-</span></span><span class="line"><span class="cl">    shared: true
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">categories</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">JAVA</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l">Java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l">CORE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l">java.md     </span><span class="w"> </span><span class="c"># 指向 _shared/references/java.md</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">shared</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>当 LLM 调用 <code>Skill</code> 工具时，Agent Utils 会根据 <code>skill.meta.yml</code> 中的 <code>categories</code> 配置，将对应的 Reference 内容注入到上下文中。</p>
 <h3 id="23-spring-ai-集成">2.3 Spring AI 集成
@@ -841,17 +826,17 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LlmProviderRegistry</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">ChatClient</span><span class="o">&gt;</span><span class="w"> </span><span class="n">clientCache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 获取带 SkillsTool 的 ChatClient（面试出题用）</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">getChatClientOrDefault</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">provider</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">clientCache</span><span class="p">.</span><span class="na">computeIfAbsent</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">createChatClient</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 获取不带 SkillsTool 的 ChatClient（语音面试用）</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">getPlainChatClient</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">provider</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">clientCache</span><span class="p">.</span><span class="na">computeIfAbsent</span><span class="p">(</span><span class="n">provider</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;-plain&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">createPlainChatClient</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">createChatClient</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">provider</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">providers</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">provider</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">chatModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OpenAiChatModel</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
@@ -859,7 +844,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">apiKey</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">getApiKey</span><span class="p">())</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">model</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">getModel</span><span class="p">())</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ChatClient</span><span class="p">.</span><span class="na">builder</span><span class="p">(</span><span class="n">chatModel</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">defaultTools</span><span class="p">(</span><span class="n">interviewSkillsToolCallback</span><span class="p">())</span><span class="w">  </span><span class="c1">// 注入 SkillsTool</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
@@ -898,16 +883,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l">qwen2.5-7b-instruct</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="24-structuredoutputinvoker-结构化输出">2.4 StructuredOutputInvoker 结构化输出
-</h3><h4 id="241-核心原理">2.4.1 核心原理
-</h4><p>结构化输出通过以下机制保证 JSON 格式正确：</p>
-<ol>
-<li><strong>BeanOutputConverter</strong>：根据 Java record 类定义自动生成 JSON Schema</li>
-<li><strong>重试机制</strong>：解析失败时注入修复指令 + 上次错误原因</li>
-<li><strong>Format 注入</strong>：将 JSON Schema 以注释形式追加到 system prompt</li>
-</ol>
-<h4 id="242-输出格式生成">2.4.2 输出格式生成
-</h4><div class="highlight"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -919,19 +895,47 @@ unicode: "ece7"
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 定义接收 DTO</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">record</span> <span class="nc">QuestionListDTO</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">QuestionDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">questions</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">record</span> <span class="nc">QuestionDTO</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">question</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">topicSummary</span><span class="p">,</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">followUps</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 创建 converter</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="n">BeanOutputConverter</span><span class="o">&lt;</span><span class="n">QuestionListDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outputConverter</span><span class="w"> </span><span class="o">=</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">BeanOutputConverter</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">QuestionListDTO</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// outputConverter.getFormat() 返回 JSON Schema 说明</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">### 2.4 StructuredOutputInvoker 结构化输出
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#### 2.4.1 核心原理
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">结构化输出通过以下机制保证 JSON 格式正确：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1. **BeanOutputConverter**：根据 Java record 类定义自动生成 JSON Schema
+</span></span><span class="line"><span class="cl">2. **重试机制**：解析失败时注入修复指令 + 上次错误原因
+</span></span><span class="line"><span class="cl">3. **Format 注入**：将 JSON Schema 以注释形式追加到 system prompt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#### 2.4.2 输出格式生成
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​```java
+</span></span><span class="line"><span class="cl">// 定义接收 DTO
+</span></span><span class="line"><span class="cl">private record QuestionListDTO(List&lt;QuestionDTO&gt; questions) {}
+</span></span><span class="line"><span class="cl">private record QuestionDTO(String question, String type, String category,
+</span></span><span class="line"><span class="cl">    String topicSummary, List&lt;String&gt; followUps) {}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 创建 converter
+</span></span><span class="line"><span class="cl">BeanOutputConverter&lt;QuestionListDTO&gt; outputConverter =
+</span></span><span class="line"><span class="cl">    new BeanOutputConverter&lt;&gt;(QuestionListDTO.class);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// outputConverter.getFormat() 返回 JSON Schema 说明
+</span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
 <h2 id="三实操步骤">三、实操步骤
@@ -1109,6 +1113,7 @@ unicode: "ece7"
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
+</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Java 集合框架
@@ -1123,17 +1128,17 @@ unicode: "ece7"
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="gu">### 扩容机制
 </span></span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">```java
+</span></span><span class="line"><span class="cl">​```java
 </span></span><span class="line"><span class="cl">private void grow(int minCapacity) {
 </span></span><span class="line"><span class="cl">    int oldCapacity = elementData.length;
 </span></span><span class="line"><span class="cl">    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  // 1.5倍
 </span></span><span class="line"><span class="cl">}
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="k">&gt; </span><span class="ge">! 警示：避免在 ArrayList 头部频繁插入删除操作，时间复杂度 O(n)
+</span></span></span></code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<p>! 警示：避免在 ArrayList 头部频繁插入删除操作，时间复杂度 O(n)</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
+</div><h3 id="33-配置-skillstool-bean">3.3 配置 SkillsTool Bean
+</h3><h4 id="331-agentutilsconfiguration">3.3.1 AgentUtilsConfiguration
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1146,23 +1151,9 @@ unicode: "ece7"
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">---
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">### 3.3 配置 SkillsTool Bean
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">#### 3.3.1 AgentUtilsConfiguration
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">```java
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">​```java
 </span></span><span class="line"><span class="cl">@Configuration
 </span></span><span class="line"><span class="cl">public class AgentUtilsConfiguration {
 </span></span><span class="line"><span class="cl">
@@ -2075,7 +2066,7 @@ unicode: "ece7"
         
         
 
-        <p>发布了 35 篇文章 | 共 90381  字</p >
+        <p>发布了 35 篇文章 | 共 90422  字</p >
     </section>
 </footer>
 
