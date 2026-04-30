@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>MyBatis-Plus on Zell Blog</title>
+        <title>Mybatis-Plus on Zell Blog</title>
         <link>https://zell.zone/tags/mybatis-plus/</link>
-        <description>Recent content in MyBatis-Plus on Zell Blog</description>
+        <description>Recent content in Mybatis-Plus on Zell Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>Zell</copyright>
