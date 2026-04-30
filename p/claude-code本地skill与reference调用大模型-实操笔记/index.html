@@ -1,0 +1,2337 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Claude Code 本地 Skill 与 Reference 调用大模型 一、技能概述 1.1 核心定义 Claude Code 是 Anthropic 官方推出的命令行工具，通过自然语言交互帮助开发者完成软件工程任务。本技能聚焦于如何在 Claude Code 中利用本地 Skill 系统和Reference 参考知识库来调用大语言模型，实现精准的领域知识问答与任务执行。\n">
+<title>Claude Code本地Skill与Reference调用大模型-实操笔记</title>
+
+
+
+<link rel="stylesheet" href="/music-player/APlayer.min.css">
+<script src="/music-player/APlayer.min.js"></script>
+
+<script src="/music-player/Meting.min.js"></script>
+
+
+<link rel='canonical' href='https://zell.zone/p/claude-code%E6%9C%AC%E5%9C%B0skill%E4%B8%8Ereference%E8%B0%83%E7%94%A8%E5%A4%A7%E6%A8%A1%E5%9E%8B-%E5%AE%9E%E6%93%8D%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3cc43bade3ba848d034889aaca5e3267e95fefaa18a74aaa98c14897ec2e41d.css"><meta property='og:title' content="Claude Code本地Skill与Reference调用大模型-实操笔记">
+<meta property='og:description' content="Claude Code 本地 Skill 与 Reference 调用大模型 一、技能概述 1.1 核心定义 Claude Code 是 Anthropic 官方推出的命令行工具，通过自然语言交互帮助开发者完成软件工程任务。本技能聚焦于如何在 Claude Code 中利用本地 Skill 系统和Reference 参考知识库来调用大语言模型，实现精准的领域知识问答与任务执行。\n">
+<meta property='og:url' content='https://zell.zone/p/claude-code%E6%9C%AC%E5%9C%B0skill%E4%B8%8Ereference%E8%B0%83%E7%94%A8%E5%A4%A7%E6%A8%A1%E5%9E%8B-%E5%AE%9E%E6%93%8D%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='Zell Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Claude Code' /><meta property='article:tag' content='Spring AI' /><meta property='article:tag' content='SkillsTool' /><meta property='article:tag' content='LLM调用' /><meta property='article:tag' content='结构化输出' /><meta property='article:published_time' content='2026-04-29T21:14:32&#43;08:00'/><meta property='article:modified_time' content='2026-04-29T21:14:32&#43;08:00'/><meta property='og:image' content='https://zell.zone/img/default.jpg' />
+<meta name="twitter:title" content="Claude Code本地Skill与Reference调用大模型-实操笔记">
+<meta name="twitter:description" content="Claude Code 本地 Skill 与 Reference 调用大模型 一、技能概述 1.1 核心定义 Claude Code 是 Anthropic 官方推出的命令行工具，通过自然语言交互帮助开发者完成软件工程任务。本技能聚焦于如何在 Claude Code 中利用本地 Skill 系统和Reference 参考知识库来调用大语言模型，实现精准的领域知识问答与任务执行。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://zell.zone/img/default.jpg' />
+    <link rel="icon" href="https://zell.zone/favicon.ico">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_931a78b9ce29985d.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">⛰️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Zell Blog</a></h1>
+            <h2 class="site-description">悟已往之不谏
+知来者之可追
+</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='490200536@qq.com'
+                        target="_blank"
+                        title="email"
+                        rel="me"
+                    >
+                        
+                        
+                            <!--
+tags: [technology, e-mail, site, cm, group]
+category: Brand
+unicode: "f328"
+version: "1.86"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 18l9 -6.462l-9 -5.538v12h18v-12l-9 5.538" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/xianlz'
+                        target="_blank"
+                        title="Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.bilibili.com/'
+                        target="_blank"
+                        title="bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <rect x="50" y="70" width="200" height="160" rx="15" fill="none" stroke="#00A1D6" stroke-width="8"/>
+  <line x1="110" y1="70" x2="90" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <line x1="190" y1="70" x2="210" y2="40" stroke="#00A1D6" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="90" cy="40" r="5" fill="#00A1D6"/>
+  <circle cx="210" cy="40" r="5" fill="#00A1D6"/>
+  <rect x="70" y="90" width="160" height="120" rx="5" fill="#00A1D6" opacity="0.8"/>
+  <path d="M100,160 C105,150 115,145 125,150 C135,155 140,165 135,175 C130,185 120,190 110,185 C100,180 95,170 100,160 Z" fill="#FB7299"/>
+  <circle cx="115" cy="155" r="5" fill="white"/>
+  <path d="M180,160 C185,150 195,145 205,150 C215,155 220,165 215,175 C210,185 200,190 190,185 C180,180 175,170 180,160 Z" fill="#00A1D6"/>
+  <circle cx="195" cy="155" r="5" fill="white"/>
+  <path d="M60,100 L65,90 L70,100 L80,105 L70,110 L65,120 L60,110 L50,105 Z" fill="#FFC107"/>
+  <path d="M240,130 L245,120 L250,130 L260,135 L250,140 L245,150 L240,140 L230,135 Z" fill="#FFC107"/>
+  <path d="M70,200 L75,190 L80,200 L90,205 L80,210 L75,220 L70,210 L60,205 Z" fill="#FFC107"/>
+  <text x="150" y="260" text-anchor="middle" font-family="Microsoft YaHei" font-size="24" font-weight="bold" fill="#00A1D6">哔哩哔哩</text>
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://zell.zone/en/" >English</option>
+                                
+                                    <option value="https://zell.zone/" selected>简体中文</option>
+                                
+                                    <option value="https://zell.zone/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+               
+                
+                <li id="dark-mode-toggle">
+                    <!--
+tags: [temperature, hot, wheater, thermometer, forecast]
+category: Weather
+version: "1.73"
+unicode: "f236"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#ffcc00"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
+  <path d="M6.343 17.657l-1.414 1.414" />
+  <path d="M6.343 6.343l-1.414 -1.414" />
+  <path d="M17.657 6.343l1.414 -1.414" />
+  <path d="M17.657 17.657l1.414 1.414" />
+  <path d="M4 12h-2" />
+  <path d="M12 4v-2" />
+  <path d="M20 12h2" />
+  <path d="M12 20v2" />
+</svg>
+
+                    <!--
+tags: [night, dark mode]
+category: Weather
+version: "1.21"
+unicode: "ece7"
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="32"
+  height="32"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="#2196f3"
+  stroke-width="1"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+  <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
+  <path d="M19 11h2m-1 -1v2" />
+</svg>
+
+                    
+                </li>
+                
+
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一技能概述">一、技能概述</a>
+      <ol>
+        <li><a href="#11-核心定义">1.1 核心定义</a></li>
+        <li><a href="#12-学习背景">1.2 学习背景</a></li>
+        <li><a href="#13-发展历程与行业对比">1.3 发展历程与行业对比</a></li>
+      </ol>
+    </li>
+    <li><a href="#二核心知识点">二、核心知识点</a>
+      <ol>
+        <li><a href="#21-skill-系统架构">2.1 Skill 系统架构</a>
+          <ol>
+            <li><a href="#211-目录结构">2.1.1 目录结构</a></li>
+            <li><a href="#212-skillmd-格式规范">2.1.2 SKILL.md 格式规范</a></li>
+            <li><a href="#213-skillmetayml-元数据">2.1.3 skill.meta.yml 元数据</a></li>
+          </ol>
+        </li>
+        <li><a href="#22-reference-参考知识库">2.2 Reference 参考知识库</a>
+          <ol>
+            <li><a href="#221-reference-文件格式">2.2.1 Reference 文件格式</a></li>
+          </ol>
+        </li>
+        <li><a href="#23-spring-ai-集成">2.3 Spring AI 集成</a>
+          <ol>
+            <li><a href="#231-llmproviderregistry-多-provider-管理">2.3.1 LlmProviderRegistry 多 Provider 管理</a></li>
+            <li><a href="#232-配置示例">2.3.2 配置示例</a></li>
+          </ol>
+        </li>
+        <li><a href="#24-structuredoutputinvoker-结构化输出">2.4 StructuredOutputInvoker 结构化输出</a>
+          <ol>
+            <li><a href="#241-核心原理">2.4.1 核心原理</a></li>
+            <li><a href="#242-输出格式生成">2.4.2 输出格式生成</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#三实操步骤">三、实操步骤</a>
+      <ol>
+        <li><a href="#31-环境准备">3.1 环境准备</a>
+          <ol>
+            <li><a href="#311-项目依赖">3.1.1 项目依赖</a></li>
+            <li><a href="#312-配置文件">3.1.2 配置文件</a></li>
+          </ol>
+        </li>
+        <li><a href="#32-创建自定义-skill">3.2 创建自定义 Skill</a>
+          <ol>
+            <li><a href="#321-步骤一创建目录结构">3.2.1 步骤一：创建目录结构</a></li>
+            <li><a href="#322-步骤二编写-skillmd">3.2.2 步骤二：编写 SKILL.md</a></li>
+            <li><a href="#323-步骤三编写-skillmetayml">3.2.3 步骤三：编写 skill.meta.yml</a></li>
+            <li><a href="#324-步骤四编写-reference-文件">3.2.4 步骤四：编写 Reference 文件</a></li>
+            <li><a href="#332-注入到-llmproviderregistry">3.3.2 注入到 LlmProviderRegistry</a></li>
+          </ol>
+        </li>
+        <li><a href="#34-完整调用示例">3.4 完整调用示例</a>
+          <ol>
+            <li><a href="#341-面试出题服务">3.4.1 面试出题服务</a></li>
+            <li><a href="#342-prompt-模板示例">3.4.2 Prompt 模板示例</a></li>
+          </ol>
+        </li>
+        <li><a href="#35-结果验证">3.5 结果验证</a>
+          <ol>
+            <li><a href="#351-成功验证">3.5.1 成功验证</a></li>
+            <li><a href="#352-日志输出">3.5.2 日志输出</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#四问题与解决方案">四、问题与解决方案</a>
+      <ol>
+        <li><a href="#41-常见问题">4.1 常见问题</a>
+          <ol>
+            <li><a href="#411-llm-不触发-skill-调用">4.1.1 LLM 不触发 Skill 调用</a></li>
+            <li><a href="#412-结构化输出解析失败">4.1.2 结构化输出解析失败</a></li>
+          </ol>
+        </li>
+        <li><a href="#42-拓展问题">4.2 拓展问题</a>
+          <ol>
+            <li><a href="#421-如何支持离线场景">4.2.1 如何支持离线场景？</a></li>
+            <li><a href="#422-如何动态切换-skill-目录">4.2.2 如何动态切换 Skill 目录？</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#五学习总结与拓展">五、学习总结与拓展</a>
+      <ol>
+        <li><a href="#51-核心收获">5.1 核心收获</a></li>
+        <li><a href="#52-未掌握的知识点">5.2 未掌握的知识点</a></li>
+        <li><a href="#53-拓展方向">5.3 拓展方向</a></li>
+        <li><a href="#54-资源推荐">5.4 资源推荐</a></li>
+      </ol>
+    </li>
+    <li><a href="#附录关键文件清单">附录：关键文件清单</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/claude-code%E6%9C%AC%E5%9C%B0skill%E4%B8%8Ereference%E8%B0%83%E7%94%A8%E5%A4%A7%E6%A8%A1%E5%9E%8B-%E5%AE%9E%E6%93%8D%E7%AC%94%E8%AE%B0/">
+                
+                    <img src="/img/default.jpg" loading="lazy" alt="Featured image of post Claude Code本地Skill与Reference调用大模型-实操笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ai/" >
+                AI
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/claude-code%E6%9C%AC%E5%9C%B0skill%E4%B8%8Ereference%E8%B0%83%E7%94%A8%E5%A4%A7%E6%A8%A1%E5%9E%8B-%E5%AE%9E%E6%93%8D%E7%AC%94%E8%AE%B0/">Claude Code本地Skill与Reference调用大模型-实操笔记</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2026-04-29 21:14:32</time>
+            </div>
+        
+
+        
+            <div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.00008 5.75C2.00008 5.33579 2.33587 5 2.75008 5H21.2501C21.6643 5 22.0001 5.33579 22.0001 5.75C22.0001 6.16421 21.6643 6.5 21.2501 6.5H2.75008C2.33587 6.5 2.00008 6.16421 2.00008 5.75ZM2.00008 12.25C2.00008 11.8358 2.33587 11.5 2.75008 11.5H21.2501C21.6643 11.5 22.0001 11.8358 22.0001 12.25C22.0001 12.6642 21.6643 13 21.2501 13H2.75008C2.33587 13 2.00008 12.6642 2.00008 12.25ZM19.0001 18.75C19.0001 18.3358 19.3359 18 19.7501 18H21.2501C21.6643 18 22.0001 18.3358 22.0001 18.75C22.0001 19.1642 21.6643 19.5 21.2501 19.5H19.7501C19.3359 19.5 19.0001 19.1642 19.0001 18.75Z" fill="#212121"/>
+<path d="M2.4161 18.7377C2.62675 18.5972 2.83063 18.4376 3.02344 18.2633V22.25C3.02344 22.6642 3.35922 23 3.77344 23C4.18765 23 4.52344 22.6642 4.52344 22.25V15.75C4.52344 15.356 4.21966 15.033 3.83356 15.0024C3.46481 14.9719 3.12137 15.2183 3.04013 15.5897C2.91354 16.1684 2.34841 16.98 1.58405 17.4896C1.23941 17.7194 1.14628 18.185 1.37604 18.5297C1.60581 18.8743 2.07146 18.9674 2.4161 18.7377Z" fill="#212121"/>
+<path d="M8 17.5227C8 16.995 8.44352 16.5 8.98577 16.5C9.39293 16.5 9.7207 16.6909 9.87916 16.9345C10.015 17.1434 10.0966 17.4998 9.78558 18.0292C9.63607 18.2837 9.41005 18.5114 9.10403 18.7531C8.95157 18.8735 8.78845 18.9904 8.61108 19.1158L8.53729 19.1679C8.38506 19.2753 8.2221 19.3902 8.06469 19.5087C7.32108 20.0683 6.5 20.8536 6.5 22.25C6.5 22.6642 6.83579 23 7.25 23L7.25818 23L7.26636 23H10.7006C11.1148 23 11.4506 22.6642 11.4506 22.25C11.4506 21.8358 11.1148 21.5 10.7006 21.5H8.18765C8.34843 21.2182 8.61059 20.9752 8.96663 20.7072C9.1041 20.6038 9.24601 20.5036 9.39926 20.3955L9.47685 20.3407C9.65545 20.2145 9.84717 20.0775 10.0337 19.9302C10.4057 19.6364 10.7945 19.2731 11.0789 18.789C11.6358 17.8411 11.6253 16.868 11.1365 16.1166C10.6704 15.4 9.84098 15 8.98577 15C7.50821 15 6.5 16.2777 6.5 17.5227C6.5 17.9369 6.83579 18.2727 7.25 18.2727C7.66421 18.2727 8 17.9369 8 17.5227Z" fill="#212121"/>
+<path d="M14.4711 17.1377C14.5032 17.0255 14.5795 16.8666 14.722 16.7409C14.8504 16.6276 15.0775 16.5 15.5 16.5C16.2612 16.5 16.5 17.0002 16.5 17.2273C16.5 17.4724 16.4476 17.7178 16.3102 17.8907C16.1989 18.0308 15.9315 18.25 15.2083 18.25C14.7941 18.25 14.4583 18.5858 14.4583 19C14.4583 19.4142 14.7941 19.75 15.2083 19.75C15.4818 19.75 15.8597 19.7864 16.1427 19.9191C16.2745 19.9809 16.3571 20.0505 16.4071 20.1207C16.4519 20.1837 16.5 20.287 16.5 20.4773C16.5 20.965 16.3477 21.1807 16.2193 21.2891C16.0682 21.4167 15.8239 21.5 15.5 21.5C15.138 21.5 14.9331 21.4374 14.8074 21.3578C14.6961 21.2873 14.5677 21.1538 14.4624 20.8338C14.3329 20.4403 13.909 20.2263 13.5155 20.3558C13.1221 20.4852 12.9081 20.9092 13.0375 21.3026C13.2239 21.8689 13.533 22.3263 14.005 22.6252C14.4627 22.9149 14.9869 23 15.5 23C16.051 23 16.6817 22.8618 17.1869 22.4353C17.7147 21.9898 18 21.3191 18 20.4773C18 20.0027 17.8701 19.5891 17.6288 19.2504C17.5501 19.14 17.4631 19.0423 17.3708 18.9559C17.4104 18.9135 17.4483 18.8695 17.4844 18.8241C17.9223 18.2731 18 17.6321 18 17.2273C18 16.1543 17.072 15 15.5 15C14.7345 15 14.1485 15.2466 13.7298 15.616C13.3252 15.9728 13.1205 16.4048 13.0288 16.7259C12.9151 17.1242 13.1457 17.5393 13.544 17.653C13.9423 17.7667 14.3574 17.536 14.4711 17.1377Z" fill="#212121"/>
+</svg>
+
+                <time class="article-time--reading">
+                    本文共 3732 字
+                </time>
+            </div>
+        
+
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+            <div id="viewCount">
+                <?xml version="1.0" ?><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="-0.0000027" x2="512" y1="256" y2="256"><stop offset="0" style="stop-color:#E24263"/><stop offset="1" style="stop-color:#DD1E47"/></linearGradient><circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/><linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666641" x2="469.3333435" y1="256.0005188" y2="256.0005188"><stop offset="0" style="stop-color:#DD1E47"/><stop offset="1" style="stop-color:#E24263"/></linearGradient><path d="M256,469.3338623c-117.6309967,0-213.3333435-95.7023926-213.3333435-213.3333435    c0-117.6314545,95.7023392-213.333313,213.3333435-213.333313c117.6362,0,213.3333435,95.7018661,213.3333435,213.333313    C469.3333435,373.6314697,373.6362,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/></g><g><path d="M264,189.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S339.4841919,189.5839996,264,189.5839996z M264,313.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C313.4761963,291.3247986,291.3247375,313.4757385,264,313.4757385z" opacity="0.3"/><circle cx="264.0000916" cy="263.9997253" opacity="0.3" r="15.4838667"/></g><g><path d="M256,181.5839996c-75.4837952,0-120,74.4149323-120,74.4149323s44.5162048,74.4165344,120,74.4165344    c75.4841919,0,120-74.4165344,120-74.4165344S331.4841919,181.5839996,256,181.5839996z M256,305.4757385    c-27.3248596,0-49.4757996-22.1509399-49.4757996-49.4768066c0-27.3237305,22.1509399-49.4746704,49.4757996-49.4746704    c27.3247375,0,49.4761963,22.1509399,49.4761963,49.4746704C305.4761963,283.3247986,283.3247375,305.4757385,256,305.4757385z" fill="#FFFFFF"/><circle cx="256.0000916" cy="255.9997406" fill="#FFFFFF" r="15.4838667"/></g></g></svg>
+                <time class="article-time--reading">
+                    
+                    <span id="vercount_value_page_pv"> </span>次
+                </time>
+            </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="claude-code-本地-skill-与-reference-调用大模型">Claude Code 本地 Skill 与 Reference 调用大模型
+</h1><h2 id="一技能概述">一、技能概述
+</h2><h3 id="11-核心定义">1.1 核心定义
+</h3><p>Claude Code 是 Anthropic 官方推出的命令行工具，通过自然语言交互帮助开发者完成软件工程任务。本技能聚焦于如何在 Claude Code 中利用<strong>本地 Skill 系统</strong>和<strong>Reference 参考知识库</strong>来调用大语言模型，实现精准的领域知识问答与任务执行。</p>
+<p>Skill（技能）是 Claude Code 的核心扩展机制，允许开发者将领域知识、指令模板和参考文档打包成可复用的单元，供 LLM 在对话中调用。Reference（参考知识库）则是 Skill 的重要组成部分，提供了 LLM 回答问题所需的事实依据和上下文信息。</p>
+<p><strong>参考来源</strong>：Anthropic 官方 Claude Code 文档、Spring AI 官方文档</p>
+<h3 id="12-学习背景">1.2 学习背景
+</h3><p>在 AI 面试平台项目中，需要实现：</p>
+<ul>
+<li>多方向面试出题（Java后端、算法、前端、系统设计等）</li>
+<li>结合简历信息生成个性化问题</li>
+<li>调用大模型进行答案评估</li>
+</ul>
+<p>传统的做法是硬编码 Prompt，但这种方式难以维护、扩展性差。通过 Skill + Reference 机制，可以将领域知识与调用逻辑分离，实现：</p>
+<ol>
+<li><strong>知识模块化</strong>：每个面试方向独立成 Skill，包含专属 Reference</li>
+<li><strong>动态加载</strong>：Skill 定义在 <code>resources/skills/</code> 目录，运行时自动扫描加载</li>
+<li><strong>灵活分发</strong>：LLM 根据对话内容自动选择合适的 Skill 调用</li>
+</ol>
+<h3 id="13-发展历程与行业对比">1.3 发展历程与行业对比
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>维度</th>
+          <th>Claude Code Skill</th>
+          <th>OpenAI GPTs</th>
+          <th>LangChain Agents</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>知识组织</td>
+          <td>Markdown + YAML</td>
+          <td>JSON 配置</td>
+          <td>Python 代码</td>
+      </tr>
+      <tr>
+          <td>Reference 机制</td>
+          <td>文件引用 + 分类索引</td>
+          <td>矢量数据库</td>
+          <td>文档加载器</td>
+      </tr>
+      <tr>
+          <td>调用方式</td>
+          <td>Tool Call 自动触发</td>
+          <td>手动选择</td>
+          <td>工具链编排</td>
+      </tr>
+      <tr>
+          <td>适用场景</td>
+          <td>面试问答、代码审查</td>
+          <td>通用对话</td>
+          <td>复杂推理任务</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="二核心知识点">二、核心知识点
+</h2><h3 id="21-skill-系统架构">2.1 Skill 系统架构
+</h3><h4 id="211-目录结构">2.1.1 目录结构
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">resources/skills/
+</span></span><span class="line"><span class="cl">├── _shared/
+</span></span><span class="line"><span class="cl">│   └── references/          # 跨 Skill 共享参考知识
+</span></span><span class="line"><span class="cl">│       ├── java.md
+</span></span><span class="line"><span class="cl">│       ├── mysql.md
+</span></span><span class="line"><span class="cl">│       ├── redis.md
+</span></span><span class="line"><span class="cl">│       └── spring.md
+</span></span><span class="line"><span class="cl">├── java-backend/
+</span></span><span class="line"><span class="cl">│   ├── SKILL.md             # Skill 主定义文件
+</span></span><span class="line"><span class="cl">│   ├── skill.meta.yml       # 元数据配置
+</span></span><span class="line"><span class="cl">│   └── references/          # Skill 私有参考（可选）
+</span></span><span class="line"><span class="cl">├── algorithm/
+</span></span><span class="line"><span class="cl">├── frontend/
+</span></span><span class="line"><span class="cl">└── system-design/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="212-skillmd-格式规范">2.1.2 SKILL.md 格式规范
+</h4><p>SKILL.md 采用 <strong>YAML front matter + Markdown body</strong> 的混合格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">java-backend</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">用于 Java 后端面试出题，涵盖集合、并发、JVM 等核心知识</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># Overview</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">你是一位资深的 Java 后端面试官，拥有 10 年以上开发经验...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># Instructions</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="m">1</span><span class="l">. 优先结合候选人简历中的技术栈出题</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="m">2</span><span class="l">. 每道题需包含难度评级和考察点</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="m">3</span><span class="l">. 生成后主动调用 Reference 验证答案准确性</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>front matter 字段说明</strong>：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>字段</th>
+          <th>类型</th>
+          <th>必填</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>name</td>
+          <td>string</td>
+          <td>是</td>
+          <td>Skill 唯一标识符</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td>string</td>
+          <td>是</td>
+          <td>Skill 功能描述，供 LLM 判断调用时机</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="213-skillmetayml-元数据">2.1.3 skill.meta.yml 元数据
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Java 后端开发</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">display</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">☕</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gradient</span><span class="p">:</span><span class="w"> </span><span class="l">from-blue-500 to-indigo-500</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">categories</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">JAVA</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l">Java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l">CORE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l">java.md</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">shared</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="22-reference-参考知识库">2.2 Reference 参考知识库
+</h3><h4 id="221-reference-文件格式">2.2.1 Reference 文件格式
+</h4><p>Reference 文件为纯 Markdown，支持多级标题和代码块：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Java 集合框架
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### ArrayList vs LinkedList
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">| 特性 | ArrayList | LinkedList |
+</span></span><span class="line"><span class="cl">|------|-----------|------------|
+</span></span><span class="line"><span class="cl">| 查找复杂度 | O(1) | O(n) |
+</span></span><span class="line"><span class="cl">| 插入复杂度 | O(n) | O(1) |
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### 源码要点
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```java
+</span></span><span class="line"><span class="cl">// ArrayList 扩容逻辑
+</span></span><span class="line"><span class="cl">int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>! 注意：扩容因子 1.5 是为了减少频繁扩容带来的性能损耗</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#### 2.2.2 分类索引机制
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">`_shared/references/` 下的文件会被索引为**共享知识**，所有 Skill 均可访问：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```yaml
+</span></span><span class="line"><span class="cl">categories:
+</span></span><span class="line"><span class="cl">  - key: JAVA
+</span></span><span class="line"><span class="cl">    label: Java
+</span></span><span class="line"><span class="cl">    priority: CORE
+</span></span><span class="line"><span class="cl">    ref: java.md      # 指向 _shared/references/java.md
+</span></span><span class="line"><span class="cl">    shared: true
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当 LLM 调用 <code>Skill</code> 工具时，Agent Utils 会根据 <code>skill.meta.yml</code> 中的 <code>categories</code> 配置，将对应的 Reference 内容注入到上下文中。</p>
+<h3 id="23-spring-ai-集成">2.3 Spring AI 集成
+</h3><h4 id="231-llmproviderregistry-多-provider-管理">2.3.1 LlmProviderRegistry 多 Provider 管理
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LlmProviderRegistry</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">ChatClient</span><span class="o">&gt;</span><span class="w"> </span><span class="n">clientCache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 获取带 SkillsTool 的 ChatClient（面试出题用）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">getChatClientOrDefault</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">provider</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">clientCache</span><span class="p">.</span><span class="na">computeIfAbsent</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">createChatClient</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 获取不带 SkillsTool 的 ChatClient（语音面试用）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">getPlainChatClient</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">provider</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">clientCache</span><span class="p">.</span><span class="na">computeIfAbsent</span><span class="p">(</span><span class="n">provider</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;-plain&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">::</span><span class="n">createPlainChatClient</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">createChatClient</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">provider</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">providers</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">provider</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">chatModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OpenAiChatModel</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">baseUrl</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">getBaseUrl</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">apiKey</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">getApiKey</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">model</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">getModel</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ChatClient</span><span class="p">.</span><span class="na">builder</span><span class="p">(</span><span class="n">chatModel</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">defaultTools</span><span class="p">(</span><span class="n">interviewSkillsToolCallback</span><span class="p">())</span><span class="w">  </span><span class="c1">// 注入 SkillsTool</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="232-配置示例">2.3.2 配置示例
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">app</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ai</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">default-provider</span><span class="p">:</span><span class="w"> </span><span class="l">dashscope</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">providers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dashscope</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">base-url</span><span class="p">:</span><span class="w"> </span><span class="l">https://dashscope.aliyuncs.com/compatible-mode</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">api-key</span><span class="p">:</span><span class="w"> </span><span class="l">${AI_BAILIAN_API_KEY}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l">qwen-plus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">lmstudio</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">base-url</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:1234</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">api-key</span><span class="p">:</span><span class="w"> </span><span class="l">lm-studio</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l">qwen2.5-7b-instruct</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="24-structuredoutputinvoker-结构化输出">2.4 StructuredOutputInvoker 结构化输出
+</h3><h4 id="241-核心原理">2.4.1 核心原理
+</h4><p>结构化输出通过以下机制保证 JSON 格式正确：</p>
+<ol>
+<li><strong>BeanOutputConverter</strong>：根据 Java record 类定义自动生成 JSON Schema</li>
+<li><strong>重试机制</strong>：解析失败时注入修复指令 + 上次错误原因</li>
+<li><strong>Format 注入</strong>：将 JSON Schema 以注释形式追加到 system prompt</li>
+</ol>
+<h4 id="242-输出格式生成">2.4.2 输出格式生成
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 定义接收 DTO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">record</span> <span class="nc">QuestionListDTO</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">QuestionDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">questions</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">record</span> <span class="nc">QuestionDTO</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">question</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">topicSummary</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">followUps</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 创建 converter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">BeanOutputConverter</span><span class="o">&lt;</span><span class="n">QuestionListDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outputConverter</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">BeanOutputConverter</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">QuestionListDTO</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// outputConverter.getFormat() 返回：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">Output Format
+</span></span></span><span class="line"><span class="cl"><span class="cm">A JSON object with the following fields:
+</span></span></span><span class="line"><span class="cl"><span class="cm">- questions: array of objects with fields: question, type, category, topicSummary, followUps
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="三实操步骤">三、实操步骤
+</h2><h3 id="31-环境准备">3.1 环境准备
+</h3><h4 id="311-项目依赖">3.1.1 项目依赖
+</h4><p>确保 <code>build.gradle</code> 包含以下依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Spring AI Core
+</span></span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.ai:spring-ai-openai:1.0.0&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Agent Utils（SkillsTool）
+</span></span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.ai:spring-ai-agent-utils:1.0.0&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Micrometer 监控
+</span></span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// JSON 处理
+</span></span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;com.fasterxml.jackson.core:jackson-databind&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="312-配置文件">3.1.2 配置文件
+</h4><p>在 <code>application.yml</code> 中配置 AI 提供者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">app</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ai</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">default-provider</span><span class="p">:</span><span class="w"> </span><span class="l">dashscope</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">structured-max-attempts</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">structured-include-last-error</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">structured-retry-use-repair-prompt</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">providers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dashscope</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">base-url</span><span class="p">:</span><span class="w"> </span><span class="l">https://dashscope.aliyuncs.com/compatible-mode</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">api-key</span><span class="p">:</span><span class="w"> </span><span class="l">${AI_BAILIAN_API_KEY}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l">qwen-plus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">agent-utils</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">skills-root</span><span class="p">:</span><span class="w"> </span><span class="l">classpath:skills</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="32-创建自定义-skill">3.2 创建自定义 Skill
+</h3><h4 id="321-步骤一创建目录结构">3.2.1 步骤一：创建目录结构
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p resources/skills/java-backend/references
+</span></span><span class="line"><span class="cl">mkdir -p resources/skills/java-backend/img
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="322-步骤二编写-skillmd">3.2.2 步骤二：编写 SKILL.md
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">name: java-backend
+</span></span><span class="line"><span class="cl">description: Java 后端面试出题技能，涵盖集合、并发、JVM、Spring 生态等
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># Role
+</span></span></span><span class="line"><span class="cl">你是一位拥有 10 年经验的 Java 后端技术专家，擅长考察候选人的技术深度与实践能力。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># Capabilities
+</span></span></span><span class="line"><span class="cl"><span class="k">1.</span> 结合简历信息生成个性化面试题
+</span></span><span class="line"><span class="cl"><span class="k">2.</span> 根据难度级别调整题目复杂度
+</span></span><span class="line"><span class="cl"><span class="k">3.</span> 覆盖核心技术领域：Java 基础、并发编程、JVM 原理、Spring 生态、数据库
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gh"># Output Format
+</span></span></span><span class="line"><span class="cl">每个问题包含：
+</span></span><span class="line"><span class="cl"><span class="k">-</span> question: 主问题
+</span></span><span class="line"><span class="cl"><span class="k">-</span> type: SINGLE_CHOICE / MULTIPLE_CHOICE / CODING / DISCUSSION
+</span></span><span class="line"><span class="cl"><span class="k">-</span> category: 问题分类
+</span></span><span class="line"><span class="cl"><span class="k">-</span> topicSummary: 考察知识点摘要
+</span></span><span class="line"><span class="cl"><span class="k">-</span> followUps: 追问列表
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="323-步骤三编写-skillmetayml">3.2.3 步骤三：编写 skill.meta.yml
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l">Java 后端开发</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">display</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">icon</span><span class="p">:</span><span class="w"> </span><span class="l">☕</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gradient</span><span class="p">:</span><span class="w"> </span><span class="l">from-blue-500 to-indigo-500</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">categories</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">JAVA</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l">Java 基础</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l">CORE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l">java.md</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">shared</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">CONCURRENT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l">并发编程</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l">CORE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l">concurrent.md</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">shared</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="324-步骤四编写-reference-文件">3.2.4 步骤四：编写 Reference 文件
+</h4><p><code>resources/skills/_shared/references/java.md</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Java 集合框架
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### List 接口实现类对比
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">| 类 | 底层结构 | 查找 | 插入/删除 | 线程安全 |
+</span></span><span class="line"><span class="cl">|----|----------|------|-----------|----------|
+</span></span><span class="line"><span class="cl">| ArrayList | 动态数组 | O(1) | O(n) | 否 |
+</span></span><span class="line"><span class="cl">| LinkedList | 双向链表 | O(n) | O(1) | 否 |
+</span></span><span class="line"><span class="cl">| Vector | 动态数组 | O(1) | O(n) | 是 |
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="gu">### 扩容机制
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```java
+</span></span><span class="line"><span class="cl">// ArrayList 扩容逻辑（JDK 8）
+</span></span><span class="line"><span class="cl">private void grow(int minCapacity) {
+</span></span><span class="line"><span class="cl">    int oldCapacity = elementData.length;
+</span></span><span class="line"><span class="cl">    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  // 1.5倍
+</span></span><span class="line"><span class="cl">    if (newCapacity - minCapacity &lt; 0)
+</span></span><span class="line"><span class="cl">        newCapacity = minCapacity;
+</span></span><span class="line"><span class="cl">    elementData = Arrays.copyOf(elementData, newCapacity);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>! 警示：避免在 ArrayList 头部频繁插入删除操作，时间复杂度 O(n)</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">### 3.3 配置 SkillsTool Bean
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#### 3.3.1 AgentUtilsConfiguration
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```java
+</span></span><span class="line"><span class="cl">@Configuration
+</span></span><span class="line"><span class="cl">public class AgentUtilsConfiguration {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    @Bean(&#34;interviewSkillsToolCallback&#34;)
+</span></span><span class="line"><span class="cl">    public ToolCallback interviewSkillsToolCallback(ResourceLoader resourceLoader) {
+</span></span><span class="line"><span class="cl">        return SkillsTool.builder()
+</span></span><span class="line"><span class="cl">            .addSkillsResource(resourceLoader.getResource(&#34;classpath:skills&#34;))
+</span></span><span class="line"><span class="cl">            .build();
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="332-注入到-llmproviderregistry">3.3.2 注入到 LlmProviderRegistry
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">LlmProviderRegistry</span><span class="w"> </span><span class="nf">llmProviderRegistry</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nd">@Qualifier</span><span class="p">(</span><span class="s">&#34;interviewSkillsToolCallback&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">ToolCallback</span><span class="w"> </span><span class="n">callback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LlmProviderRegistry</span><span class="p">(</span><span class="n">callback</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="34-完整调用示例">3.4 完整调用示例
+</h3><h4 id="341-面试出题服务">3.4.1 面试出题服务
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@RequiredArgsConstructor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">InterviewQuestionService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">LlmProviderRegistry</span><span class="w"> </span><span class="n">llmProviderRegistry</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">StructuredOutputInvoker</span><span class="w"> </span><span class="n">structuredOutputInvoker</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">InterviewSkillService</span><span class="w"> </span><span class="n">interviewSkillService</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">SYSTEM_PROMPT_PATH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;prompts/interview-question-skill.st&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">USER_PROMPT_PATH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;prompts/interview-question-skill-user.st&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">QuestionListDTO</span><span class="w"> </span><span class="nf">generateQuestions</span><span class="p">(</span><span class="n">GenerateQuestionRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 1. 获取 ChatClient（已注入 SkillsTool）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ChatClient</span><span class="w"> </span><span class="n">chatClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">llmProviderRegistry</span><span class="p">.</span><span class="na">getChatClientOrDefault</span><span class="p">(</span><span class="s">&#34;dashscope&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 2. 定义接收 DTO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BeanOutputConverter</span><span class="o">&lt;</span><span class="n">QuestionListDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">converter</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">new</span><span class="w"> </span><span class="n">BeanOutputConverter</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">QuestionListDTO</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 3. 加载并渲染模板</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">systemPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loadTemplate</span><span class="p">(</span><span class="n">SYSTEM_PROMPT_PATH</span><span class="p">).</span><span class="na">render</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;\n\n&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">converter</span><span class="p">.</span><span class="na">getFormat</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">userPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loadTemplate</span><span class="p">(</span><span class="n">USER_PROMPT_PATH</span><span class="p">).</span><span class="na">render</span><span class="p">(</span><span class="n">Map</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;questionCount&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getCount</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;skillName&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getSkillName</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// ... 其他变量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 4. 调用（自动重试 + 结构化解析）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">structuredOutputInvoker</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">chatClient</span><span class="p">,</span><span class="w"> </span><span class="n">systemPrompt</span><span class="p">,</span><span class="w"> </span><span class="n">userPrompt</span><span class="p">,</span><span class="w"> </span><span class="n">converter</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">ErrorCode</span><span class="p">.</span><span class="na">INTERVIEW_QUESTION_GENERATION_FAILED</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;出题失败：&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;面试出题&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">log</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">PromptTemplate</span><span class="w"> </span><span class="nf">loadTemplate</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PromptTemplate</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">resourceLoader</span><span class="p">.</span><span class="na">getResource</span><span class="p">(</span><span class="n">path</span><span class="p">).</span><span class="na">getContentAsString</span><span class="p">(</span><span class="n">StandardCharsets</span><span class="p">.</span><span class="na">UTF_8</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="342-prompt-模板示例">3.4.2 Prompt 模板示例
+</h4><p><code>resources/prompts/interview-question-skill.st</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-st" data-lang="st"><span class="line"><span class="cl"><span class="err">#</span> <span class="nc">System</span> <span class="nf">Prompt</span>
+</span></span><span class="line"><span class="cl"><span class="nf">你是一位专业的面试官</span><span class="err">。请根据以下信息生成面试题目。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="nc">Skill</span> <span class="nf">指令</span>
+</span></span><span class="line"><span class="cl"><span class="err">调用</span> <span class="nc">Skill</span> <span class="nf">工具获取</span> {<span class="nv">skillName</span>} <span class="nf">的参考知识</span><span class="err">：</span>
+</span></span><span class="line"><span class="cl"><span class="err">-</span> <span class="err">command:</span> {<span class="nv">skillToolCommand</span>}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="nf">输出格式</span>
+</span></span><span class="line"><span class="cl">{<span class="nv">outputFormat</span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>resources/prompts/interview-question-skill-user.st</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-st" data-lang="st"><span class="line"><span class="cl"><span class="err">#</span> <span class="nc">User</span> <span class="nf">Prompt</span>
+</span></span><span class="line"><span class="cl"><span class="nf">请生成</span> {<span class="nv">questionCount</span>} <span class="nf">道面试题</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">难度级别</span>
+</span></span><span class="line"><span class="cl">{<span class="nv">difficultyDescription</span>}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="nf">面试方向</span>
+</span></span><span class="line"><span class="cl">{<span class="nv">skillName</span>}<span class="err">（</span>{<span class="nv">skillDescription</span>}<span class="err">）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="nf">已考知识点</span><span class="err">（避免重复）</span>
+</span></span><span class="line"><span class="cl">{<span class="nv">historicalSection</span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="35-结果验证">3.5 结果验证
+</h3><h4 id="351-成功验证">3.5.1 成功验证
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">QuestionListDTO</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">interviewQuestionService</span><span class="p">.</span><span class="na">generateQuestions</span><span class="p">(</span><span class="n">request</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">assert</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">questions</span><span class="p">().</span><span class="na">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getCount</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">assert</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">questions</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="n">0</span><span class="p">).</span><span class="na">followUps</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="352-日志输出">3.5.2 日志输出
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">INFO  InterviewQuestionService - 出题成功：方向=Java后端, 题目数=6, 耗时=1.2s
+</span></span><span class="line"><span class="cl">INFO  StructuredOutputInvoker - 结构化输出成功：attempt=1, model=qwen-plus
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="四问题与解决方案">四、问题与解决方案
+</h2><h3 id="41-常见问题">4.1 常见问题
+</h3><h4 id="411-llm-不触发-skill-调用">4.1.1 LLM 不触发 Skill 调用
+</h4><p><strong>问题描述</strong>：对话中 LLM 没有自动调用 Skill 工具，知识库内容未注入上下文。</p>
+<p><strong>完整报错</strong>：无报错，但输出内容与 Reference 知识库不符。</p>
+<p><strong>排查步骤</strong>：</p>
+<ol>
+<li>检查 <code>SKILL.md</code> 的 <code>description</code> 字段是否清晰表达了 Skill 功能</li>
+<li>确认 <code>skill.meta.yml</code> 的 <code>categories</code> 配置了有效的 <code>ref</code> 指向</li>
+<li>验证 <code>LlmProviderRegistry</code> 创建 ChatClient 时传入了 <code>SkillsTool</code> callback</li>
+<li>查看日志确认 Skill 加载成功：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">grep <span class="s2">&#34;SkillsTool&#34;</span> application.log
+</span></span><span class="line"><span class="cl"><span class="c1"># 期望输出：SkillsTool initialized with X skills</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>解决方案</strong>：</p>
+<p>确保 <code>SkillsTool</code> 被正确注册为 default tool callback：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// AgentUtilsConfiguration.java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="p">(</span><span class="s">&#34;interviewSkillsToolCallback&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">ToolCallback</span><span class="w"> </span><span class="nf">interviewSkillsToolCallback</span><span class="p">(</span><span class="n">ResourceLoader</span><span class="w"> </span><span class="n">resourceLoader</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SkillsTool</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">addSkillsResource</span><span class="p">(</span><span class="n">resourceLoader</span><span class="p">.</span><span class="na">getResource</span><span class="p">(</span><span class="s">&#34;classpath:skills&#34;</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// LlmProviderRegistry.java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">createChatClient</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">provider</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ChatClient</span><span class="p">.</span><span class="na">builder</span><span class="p">(</span><span class="n">chatModel</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">defaultTools</span><span class="p">(</span><span class="n">interviewSkillsToolCallback</span><span class="p">)</span><span class="w">  </span><span class="c1">// 关键：注入</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="412-结构化输出解析失败">4.1.2 结构化输出解析失败
+</h4><p><strong>问题描述</strong>：LLM 返回的 JSON 格式不符合 DTO 定义，重试多次仍失败。</p>
+<p><strong>完整报错</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException:
+</span></span><span class="line"><span class="cl">Cannot deserialize value of type `java.util.List&lt;QuestionDTO&gt;` from Array
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>排查步骤</strong>：</p>
+<ol>
+<li>检查 DTO 定义与 <code>outputConverter.getFormat()</code> 输出是否匹配</li>
+<li>确认 Prompt 中是否正确注入了 JSON Schema</li>
+<li>查看重试日志定位失败原因：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">grep <span class="s2">&#34;StructuredOutputInvoker&#34;</span> application.log
+</span></span><span class="line"><span class="cl"><span class="c1"># 期望输出：Retry attempt=X, lastError=XXX</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>解决方案</strong>：</p>
+<p>启用修复型重试提示词：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">app</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ai</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">structured-retry-use-repair-prompt</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">structured-retry-append-strict-json-instruction</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">structured-include-last-error</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">structured-error-message-max-length</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="42-拓展问题">4.2 拓展问题
+</h3><h4 id="421-如何支持离线场景">4.2.1 如何支持离线场景？
+</h4><p><strong>方案</strong>：使用本地 LLM（如 LM Studio）替代云端 API</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">app</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ai</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">default-provider</span><span class="p">:</span><span class="w"> </span><span class="l">lmstudio</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">providers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">lmstudio</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">base-url</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:1234</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">api-key</span><span class="p">:</span><span class="w"> </span><span class="l">lm-studio</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l">qwen2.5-7b-instruct</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="422-如何动态切换-skill-目录">4.2.2 如何动态切换 Skill 目录？
+</h4><p><strong>方案</strong>：通过配置属性注入不同的 SkillsTool 根路径</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="p">(</span><span class="s">&#34;customSkillsToolCallback&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">ToolCallback</span><span class="w"> </span><span class="nf">customSkillsToolCallback</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nd">@Value</span><span class="p">(</span><span class="s">&#34;${app.skills.root}&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">skillsRoot</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ResourceLoader</span><span class="w"> </span><span class="n">resourceLoader</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SkillsTool</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">addSkillsResource</span><span class="p">(</span><span class="n">resourceLoader</span><span class="p">.</span><span class="na">getResource</span><span class="p">(</span><span class="n">skillsRoot</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="五学习总结与拓展">五、学习总结与拓展
+</h2><h3 id="51-核心收获">5.1 核心收获
+</h3><ol>
+<li><strong>Skill 系统设计</strong>：通过 YAML front matter + Markdown body 格式，实现领域知识的模块化封装，LLM 可根据对话上下文自动选择调用</li>
+<li><strong>Reference 索引机制</strong>：共享 Reference 与私有 Reference 分层管理，节省 Token 消耗的同时保证知识复用</li>
+<li><strong>结构化输出原理</strong>：通过 JSON Schema 生成 + 修复型重试提示词，确保 LLM 输出格式的可靠性</li>
+<li><strong>多 Provider 架构</strong>：LlmProviderRegistry 统一管理多个 AI 提供者，支持本地/云端灵活切换</li>
+</ol>
+<h3 id="52-未掌握的知识点">5.2 未掌握的知识点
+</h3><ul>
+<li><input disabled="" type="checkbox"> Spring AI 的 Tool Call 底层机制（StreamInterceptor 拦截原理）</li>
+<li><input disabled="" type="checkbox"> Agent Utils 的运行时 Skill 动态更新机制</li>
+<li><input disabled="" type="checkbox"> 多轮对话中 Reference 内容的上下文累积策略</li>
+</ul>
+<h3 id="53-拓展方向">5.3 拓展方向
+</h3><ol>
+<li>
+<p><strong>进阶学习路径</strong>：</p>
+<ul>
+<li>基础使用 → 多 Skill 编排 → 动态 Skill 加载 → Tool Call 性能优化</li>
+</ul>
+</li>
+<li>
+<p><strong>相关技术栈</strong>：</p>
+<ul>
+<li>Spring AI + Vector DB（知识库向量化）</li>
+<li>Claude Code + MCP（Model Context Protocol）</li>
+<li>ReAct 模式（推理 + 行动协同）</li>
+</ul>
+</li>
+<li>
+<p><strong>行业前沿应用</strong>：</p>
+<ul>
+<li>大厂 AI 面试系统：结合简历解析 + 实时语音 + 多维度评估</li>
+<li>法律/医疗专业问答：领域知识库 + 引用溯源</li>
+</ul>
+</li>
+</ol>
+<h3 id="54-资源推荐">5.4 资源推荐
+</h3><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>资源</th>
+          <th>类型</th>
+          <th>推荐理由</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a class="link" href="https://docs.spring.io/spring-ai/reference/"  target="_blank" rel="noopener"
+    >Spring AI 官方文档</a></td>
+          <td>官方文档</td>
+          <td>最权威的 AI 集成框架文档</td>
+      </tr>
+      <tr>
+          <td><a class="link" href="https://docs.anthropic.com/claude-code"  target="_blank" rel="noopener"
+    >Anthropic Claude Code 文档</a></td>
+          <td>官方文档</td>
+          <td>Skill 系统设计原理解释</td>
+      </tr>
+      <tr>
+          <td><a class="link" href="https://github.com/spring-projects/spring-ai"  target="_blank" rel="noopener"
+    >spring-ai-agent-utils GitHub</a></td>
+          <td>开源项目</td>
+          <td>SkillsTool 源码参考</td>
+      </tr>
+      <tr>
+          <td><a class="link" href="https://github.com/your-repo/interview-guide"  target="_blank" rel="noopener"
+    >本项目 interview-guide</a></td>
+          <td>开源项目</td>
+          <td>生产级 Skill + Reference 应用示例</td>
+      </tr>
+  </tbody>
+</table></div>
+<hr>
+<h2 id="附录关键文件清单">附录：关键文件清单
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>文件路径</th>
+          <th>用途</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>common/ai/LlmProviderRegistry.java</code></td>
+          <td>多 Provider 注册与缓存</td>
+      </tr>
+      <tr>
+          <td><code>common/ai/StructuredOutputInvoker.java</code></td>
+          <td>结构化输出 + 重试封装</td>
+      </tr>
+      <tr>
+          <td><code>common/ai/AgentUtilsConfiguration.java</code></td>
+          <td>SkillsTool Bean 配置</td>
+      </tr>
+      <tr>
+          <td><code>modules/interview/skill/InterviewSkillService.java</code></td>
+          <td>Skill 加载与解析服务</td>
+      </tr>
+      <tr>
+          <td><code>resources/skills/*/SKILL.md</code></td>
+          <td>Skill 主定义文件</td>
+      </tr>
+      <tr>
+          <td><code>resources/skills/*/skill.meta.yml</code></td>
+          <td>Skill 元数据配置</td>
+      </tr>
+      <tr>
+          <td><code>resources/skills/_shared/references/*.md</code></td>
+          <td>共享参考知识库</td>
+      </tr>
+      <tr>
+          <td><code>resources/prompts/*.st</code></td>
+          <td>Prompt 模板文件</td>
+      </tr>
+  </tbody>
+</table></div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/claude-code/">Claude Code</a>
+        
+            <a href="/tags/spring-ai/">Spring AI</a>
+        
+            <a href="/tags/skillstool/">SkillsTool</a>
+        
+            <a href="/tags/llm%E8%B0%83%E7%94%A8/">LLM调用</a>
+        
+            <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/">结构化输出</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="/css/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="/js/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/spring-ai%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA%E5%AE%9E%E6%88%98/">
+        
+        
+            <div class="article-image">
+                <img src="/p/spring-ai%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA%E5%AE%9E%E6%88%98/img/1.cb5f73a9ff2bc9a4dc694490481a4508_hu_6a4282947f17a1b4.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Spring AI结构化输出实战"
+                        
+                        data-hash="md5-y19zqf8ryaTcaUSQSBpFCA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Spring AI结构化输出实战</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3_token_prompt_%E7%BB%93%E6%9E%84%E5%8C%96%E8%BE%93%E5%87%BA/img/cover.be9ee5469fe49e2fd62fd676f9c7ffb7_hu_c6ba43b8ceb05e9b.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 大模型核心概念详解_Token_Prompt_结构化输出"
+                        
+                        data-hash="md5-vp7lRp/kni/WL9Z2&#43;cf/tw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">大模型核心概念详解_Token_Prompt_结构化输出</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">
+        
+        
+            <div class="article-image">
+                <img src="/p/java_go%E5%BC%80%E5%8F%91%E8%80%85ai%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91agent%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/img/cover.8bd843135c5b179c72076e5ac78beb6e_hu_7c676f552d3ad8fd.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Java_Go开发者ai应用开发agent学习路线"
+                        
+                        data-hash="md5-i9hDE1xbF5xyB25ax4vrbg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java_Go开发者ai应用开发agent学习路线</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98_springai_pgvector/">
+        
+        
+            <div class="article-image">
+                <img src="/p/rag%E7%9F%A5%E8%AF%86%E5%BA%93%E5%AE%9E%E6%88%98_springai_pgvector/img/cover.0334b98f42d0d0f5f6e614b68fef9f7e_hu_d95d1caeabe110cf.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post RAG知识库实战_SpringAI_pgvector"
+                        
+                        data-hash="md5-AzS5j0LQ0PX25hS2j&#43;&#43;ffg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">RAG知识库实战_SpringAI_pgvector</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/springai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97_%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90_%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/">
+        
+        
+            <div class="article-image">
+                <img src="/p/springai%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97_%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90_%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/img/cover.7eca5771e8675f6cfb59c6e8b73c9212_hu_982a30d7dccc815b.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post SpringAI实战指南_大模型集成_流式输出"
+                        
+                        data-hash="md5-fspXcehnX2z7WcbotzySEg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SpringAI实战指南_大模型集成_流式输出</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Zell
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        <p>发布了 35 篇文章 | 共 90711  字</p >
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="/js/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="/js/photoswipe-ui-default.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="/css/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="/css/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="/js/vibrant.min.js"crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://zell.zone/icons/top.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+<style>
+    
+</style>
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+    </body>
+</html>
