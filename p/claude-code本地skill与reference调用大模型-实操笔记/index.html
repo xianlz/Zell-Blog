@@ -525,7 +525,7 @@ unicode: "ece7"
 </svg>
 
                 <time class="article-time--reading">
-                    本文共 3732 字
+                    本文共 3399 字
                 </time>
             </div>
         
@@ -542,7 +542,7 @@ unicode: "ece7"
 
 
                 <time class="article-time--reading">
-                    阅读时长: 8 分钟
+                    阅读时长: 7 分钟
                 </time>
             </div>
         
@@ -571,18 +571,8 @@ unicode: "ece7"
 <p>Skill（技能）是 Claude Code 的核心扩展机制，允许开发者将领域知识、指令模板和参考文档打包成可复用的单元，供 LLM 在对话中调用。Reference（参考知识库）则是 Skill 的重要组成部分，提供了 LLM 回答问题所需的事实依据和上下文信息。</p>
 <p><strong>参考来源</strong>：Anthropic 官方 Claude Code 文档、Spring AI 官方文档</p>
 <h3 id="12-学习背景">1.2 学习背景
-</h3><p>在 AI 面试平台项目中，需要实现：</p>
-<ul>
-<li>多方向面试出题（Java后端、算法、前端、系统设计等）</li>
-<li>结合简历信息生成个性化问题</li>
-<li>调用大模型进行答案评估</li>
-</ul>
-<p>传统的做法是硬编码 Prompt，但这种方式难以维护、扩展性差。通过 Skill + Reference 机制，可以将领域知识与调用逻辑分离，实现：</p>
-<ol>
-<li><strong>知识模块化</strong>：每个面试方向独立成 Skill，包含专属 Reference</li>
-<li><strong>动态加载</strong>：Skill 定义在 <code>resources/skills/</code> 目录，运行时自动扫描加载</li>
-<li><strong>灵活分发</strong>：LLM 根据对话内容自动选择合适的 Skill 调用</li>
-</ol>
+</h3><p>在 AI 面试平台项目中，需要实现多方向面试出题（Java后端、算法、前端、系统设计等）、结合简历信息生成个性化问题、调用大模型进行答案评估。</p>
+<p>传统的做法是硬编码 Prompt，但这种方式难以维护、扩展性差。通过 Skill + Reference 机制，可以将领域知识与调用逻辑分离，实现知识模块化、动态加载和灵活分发。</p>
 <h3 id="13-发展历程与行业对比">1.3 发展历程与行业对比
 </h3><div class="table-wrapper"><table>
   <thead>
@@ -673,7 +663,6 @@ unicode: "ece7"
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
@@ -682,12 +671,11 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c"># Overview</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="l">你是一位资深的 Java 后端面试官，拥有 10 年以上开发经验...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="l">你是一位资深的 Java 后端面试官...</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c"># Instructions</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="m">1</span><span class="l">. 优先结合候选人简历中的技术栈出题</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="m">2</span><span class="l">. 每道题需包含难度评级和考察点</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="m">3</span><span class="l">. 生成后主动调用 Reference 验证答案准确性</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>front matter 字段说明</strong>：</p>
@@ -744,7 +732,7 @@ unicode: "ece7"
 </div>
 </div><h3 id="22-reference-参考知识库">2.2 Reference 参考知识库
 </h3><h4 id="221-reference-文件格式">2.2.1 Reference 文件格式
-</h4><p>Reference 文件为纯 Markdown，支持多级标题和代码块：</p>
+</h4><p>Reference 文件为纯 Markdown，支持多级标题和代码块。内容示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -760,7 +748,6 @@ unicode: "ece7"
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
-</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Java 集合框架
@@ -772,11 +759,10 @@ unicode: "ece7"
 </span></span><span class="line"><span class="cl">| 查找复杂度 | O(1) | O(n) |
 </span></span><span class="line"><span class="cl">| 插入复杂度 | O(n) | O(1) |
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="gu">### 源码要点
+</span></span><span class="line"><span class="cl"><span class="gu">### 扩容机制
 </span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">```java
-</span></span><span class="line"><span class="cl">// ArrayList 扩容逻辑
-</span></span><span class="line"><span class="cl">int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);
+</span></span><span class="line"><span class="cl">int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  // 1.5倍
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -929,44 +915,18 @@ unicode: "ece7"
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 定义接收 DTO</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">record</span> <span class="nc">QuestionListDTO</span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">QuestionDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">questions</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">record</span> <span class="nc">QuestionDTO</span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">question</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">topicSummary</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">followUps</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">record</span> <span class="nc">QuestionListDTO</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">QuestionDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">questions</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">record</span> <span class="nc">QuestionDTO</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">question</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">category</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">topicSummary</span><span class="p">,</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">followUps</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 创建 converter</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="n">BeanOutputConverter</span><span class="o">&lt;</span><span class="n">QuestionListDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outputConverter</span><span class="w"> </span><span class="o">=</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="n">BeanOutputConverter</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">QuestionListDTO</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// outputConverter.getFormat() 返回：</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="cm">/*
-</span></span></span><span class="line"><span class="cl"><span class="cm">Output Format
-</span></span></span><span class="line"><span class="cl"><span class="cm">A JSON object with the following fields:
-</span></span></span><span class="line"><span class="cl"><span class="cm">- questions: array of objects with fields: question, type, category, topicSummary, followUps
-</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// outputConverter.getFormat() 返回 JSON Schema 说明</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
@@ -976,33 +936,23 @@ unicode: "ece7"
 </h4><p>确保 <code>build.gradle</code> 包含以下依赖：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// Spring AI Core
 </span></span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.ai:spring-ai-openai:1.0.0&#39;</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// Agent Utils（SkillsTool）
 </span></span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.ai:spring-ai-agent-utils:1.0.0&#39;</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// Micrometer 监控
 </span></span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">// JSON 处理
-</span></span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;com.fasterxml.jackson.core:jackson-databind&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1074,7 +1024,6 @@ unicode: "ece7"
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
-</span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">---
@@ -1083,12 +1032,11 @@ unicode: "ece7"
 </span></span><span class="line"><span class="cl">---
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="gh"># Role
-</span></span></span><span class="line"><span class="cl">你是一位拥有 10 年经验的 Java 后端技术专家，擅长考察候选人的技术深度与实践能力。
+</span></span></span><span class="line"><span class="cl">你是一位拥有 10 年经验的 Java 后端技术专家...
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="gh"># Capabilities
 </span></span></span><span class="line"><span class="cl"><span class="k">1.</span> 结合简历信息生成个性化面试题
 </span></span><span class="line"><span class="cl"><span class="k">2.</span> 根据难度级别调整题目复杂度
-</span></span><span class="line"><span class="cl"><span class="k">3.</span> 覆盖核心技术领域：Java 基础、并发编程、JVM 原理、Spring 生态、数据库
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="gh"># Output Format
 </span></span></span><span class="line"><span class="cl">每个问题包含：
@@ -1157,10 +1105,6 @@ unicode: "ece7"
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gu">## Java 集合框架
@@ -1176,13 +1120,9 @@ unicode: "ece7"
 </span></span><span class="line"><span class="cl"><span class="gu">### 扩容机制
 </span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">```java
-</span></span><span class="line"><span class="cl">// ArrayList 扩容逻辑（JDK 8）
 </span></span><span class="line"><span class="cl">private void grow(int minCapacity) {
 </span></span><span class="line"><span class="cl">    int oldCapacity = elementData.length;
 </span></span><span class="line"><span class="cl">    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);  // 1.5倍
-</span></span><span class="line"><span class="cl">    if (newCapacity - minCapacity &lt; 0)
-</span></span><span class="line"><span class="cl">        newCapacity = minCapacity;
-</span></span><span class="line"><span class="cl">    elementData = Arrays.copyOf(elementData, newCapacity);
 </span></span><span class="line"><span class="cl">}
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1207,9 +1147,13 @@ unicode: "ece7"
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">### 3.3 配置 SkillsTool Bean
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">#### 3.3.1 AgentUtilsConfiguration
@@ -1288,8 +1232,6 @@ unicode: "ece7"
 </span><span class="lnt">38
 </span><span class="lnt">39
 </span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
@@ -1298,7 +1240,6 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">LlmProviderRegistry</span><span class="w"> </span><span class="n">llmProviderRegistry</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">StructuredOutputInvoker</span><span class="w"> </span><span class="n">structuredOutputInvoker</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">InterviewSkillService</span><span class="w"> </span><span class="n">interviewSkillService</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">SYSTEM_PROMPT_PATH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;prompts/interview-question-skill.st&#34;</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">USER_PROMPT_PATH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;prompts/interview-question-skill-user.st&#34;</span><span class="p">;</span><span class="w">
@@ -1316,8 +1257,7 @@ unicode: "ece7"
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;\n\n&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">converter</span><span class="p">.</span><span class="na">getFormat</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">userPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loadTemplate</span><span class="p">(</span><span class="n">USER_PROMPT_PATH</span><span class="p">).</span><span class="na">render</span><span class="p">(</span><span class="n">Map</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;questionCount&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getCount</span><span class="p">(),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;skillName&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getSkillName</span><span class="p">(),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// ... 其他变量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="s">&#34;skillName&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getSkillName</span><span class="p">()</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">));</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 4. 调用（自动重试 + 结构化解析）</span><span class="w">
@@ -1348,17 +1288,15 @@ unicode: "ece7"
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-st" data-lang="st"><span class="line"><span class="cl"><span class="err">#</span> <span class="nc">System</span> <span class="nf">Prompt</span>
 </span></span><span class="line"><span class="cl"><span class="nf">你是一位专业的面试官</span><span class="err">。请根据以下信息生成面试题目。</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="nc">Skill</span> <span class="nf">指令</span>
-</span></span><span class="line"><span class="cl"><span class="err">调用</span> <span class="nc">Skill</span> <span class="nf">工具获取</span> {<span class="nv">skillName</span>} <span class="nf">的参考知识</span><span class="err">：</span>
-</span></span><span class="line"><span class="cl"><span class="err">-</span> <span class="err">command:</span> {<span class="nv">skillToolCommand</span>}
+</span></span><span class="line"><span class="cl"><span class="err">调用</span> <span class="nc">Skill</span> <span class="nf">工具获取</span> {<span class="nv">skillName</span>} <span class="nf">的参考知识</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="nf">输出格式</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">输出格式</span>
 </span></span><span class="line"><span class="cl">{<span class="nv">outputFormat</span>}
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1421,13 +1359,12 @@ unicode: "ece7"
 </h2><h3 id="41-常见问题">4.1 常见问题
 </h3><h4 id="411-llm-不触发-skill-调用">4.1.1 LLM 不触发 Skill 调用
 </h4><p><strong>问题描述</strong>：对话中 LLM 没有自动调用 Skill 工具，知识库内容未注入上下文。</p>
-<p><strong>完整报错</strong>：无报错，但输出内容与 Reference 知识库不符。</p>
 <p><strong>排查步骤</strong>：</p>
 <ol>
 <li>检查 <code>SKILL.md</code> 的 <code>description</code> 字段是否清晰表达了 Skill 功能</li>
 <li>确认 <code>skill.meta.yml</code> 的 <code>categories</code> 配置了有效的 <code>ref</code> 指向</li>
 <li>验证 <code>LlmProviderRegistry</code> 创建 ChatClient 时传入了 <code>SkillsTool</code> callback</li>
-<li>查看日志确认 Skill 加载成功：</li>
+<li>查看日志确认 Skill 加载成功</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1439,35 +1376,18 @@ unicode: "ece7"
 </span></span><span class="line"><span class="cl"><span class="c1"># 期望输出：SkillsTool initialized with X skills</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>解决方案</strong>：</p>
-<p>确保 <code>SkillsTool</code> 被正确注册为 default tool callback：</p>
+</div><p><strong>解决方案</strong>：确保 <code>SkillsTool</code> 被正确注册为 default tool callback</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// AgentUtilsConfiguration.java</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="p">(</span><span class="s">&#34;interviewSkillsToolCallback&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">ToolCallback</span><span class="w"> </span><span class="nf">interviewSkillsToolCallback</span><span class="p">(</span><span class="n">ResourceLoader</span><span class="w"> </span><span class="n">resourceLoader</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SkillsTool</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">addSkillsResource</span><span class="p">(</span><span class="n">resourceLoader</span><span class="p">.</span><span class="na">getResource</span><span class="p">(</span><span class="s">&#34;classpath:skills&#34;</span><span class="p">))</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// LlmProviderRegistry.java</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// LlmProviderRegistry.java</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">ChatClient</span><span class="w"> </span><span class="nf">createChatClient</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">provider</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ChatClient</span><span class="p">.</span><span class="na">builder</span><span class="p">(</span><span class="n">chatModel</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="na">defaultTools</span><span class="p">(</span><span class="n">interviewSkillsToolCallback</span><span class="p">)</span><span class="w">  </span><span class="c1">// 关键：注入</span><span class="w">
@@ -1492,7 +1412,7 @@ unicode: "ece7"
 <ol>
 <li>检查 DTO 定义与 <code>outputConverter.getFormat()</code> 输出是否匹配</li>
 <li>确认 Prompt 中是否正确注入了 JSON Schema</li>
-<li>查看重试日志定位失败原因：</li>
+<li>查看重试日志定位失败原因</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1504,8 +1424,7 @@ unicode: "ece7"
 </span></span><span class="line"><span class="cl"><span class="c1"># 期望输出：Retry attempt=X, lastError=XXX</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>解决方案</strong>：</p>
-<p>启用修复型重试提示词：</p>
+</div><p><strong>解决方案</strong>：启用修复型重试提示词</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1577,9 +1496,9 @@ unicode: "ece7"
 <h2 id="五学习总结与拓展">五、学习总结与拓展
 </h2><h3 id="51-核心收获">5.1 核心收获
 </h3><ol>
-<li><strong>Skill 系统设计</strong>：通过 YAML front matter + Markdown body 格式，实现领域知识的模块化封装，LLM 可根据对话上下文自动选择调用</li>
-<li><strong>Reference 索引机制</strong>：共享 Reference 与私有 Reference 分层管理，节省 Token 消耗的同时保证知识复用</li>
-<li><strong>结构化输出原理</strong>：通过 JSON Schema 生成 + 修复型重试提示词，确保 LLM 输出格式的可靠性</li>
+<li><strong>Skill 系统设计</strong>：通过 YAML front matter + Markdown body 格式，实现领域知识的模块化封装</li>
+<li><strong>Reference 索引机制</strong>：共享 Reference 与私有 Reference 分层管理，节省 Token 消耗</li>
+<li><strong>结构化输出原理</strong>：通过 JSON Schema 生成 + 修复型重试提示词，确保 LLM 输出格式可靠</li>
 <li><strong>多 Provider 架构</strong>：LlmProviderRegistry 统一管理多个 AI 提供者，支持本地/云端灵活切换</li>
 </ol>
 <h3 id="52-未掌握的知识点">5.2 未掌握的知识点
@@ -1591,10 +1510,7 @@ unicode: "ece7"
 <h3 id="53-拓展方向">5.3 拓展方向
 </h3><ol>
 <li>
-<p><strong>进阶学习路径</strong>：</p>
-<ul>
-<li>基础使用 → 多 Skill 编排 → 动态 Skill 加载 → Tool Call 性能优化</li>
-</ul>
+<p><strong>进阶学习路径</strong>：基础使用 → 多 Skill 编排 → 动态 Skill 加载 → Tool Call 性能优化</p>
 </li>
 <li>
 <p><strong>相关技术栈</strong>：</p>
@@ -1639,12 +1555,6 @@ unicode: "ece7"
     >spring-ai-agent-utils GitHub</a></td>
           <td>开源项目</td>
           <td>SkillsTool 源码参考</td>
-      </tr>
-      <tr>
-          <td><a class="link" href="https://github.com/your-repo/interview-guide"  target="_blank" rel="noopener"
-    >本项目 interview-guide</a></td>
-          <td>开源项目</td>
-          <td>生产级 Skill + Reference 应用示例</td>
       </tr>
   </tbody>
 </table></div>
@@ -2161,7 +2071,7 @@ unicode: "ece7"
         
         
 
-        <p>发布了 35 篇文章 | 共 90711  字</p >
+        <p>发布了 35 篇文章 | 共 90378  字</p >
     </section>
 </footer>
 
